@@ -1,0 +1,120 @@
+{{!-- <link rel="icon" href="./images/logo.png" type="image/png" sizes="64x64"> --}}
+<link rel="stylesheet" href="./css/profile.css">
+
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="/images/logopng-after-trim.png" alt="Logo">
+            <span>MUSE</span>
+        </div>
+        <div class="navbar-functions">
+            <ul>
+                <li><a href="/"><span class="icon">🏠</span>Home</a></li>
+                <li><a href="/createArticle"><span class="icon">😄</span>Create Article</a></li>
+                <li><a href="/notification"><span class="icon">🔔</span>Notifications</a></li>
+                <li><a href="/profile"><span class="icon">👤</span>My Profile</a></li>  
+                <li><a href="/logout"><span class="icon">🚪</span>Sign Out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="left-column">
+            <div class="left-functions">
+                <div class="navbar-left">
+                    <h2>Articles</h2>
+                </div>
+                <div class="navbar-right">
+                    <div class="sorted-by">
+                        Sorted By:
+                        <select id="sorting-options">
+                            <option value="asc">Ascending by Date</option>
+                            <option value="desc">Descending by Date</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            {{#each articles}}
+            <div class="article">
+                <div class="article-info">
+                    <div class="article-title">
+                        <a href="/articleView/{{this.Article_ID}}"><h3>{{this.Title}}</h3></a>
+                        {{#unless isAuthorPage}}  
+                        <div>
+                            <button class="edit-button" onclick="editArticle('{{this.Article_ID}}')">Edit</button>
+                            <button class="delete-button" onclick="confirmDelete('{{this.Article_ID}}')">Delete</button>
+                        </div>
+                        {{/unless}}
+                    </div>
+                </div>
+                    <div class="article-meta">
+                        {{!-- <a href="/like?Article_ID={{article.Article_ID}}" title="Like this article!"><img src="{{likeIcon}}" class="heart"></a> --}}
+                        <p class="article-likes">{{this.Likes_Count}} 💗<span class="icon"></span></p>
+                        <p class="article-comments">{{this.Comments_Count}}<span class="icon"> 💬</span></p>
+                        <p class="article-author"><span class="icon">👤</span> {{this.Username}}</p>
+                        {{!-- <a href="/authorpage" class="article-author"><span class="icon">👤</span> {{this.Username}}</a> --}}
+                        <p class="article-date"><span class="icon">📅</span> {{this.Date}}</p>
+                    </div>
+            </div>
+            {{/each}}
+
+            <div id="pagesBar">
+                <div id="left" class="page">&lt;</div>
+                {{#if articles}}
+                {{#each pages}}
+                <div class="page" id="{{this.page}}">{{this.page}}</div>
+                {{/each}}
+                {{/if}}
+                <div class="page" id="right">&gt;</div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <h2>User Profile</h2>
+            <div>
+                <div class="user-info-line">
+                    <div class="user-avatar">
+                        <img src="{{userProfile.Avatar}}" alt="User Avatar">
+                    </div>
+                    <div class="user-follows">
+                        <p>Follows: {{userProfile.Follows_Count}}</p>
+                        <p>Followers: {{userProfile.Followers_Count}}</p>
+                    </div>
+                </div>
+                <div>
+                    <label>Username:</label>
+                    <p>{{userProfile.Username}}</p>
+                </div>
+                <div>
+                    <label>Date of Birth:</label>
+                    <p>{{userProfile.Date_Of_Birth}}</p>
+                </div>
+                <div>
+                    <label>Brief Description:</label>
+                    <p>{{userProfile.Brief_Description}}</p>
+                </div>
+
+                {{#unless isAuthorPage}}    
+                <div>
+                    <label>Real Name:</label>
+                    <p>{{userProfile.Real_Name}}</p>
+                </div>
+                {{!-- <div>
+                    <label>Is Admin:</label>
+                    <p>{{userProfile.Is_Admin}}</p>
+                </div> --}}
+               
+                <div class="analytics-delete-buttons">
+                    <form action="/analytics" method="get">
+                    <button type="submit" class="analytics-button">My Analytics</button>
+                    </form>
+                    <form action="/edit-account" method="get">
+                    <button type="submit" class="edit-account-button">Edit Account</button>
+                    </form>
+                    {{!-- <button class="manage-user-button">Manage Users</button> --}}
+                </div>
+                {{/unless}}
+            </div>
+        </div>
+ </div>
+

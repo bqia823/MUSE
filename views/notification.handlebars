@@ -1,0 +1,85 @@
+<link rel="icon" href="../public/images/logo.png" type="image/png" sizes="64x64">
+<link rel="stylesheet" href="./css/profile.css">
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="../public/images/logo.png" alt="Logo">
+            <span>MUSE</span>
+        </div>
+        <div class="navbar-functions">
+            <ul>
+                <li><a href="/"><span class="icon">🏠</span>Home</a></li>
+                <li><a href="/subscription"><span class="icon">😄</span>Subscription</a></li>
+                <li><a href="/notification"><span class="icon">🔔</span>Notifications</a></li>
+                <li><a href="/profile"><span class="icon">👤</span>My Profile</a></li>  
+                <li><a href="/logout"><span class="icon">🚪</span>Sign Out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="left-column">
+            <div class="left-functions">
+                <div class="navbar-left">
+                    <h2>Notification</h2>
+                </div>
+            </div>
+
+            {{#each notifications}}
+            <div class="notification">
+                <div class="notification-info">
+                    <h3 class="notification-title">
+                        <a href="{{this.Notification_ID}}">{{this.Title}}</a>
+                    </h3>
+                    <p class="notification-content">{{this.Content}}</p>
+                    <div class="notification-meta">
+                        <p class="article-likes">{{this.Likes_Count}} 💗<span class="icon"></span></p>
+                        <p class="article-comments">{{this.Comments_Count}}<span class="icon"> 💬</span></p>
+                        <a href="/authorpage" class="article-author"><span class="icon">👤</span> {{this.Username}}</a>
+                        <p class="article-date"><span class="icon">📅</span> {{this.Date}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+
+            <!-- Pagination Bar -->
+            <div id="pagesBar">
+                <div id="left" class="page">&lt;</div>
+                {{#if notifications}}
+                {{#each pages}}
+                <div class="page" id="{{this.page}}">{{this.page}}</div>
+                {{/each}}
+                {{/if}}
+                <div class="page" id="right">&gt;</div>
+            </div>
+        </div>
+
+
+        <div class="right-column">
+            <h2>User Profile</h2>
+            <div>
+                <div class="user-info-line">
+                    <div class="user-avatar">
+                        <img src="{{userProfile.Avatar}}" alt="User Avatar">
+                    </div>
+                    <div class="user-follows">
+                        <p>Follows: {{userProfile.Follows_Count}}</p>
+                        <p>Followers: {{userProfile.Followers_Count}}</p>
+                    </div>
+                </div>
+                <div>
+                    <label>Username:</label>
+                    <p>{{userProfile.Username}}</p>
+                </div>
+                <div>
+                    <label>Date of Birth:</label>
+                    <p>{{userProfile.Date_Of_Birth}}</p>
+                </div>
+                <div>
+                    <label>Brief Description:</label>
+                    <p>{{userProfile.Brief_Description}}</p>
+                </div>
+
+            </div>
+        </div>
+ </div>
+
