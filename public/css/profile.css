@@ -1,0 +1,244 @@
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+}
+
+.navbar {
+background-color: #70c280;
+color: #121111;
+padding: 10px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-logo {
+display: flex;
+align-items: center;
+}
+
+.navbar-logo img {
+width: 40px;
+height: 40px;
+margin-right: 10px;
+}
+
+.navbar-functions ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+display: flex;
+}
+
+.navbar-functions ul li {
+margin-left: 10px;
+}
+
+.navbar-functions ul li a {
+color: #020202;
+text-decoration: none;
+display: flex;
+align-items: center;
+}
+
+.navbar-functions ul li a .icon {
+margin-right: 5px;
+}
+
+.container {
+display: flex;
+margin: 20px;
+overflow: hidden;
+box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.left-column {
+flex: 3;
+display: flex;
+flex-direction: column;
+margin-right: 20px;
+position: relative;
+box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.right-column {
+flex: 1;
+box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.left-column h2 {
+background-color: #FBD6BB;
+color: #1a0404;
+margin: 0;
+padding: 10px;
+}
+
+.right-column h2 {
+background-color:#70c280;
+color: #1a0404;
+margin: 0;
+padding: 10px;
+}
+
+.left-functions {
+background-color: #FBD6BB;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.navbar-left {
+margin-right: auto;
+}
+
+.navbar-right {
+margin-left: auto;
+}
+
+.article,
+.notification {
+margin-top: 20px;
+width: 90%;
+background-color: #fff6ed;
+margin-bottom: 10px;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 10px;
+/* height:min-content; */
+box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.article-info,
+.notification-info {
+height: 50%;
+display: flex;
+flex-direction: column;
+
+}
+
+.article-title,
+.notification-title {
+display: flex;
+justify-content: space-between;
+align-items: center;
+order: 1;
+}
+
+/* .article-title a {
+text-decoration: none;
+color: #333;
+} */
+
+.edit-button {
+  margin-left: 100px;
+}
+
+.edit-button, .delete-button {
+margin-left: 10px;
+padding: 5px 10px;
+background-color: #555;
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+.article-meta,
+.notification-meta {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+margin-top: 10px;
+order: 2;
+}
+
+.article-meta p,
+.article-meta a {
+margin: 0 5px;
+}
+
+.right-column div {
+margin-bottom: 10px;
+}
+
+.right-column label {
+font-weight: bold;
+}
+
+.user-info-line {
+display: flex;
+align-items: center;
+}
+
+.user-avatar img {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+margin-right: 10px;
+}
+
+.user-follows {
+margin-left: 10px;
+}
+
+.analytics-delete-buttons {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 10px;
+}
+
+.analytics-delete-buttons form{
+font-size: large;
+margin: 5px;
+padding: 8px;
+background-color: #75c3e7;
+color: #0a0707;
+width: 90%;
+border: none;
+cursor: pointer;
+}
+
+.analytics-button, .edit-account-button {
+font-size: large;
+margin: 5px;
+padding: 8px;
+background-color: #75c3e7;
+color: #0a0707;
+width: 90%;
+border: none;
+cursor: pointer;
+}
+
+
+#pagesBar {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 10px;
+}
+
+.page {
+margin: 0 5px;
+padding: 5px;
+background-color: #eee;
+cursor: pointer;
+}
+
+.page:hover {
+background-color: #e9e1ff;
+color: #7949ff;
+
+}
+
+@media screen and (max-width: 1200px) {
+  body {
+      width: 100%;
+  }
+}
