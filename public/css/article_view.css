@@ -1,0 +1,406 @@
+body{
+    margin: 0px;
+}
+#container{
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "articlepanel commentpanel";
+}
+
+.navbar {
+        background-color: #70c280;
+        color: #121111;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0px 20px 50px  rgba(0, 0, 0, 0.35);
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar-functions ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar-functions ul li {
+    margin-left: 10px;
+}
+
+.navbar-functions ul li a {
+    color: #020202;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-functions ul li a .icon {
+    margin-right: 5px;
+}
+.navbar-functions #sign_in_icon{
+    width: 20px;
+    height: 20px;
+}
+#articlepanel, #commentpanel{
+    height: 100vh;
+    margin:20px;
+}
+
+#articlepanel{
+grid-area: articlepanel;
+  display: flex;
+  flex-direction: column;
+  min-height: 800px;
+  height: min-content;
+  padding-bottom: 30px;
+box-shadow: 20px 20px 40px 10px rgba(0, 0, 0, 0.25);
+
+}
+
+.banner{
+position: relative;
+width: 100%;
+height: 74px;
+left: 0px;
+top: 0px;
+
+background: #FBD6BB;
+}
+#paneltitle{
+position:relative;
+padding-top: 20px;
+padding-left: 20px;
+
+font-family: 'Italiana';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 38px;
+
+color: #000000;
+}
+
+.authorinfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    
+}
+.avatar{
+    position: relative;
+    width: 50px;
+    height: 50px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.authorname{
+    position: relative;
+    margin-top: 20px;
+    padding-left: 10px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    color: #464646;
+}
+
+.publishtime{
+    position: relative;
+    margin-top: 20px;
+    padding-left: 10px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 24px;
+    color: #464646;
+}
+#articletext{
+    position: relative;
+    margin-top: 20px;
+    margin-left: 65px;
+    width: 80%;
+    
+    text-align: left;
+    font-size: 20px;
+    color: #000000;
+}
+
+#likediv{
+    position: relative;
+    padding-top: 30px;
+    left:20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.heart{   
+    position: relative;
+    width: 40px;
+   
+    
+}
+#likenumber{
+   position: relative;
+   width: 100px;
+   margin-left: 10px;
+   font-size: 24px;
+    
+}
+#commentpanel{
+grid-area: commentpanel;
+height: fit-content;
+max-height: 800px;
+overflow-x: hidden; /* 隐藏水平滚动条 */
+  overflow-y: auto;
+box-shadow: 20px 20px 40px 10px rgba(0, 0, 0, 0.25);
+}
+#commentpanel::-webkit-scrollbar {
+  width: 0em;
+}
+
+#commentpanel::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#commentpanel::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+
+#commenttitle{
+position:relative;
+padding-top: 20px;
+padding-left: 20px;
+
+font-family: 'Italiana';
+font-style: normal;
+font-weight: 400;
+font-size: 32px;
+line-height: 38px;
+
+color: #000000;
+}
+
+#numberofcomments{
+    margin-top: 30px;
+    margin-left: 65px;
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+
+    font-size: 14px;
+
+}
+
+
+.commentorinfo{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: left;
+}
+.commenttext{
+    position: relative;
+    margin-top:10px;
+    margin-left:65px;
+    margin-right: 30px;
+    text-align: left;
+    font-size: 14px;
+    color: #000000;
+}
+
+.commentorname{
+    position: absolute;
+    margin-top: 20px;
+    margin-left:65px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 16px;
+    color: #464646;
+}
+.commenttimestamp{
+    position: absolute;
+    margin-top: 40px;
+    margin-left:65px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-size: 14px;
+    color: #464646;
+}
+
+.replydiv{
+    margin:10px;
+    text-align: right;
+   color:#464646;
+}
+.replyicon{
+    width: 20px;
+}
+.reply{
+    cursor: pointer;
+}
+.removediv{
+    text-align: right;
+     margin:10px;
+   
+}
+.removeicon{
+    width: 20px;
+}
+.remove{
+    color:#464646;
+}
+.reply-remove-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+.subreply{
+    background-color: rgb(255, 255, 255);
+    margin-left:65px;
+    margin-right:65px;
+    padding:10px;
+   
+}
+.childavatar{
+    width:30px;
+}
+.childcommentname{
+    color:#464646;
+    font-size: 12px;
+}
+.childcommenttime{
+    color:#464646;
+    font-size: 12px;
+}
+.childcommenttext{
+    margin-top:5px;
+
+    font-size: 12px;
+}
+#comment-textarea-div{
+    position: relative;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+    margin-top: 20px;
+    padding:20px;
+    left: 50%;
+   
+    transform: translateX(-50%);       
+    background-color: #FBD6BB;
+}
+
+.comment-textarea{
+   resize:none;
+    margin-top: 10px;
+    
+}
+#writecomment{
+
+    padding: 10px;
+    
+    left: 160px;
+
+    
+    background-color: rgb(255, 209, 110);
+    border: none;
+    box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+
+}
+
+
+.reply-text-div{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+.reply-text{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.reply-textarea{
+    resize: none;
+}
+
+.writereply{
+   margin-top: 5px;
+    padding: 10px;
+    background-color: rgb(255, 209, 110);
+    border: none;
+    box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+.sub-reply-remove-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin:5px;
+}
+.sub-replydiv, .sub-removediv{
+    margin: 5px;
+}
+.sub-replyicon, .sub-removeicon{
+    width: 15px;
+    
+}
+.sub-reply, .sub-remove{
+    font-size: 10px;
+    color:#464646;
+    cursor: pointer;
+}
+.toastmessage{
+    position: absolute;
+    top:0px;
+    left: 50%;
+    box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.25);
+    background-color: #FBD6BB;
+    border: #000000;
+    opacity: 1;
+    transition: opacity 1s;
+}
+@media screen and (max-width: 1200px) {
+
+    body {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    #container {
+
+        grid-template-columns: auto;
+        grid-template-rows: 2fr;
+        grid-template-areas: 
+        "articlepanel" 
+        "commentpanel";
+    }
+
+}
+
