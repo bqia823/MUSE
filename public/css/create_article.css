@@ -1,0 +1,115 @@
+body {
+    font-size: 14px;
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .navbar {
+    background-color: #70c280;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 20px 50px  rgba(0, 0, 0, 0.35);
+    margin: 0px;
+  }
+  
+  .navbar_logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar_logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .navbar_functions {
+    list-style: none;
+    display: flex;
+    padding: 0;
+  }
+  
+  .navbar_functions li {
+    margin-left: 10px;
+  }
+  
+  .navbar_functions a {
+    color: #020202;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar_functions .icon {
+    margin-right: 5px;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #FFFBF2;
+    width: auto;
+    margin-top: 20px; /* 添加上边距 */
+    margin-bottom: 20px; /* 添加下边距 */
+    align-items: center; /* This will align the labels to the left */
+    margin-bottom: 10px;
+    
+  }
+  
+  .title_text {
+    width: 90%; 
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+  }
+  
+  #editor {
+    height: 500px;
+    width: 90%;
+    background-color:white;
+    border: 1px solid #c4c4c4;
+  }
+  
+  .submit_button {
+    padding: 10px 20px;
+    border: none;
+    color: black;
+    cursor: pointer;
+    background-color: #70c280;
+  }
+  
+  /* .submit_button:hover {
+    background: #56996e;
+  } */
+  
+  
+  .input_group {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This will align the labels to the left */
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .sub_group {
+    width: 90%;
+  }
+  .title_hint {
+    font-weight: bold;
+  }
+  .content_hint {
+    font-weight: bold;
+  }
+  .upload-label {
+    padding: 8px 12px;
+    margin-top: 10px;
+    color: black;
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+  }
+  .upload_hint {
+    font-weight: bold;
+  }
