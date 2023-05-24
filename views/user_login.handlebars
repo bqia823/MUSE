@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="./css/user_login.css" />
+<div class="container">
+    {{! Display a message if one was provided. }}
+    {{#if toastMessage}}
+    <p>{{toastMessage}}</p>
+    {{/if}}
+
+    <div class="login"></div>
+    <div class="title">
+        <span class="muse">MUSE</span>
+        <div class="logo"></div>
+    </div>
+    <div class="frame">
+        <div class="panel"></div>
+        <a href="{{signupLink}}"><span class="dont">Don’t have an account? Sign up.</span></a>
+        <form action="./user_login" method="POST">
+            <input type="password" name="password" class="textpassword"
+                placeholder="Please enter your password"></input>
+            <span class="forget" onclick="doNothing()">Forget password</span>
+            <span class="password">Password </span>
+            <input type="text" name="username" class="textusername" placeholder="Please enter your name"></input>
+            <span class="username">Username</span>
+            <button type="submit" class="loginbtn">Log in</button>
+        </form>
+        <a href="{{adminLink}}"><span class="iamadmin">I am admin</span></a>
+        <span class="psignin">Please sign into your account.</span>
+        <span class="signin">Sign in</span>
+    </div>
+</div>
