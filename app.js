@@ -6,6 +6,8 @@
 
 // Setup Express
 const express = require("express");
+const session = require('express-session');  
+const authRoutes = require('./routes/auth-routes');
 const app = express();
 const port = 3000;
 
@@ -17,9 +19,15 @@ app.engine("handlebars", handlebars({
 app.set("view engine", "handlebars");
 
 // Setup body-parser
-app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'your secret',
+    resave: false,
+    saveUninitialized: false
+}));
 
+app.use('/', authRoutes);
 // Setup cookie-parser
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
