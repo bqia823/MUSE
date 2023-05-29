@@ -133,19 +133,42 @@ router.get("/delete-account/:User_ID", addUserToLocals, async function (req, res
 // -- DELETE FROM User WHERE User_ID = 2;
 });
 
-// Route handler for user home page
-router.get("/logout", async function(req, res) {
-    console.log("entering /logout...");
-    const userID = 1; // Replace this with req.user.id or similar, depending on the auth setup later
-
-    try {
-        res.render("home_page_visitor");
-
-    } catch (error) {
-        console.error('Error in /logout route:', error);
-        res.status(500).send('Internal Server Error');
+router.get("/api/delete-account/:User_ID", addUserToLocals, async function (req, res) {
+    console.log("进入删除用户路由");
+    if(!res.locals.user) {
+        return res.status(401).send("please login first");
+    }
+    const userId = req.params.User_ID;
+    if(res.locals.user.User_ID != userId || res.locals.user.Is_Admin) {
+        return res.status(401).send("Unauthorized");
+    }
+    try{
+       
+            //删除用户的所有点赞，通知, 关注, 评论，文章
+            await likeDao.deleteAllLikesForOneUser(userId);
+            console.log("删除用户的所有点赞成功");
+            await notificationDao.deleteUsersAllNotification(userId);
+            console.log("删除用户的所有通知成功");
+            await marieUserDao.deleteAllSubscriptionsForOneUser(userId);
+            console.log("删除用户的所有关注成功");
+            await commentDao.removeUsersAllComments(userId);
+            console.log("删除用户的所有评论成功");
+            await articleDao.deleteAllArticlesForOneUser(userId);
+            console.log("删除用户的所有文章成功");
+            //最后删除该用户
+            await userDao.deleteUser(userId);
+            console.log("删除用户成功");
+            //同时清除用户登录信息，变回未登录游客状态，也就是主页游客第一页
+            res.clearCookie("authToken");
+            res.locals.user = null;
+            return res.status(204).send("delete user successfully");
+    }catch(error){
+        console.log(error);
+        return res.status(500).send("Internal Server Error");
     }
 });
+
+
 
 // Route handler for following function when clicking follow button at the visitor's my mage
 router.post('/follow/:User_ID', addUserToLocals, async (req, res) => {

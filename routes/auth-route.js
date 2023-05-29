@@ -50,6 +50,45 @@ router.post("/user_login", async function (req, res) {
 
 });
 
+router.post("/api/user_login", async function (req, res) {
+    // Get the username and password submitted in the form
+    console.log("已输入密码");
+    const username = req.body.username;
+    const password = req.body.password;
+
+    // Find a matching user in the database
+    const user = await retrieveUserByUsername(username);
+    console.log("user after calling retrieveUserByUsername:", user);
+    // Check if there's a matching user
+    if (!user) {
+        //If unsuccessful, instead a 401 response should be returned.
+        res.status(401).send("Username does not exist!");
+        return;
+    }
+
+    // Check if the password matches
+    if (!(await bcrypt.compare(password, user.Password))) {
+        //If unsuccessful, instead a 401 response should be returned.
+        res.status(401).send("Incorrect password entered!");
+        return;
+    }
+
+    const authToken = generateAuthToken();
+
+    // Update user in database with new authToken
+    user.authToken = authToken;
+    await userDao.updateUser(user);
+    //If authentication is successful, a 204 response should be returned
+    res.status(204).json({authToken: user.authToken})
+    // Set the authToken cookie
+    res.cookie("authToken", user.authToken);
+    
+
+    res.locals.user = user;
+    res.status(200).send("Login successful!");
+    
+
+});
 
 
 router.get("/logout", function (req, res) {
@@ -57,6 +96,16 @@ router.get("/logout", function (req, res) {
     res.locals.user = null;
     res.redirect("/");
 });
+
+router.get("/api/logout", function (req, res) {
+    // a user should be logged out (presumably by
+    // deleting their authentication token that was created above). Then, a 204 response should be
+    // returned.
+    res.clearCookie("authToken");
+    res.locals.user = null;
+    res.status(204).send("Logout successful!");
+});
+
 
 router.get("/create-account", function (req, res) {
     res.render("create_account");

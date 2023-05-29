@@ -153,6 +153,13 @@ async function deleteUser(id) {
         where User_ID = ${id}`);
 }
 
+async function getAllUsers() {
+    const db = await dbPromise;
+    const users = await db.all(SQL`select * from User`);
+    return users;
+}
+
+
 // Export functions.
 module.exports = {
     createUser,
@@ -163,5 +170,6 @@ module.exports = {
     retrieveUserByUsername,
     retrieveAllUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getAllUsers
 };
