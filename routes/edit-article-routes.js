@@ -12,22 +12,15 @@ const path = require('path');
 
 
 router.get("/editArticle/:Article_ID", addUserToLocals, async function(req, res) {
+    console.log("editArticle路由");
     //get notification unread number渲染出未读通知数量
     const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
     res.locals.unReadComment = allNotifications.length;
 
     const Article_ID = req.params.Article_ID;
     const article = await editArticleDao.getArticleById(Article_ID);
-    if(res.locals.user){
-        const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
-        for (let i = 0; i < notifications.length; i++) {
-        notifications[i].userInformation =
-            await sarahNotificationDao.getSenderByNotificationID(notifications[i].Notification_ID);
-        }
-    
-        res.locals.notifications = notifications;
-    }
-    console.log("进入" + Article_ID + "路由");
+
+    console.log("进入articleID " + Article_ID + " 路由");
     console.log("article的内容", article);
     res.locals.article = article;
     // console.log("article的图片", article.Image);
@@ -49,15 +42,18 @@ router.get("/editArticle/:Article_ID", addUserToLocals, async function(req, res)
             res.locals.hasUnreadNotifications = true;
             }
         res.locals.notifications = notifications;
-    }
+    
     
     res.render("edit_article");
+} else {
+    res.redirect("/user_login");
+}
 });
 
 
 router.post ("/editArticle/:Article_ID", addUserToLocals, upload.single('imageFile'), async function (req, res) {
     console.log("publishArticle路由");
-    console.log("req.body.content", req.body.content);
+    
     let articleID = req.params.Article_ID;;
     if(res.locals.user){
         console.log("articleID", articleID);
@@ -73,7 +69,7 @@ router.post ("/editArticle/:Article_ID", addUserToLocals, upload.single('imageFi
             Content: req.body.content,
             Image: fileInfo.originalname,  // 使用上传后的文件名作为 Image 属性的值
             Likes_Count: 0,
-            User_ID: 1
+            User_ID: 1 //*这里需要改成当前用户的ID
         } 
     
         res.locals.fileName = fileInfo.originalname;

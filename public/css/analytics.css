@@ -22,7 +22,15 @@ h2 {
     color: #484f48;
     font-family: 'Courier New', Courier, monospace;
 }
-
+#backToProfile{
+    position: absolute;
+    padding: 10px;
+    top: 3%;
+    left: 5%;
+    background-color: antiquewhite;
+    box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
 h5{
     font-size: medium;
     text-align: center;

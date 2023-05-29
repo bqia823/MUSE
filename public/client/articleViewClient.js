@@ -63,10 +63,10 @@ window.addEventListener("load", async function() {
         renderedComments.push(comment);
     });
  
-    //点击reply触发弹窗
     const commentArea = document.querySelector(".comment");
     const commentDisplay = renderComments(renderedComments, 0);
     commentArea.innerHTML = commentDisplay;
+    //点击reply触发弹窗
     const reply = document.querySelectorAll(".reply");
     const replyDiv = document.querySelectorAll(".reply-text-div");
     for(let i = 0; i < reply.length; i++){
@@ -189,9 +189,11 @@ window.addEventListener("load", async function() {
 
 
     function getSubComments(parentCommentId){
+        const parentComment = comments.find(comment => comment.Comment_ID == parentCommentId);
         const subComments = comments.filter(comment => comment.Parent_Comment_ID == parentCommentId);
         subComments.forEach(comment => {
         comment.subComment = getSubComments(comment.Comment_ID);
+        comment.parentCommenterUsername = parentComment.Commenter_Username;
         });
         return subComments;
     }
@@ -205,7 +207,12 @@ window.addEventListener("load", async function() {
             <div class="comment-display${n}">
                 <div class="commenterinfo">
                     <img src="/images/${comment.Commenter_Avatar}" alt="avatar" class="avatar">
-                    <div class="commentername"><a href="/profile/${comment.User_ID}">${comment.Commenter_Username}</a></div>
+                    <div class="commentername"><a href="/profile/${comment.User_ID}">${comment.Commenter_Username}</a>
+                    `;
+                    if (comment.parentCommenterUsername) {
+                        commentDisplay += `<span class="reply-to">  reply to ${comment.parentCommenterUsername}</span>`;
+                    }
+                    commentDisplay += `</div>
                     <div class="commenttimestamp">${comment.Comment_Time}</div>
                 </div>
                 <div class="commenttext">${comment.Comment_Text}</div>
@@ -229,6 +236,8 @@ window.addEventListener("load", async function() {
                     </form>
                 </div>
             `;
+ 
+           
             if(comment.subComment){
                 commentDisplay += renderComments(comment.subComment, n + 1);
             }

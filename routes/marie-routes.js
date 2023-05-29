@@ -18,7 +18,7 @@ const analyticsDao = require("../modules/analyticsDao.js");
 router.get("/profile/:id", addUserToLocals, async function(req, res) {
    
     const userID = req.params.id;
-    console.log("个人页面userID: ", userID);
+    
     //get notification unread number渲染出未读通知数量
     const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
     res.locals.unReadComment = allNotifications.length;
@@ -31,7 +31,7 @@ router.get("/profile/:id", addUserToLocals, async function(req, res) {
             
         }
         res.locals.notifications = notifications;
-        console.log("res.locals.notifications: ", res.locals.notifications);
+        
          //获得所有未读通知数量
          const unreadNotificationsCount = await sarahNotificationDao.getUnreadNotificationCountByUserID(res.locals.user.User_ID);
          res.locals.unreadNotificationsCount = unreadNotificationsCount;
