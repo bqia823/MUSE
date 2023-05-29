@@ -18,15 +18,15 @@
                 
             </div>
             <div class="iconbox">
-                <div class="icon1" data-icon="boy1.png"></div>
-                <div class="icon2" data-icon="boy2.png"></div>
-                <div class="icon3" data-icon="boy3.png"></div>
-                <div class="icon4" data-icon="boy4.png"></div>
-                <div class="icon5" data-icon="girl1.png"></div>
-                <div class="icon6" data-icon="girl1.png"></div>
-                <div class="icon7" data-icon="girl3.png"></div>
-                <div class="icon8" data-icon="girl4.png"></div>
-                <div class="icon9" data-icon="girl5.png"></div>
+                <div id="icon1" class="icon" data-icon="boy1.png"></div>
+                <div id="icon2" class="icon" data-icon="boy2.png"></div>
+                <div id="icon3" class="icon" data-icon="boy3.png"></div>
+                <div id="icon4" class="icon" data-icon="boy4.png"></div>
+                <div id="icon5" class="icon" data-icon="girl1.png"></div>
+                <div id="icon6" class="icon" data-icon="girl1.png"></div>
+                <div id="icon7" class="icon" data-icon="girl3.png"></div>
+                <div id="icon8" class="icon" data-icon="girl4.png"></div>
+                <div id="icon9" class="icon" data-icon="girl5.png"></div>
                 <input type="hidden" id="icon" name="icon" value="">
             </div>
 
@@ -65,4 +65,15 @@
         <div class="logo"></div>
     </div>
 </div>
+
+{{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.iconcontainer div').on('click', function () {
+                $('.iconcontainer div').css('outline', ''); // 取消所有图标的突出显示
+                $(this).css('outline', '1px solid red'); // 突出显示选中的图标
+                $('#icon').val($(this).attr('data-icon')); // 更新隐藏的输入字段的值
+            });
+        });
+</script> --}}
 

@@ -71,8 +71,8 @@ body {
 }
 
 .iconcontainer {
-  width: 242px;
-  height: 242px;
+  width: 250px;
+  height: 250px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -84,132 +84,132 @@ body {
 }
 
 .icon1, .icon2, .icon3, .icon4, .icon5, .icon6, .icon7, .icon8, .icon9 {
-  padding: 5px;
+  padding: 3px;
 }
 
 
 .icon1 {
-  width: 72px;
-  height: 71px;
+  width: 70px;
+  height: 70px;
   background: url("../images/boy1.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: relative;
-  top: 0px;
-  left: 0px;
+  top: 5px;
+  left: 5px;
   overflow: hidden;
   cursor: pointer;
 }
 .icon2 {
-  width: 72px;
-  height: 71px;
+  width: 70px;
+  height: 70px;
   background: url("../images/boy2.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 0px;
+  top: 5px;
   left: 85px;
   overflow: hidden;
   cursor: pointer;
 }
 .icon3 {
-  width: 72px;
-  height: 71px;
+  width: 70px;
+  height: 70px;
   background: url("../images/boy3.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 0px;
+  top: 5px;
   left: 170px;
   overflow: hidden;
   cursor: pointer;
 }
 .icon4 {
-  width: 72px;
-  height: 72px;
+  width: 70px;
+  height: 70px;
   background: url("../images/boy4.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 85px;
-  left: 0px;
+  top: 88px;
+  left: 5px;
   overflow: hidden;
   cursor: pointer;
 }
 .icon5 {
-  width: 72px;
-  height: 72px;
+  width: 70px;
+  height: 70px;
   background: url("../images/girl1.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 85px;
+  top: 88px;
   left: 85px;
   overflow: hidden;
   cursor: pointer;
 }
 .icon6 {
-  width: 72px;
-  height: 72px;
+  width: 70px;
+  height: 70px;
   background: url("../images/girl2.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 85px;
+  top: 88px;
   left: 170px;
   overflow: hidden;
   cursor: pointer;
 }
 .icon7 {
-  width: 72px;
-  height: 71px;
+  width: 70px;
+  height: 70px;
   background: url("../images/girl3.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 171px;
-  left: 0px;
+  top: 170px;
+  left: 5px;
   overflow: hidden;
   cursor: pointer;
 }
 .icon8 {
-  width: 72px;
-  height: 71px;
+  width: 70px;
+  height: 70px;
   background: url("../images/girl4.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 171px;
+  top: 170px;
   left: 85px;
   overflow: hidden;
   cursor: pointer;
 }
 .icon9 {
-  width: 72px;
-  height: 71px;
+  width: 70px;
+  height: 70px;
   background: url("../images/girl5.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 171px;
+  top: 170px;
   left: 170px;
   overflow: hidden;
   cursor: pointer;

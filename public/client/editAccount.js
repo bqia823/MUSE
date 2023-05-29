@@ -7,16 +7,20 @@ window.addEventListener('load', async function() {
 
     // Get a reference to the icon container div
     const iconBox = document.querySelector('.iconbox');
+    const icon = document.querySelectorAll('.icon');
     console.log('iconbox:', iconBox);
   
     // Set up a click event listener on the icon container
     if(iconBox) {
     iconBox.addEventListener('click', function(e) {
+      for(let i = 0; i < icon.length; i++) {
+        icon[i].style.border = "none";
+      }
       console.log('iconbox clicked.');
       // If an icon div was clicked...
       if (e.target && e.target.matches('div[data-icon]')) {
         console.log('Icon div clicked:', e.target);
-        e.target.style.border = "3px solid #00BFFF";
+        e.target.style.border = "3px solid red";
         // ...set the value of the hidden icon input field to the data-icon attribute of the clicked div
         var iconInput = document.querySelector('#icon');
         iconInput.value = e.target.getAttribute('data-icon');
