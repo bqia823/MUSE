@@ -1,52 +1,247 @@
 console.log("reply client js...");
 window.addEventListener("load", async function() {
+    // 获取登录状态
     const response = await fetch("/user_login_status");
     const loginStatus = await response.json();
     console.log("loginStatus: " + loginStatus);
+    //获取当前用户信息
+    const response1 = await fetch("/user_info");
+    const user_info = await response1.json();
+    const User_ID = user_info.User_ID;
+
+    //判断用户是否登录，如果登录，显示导航条上的部分内容
+    const homeBtn = document.querySelector("#home");
+    const signInBtn = document.querySelector("#sign-in");
+    const notificationBtn = document.querySelector("#notification");
+    const profileBtn = document.querySelector("#profile");
+    const createArticleBtn = document.querySelector("#create-article");
+    const logoutBtn = document.querySelector("#log-out");
+    
+    // const replyRemoveDiv = document.querySelectorAll(".reply-remove-div");
+    if(User_ID){
+        
+        signInBtn.style.display = "none";
+        profileBtn.style.display = "block";
+        createArticleBtn.style.display = "block";
+        logoutBtn.style.display = "block";
+        notificationBtn.style.display = "block";
+
+    }else if(User_ID == null){
+    
+        signInBtn.style.display = "block";
+        profileBtn.style.display = "none";
+        createArticleBtn.style.display = "none";
+        logoutBtn.style.display = "none";
+        notificationBtn.style.display = "none";
+        
+    }
+    // 将ql-editor的样式设为不可编辑
+    if(this.document.querySelector(".ql-editor") != undefined){
+        const editor = document.querySelector(".ql-editor");
+        editor.setAttribute("contenteditable", false);
+    }
+    
+    // const articleText = document.querySelector("#articletext");
+ 
+    // articleText.innerHTML = articleText.innerText;
+    
+
+    // 获取文章id
     var currentURL = window.location.href;
-    console.log(currentURL);
+    const parsedUrl = new URL(currentURL);
+    const articleId = parsedUrl.pathname.split('/').pop();
+    console.log("articleId: " + articleId);
+    // 展示文章所有评论
+    const response2 = await fetch(`/showComments?Article_ID=${articleId}`);
+    const comments = await response2.json();
+    
+    const renderedComments = [];
+    const topLevelComments = comments.filter(comment => comment.Parent_Comment_ID == null);
+
+    topLevelComments.forEach(comment => {
+        comment.subComment = getSubComments(comment.Comment_ID);
+        renderedComments.push(comment);
+    });
+ 
+    //点击reply触发弹窗
+    const commentArea = document.querySelector(".comment");
+    const commentDisplay = renderComments(renderedComments, 0);
+    commentArea.innerHTML = commentDisplay;
+    const reply = document.querySelectorAll(".reply");
+    const replyDiv = document.querySelectorAll(".reply-text-div");
+    for(let i = 0; i < reply.length; i++){
+        reply[i].style.cursor = "pointer";
+        reply[i].addEventListener("click", function(){
+            if(replyDiv[i].style.display == "none"){
+            console.log("reply clicked...");
+            replyDiv[i].style.display = "block";
+            }else{
+                replyDiv[i].style.display = "none";
+            }
+        });
+    }
+    //判断用户身份,如果是作者本人或者评论者本人，显示删除按钮
+    //如果用户是visitor，不显示回复按钮
+    const replyDivBtn = document.querySelectorAll(".replydivbtn");
+    
+    const response3 = await fetch(`/is_article_author/${articleId}`) ;
+    const isAuthor = await response3.json();
+   
+    const removeDiv = document.querySelectorAll(".removediv");
+    if(User_ID){
+        if(isAuthor.isAuthor === true){
+            console.log("是作者本人");
+            for(let i = 0; i < removeDiv.length; i++){
+                removeDiv[i].style.display = "block";
+            }
+        }else{
+            for(let i = 0; i < removeDiv.length; i++){
+                if(removeDiv[i].getAttribute("id") == User_ID){
+                    console.log("不是作者，是评论者本人");
+                    removeDiv[i].style.display = "block";
+                }else{
+                    console.log("不是作者，不是评论者本人");
+                    removeDiv[i].style.display = "none";
+                }
+            }
+        }
+    }else{
+        for(let i = 0; i < replyDivBtn.length; i++){
+            replyDivBtn[i].style.display = "none";
+            
+        }
+        for(let i = 0; i < removeDiv.length; i++){
+            removeDiv[i].style.display = "none";
+            
+        }       
+    }
+    
+    
+    //当鼠标移动到notificaiton按钮时，显示通知
+    const newContent = document.querySelector("#icon-container");
+    const notifications = document.querySelectorAll(".notifications");
+    if(User_ID){
+        notificationBtn.addEventListener("mouseover", function () {
+
+                newContent.style.display = "flex";
+          });
+          newContent.addEventListener("mouseover", function () {
+         
+            newContent.style.display = "flex";
+          });
+          newContent.addEventListener("mouseout", function () {
+         
+            if(newContent.style.display === "flex"){
+              newContent.style.display = "none";
+            }
+          });
+          //点击notification，跳转到对应的文章
+          for(let i = 0; i < notifications.length; i++){
+              notifications[i].addEventListener("click", async function () {
+                console.log("notification clicked");
+                let notificationID = notifications[i].getAttribute("id");      
+                notificationID = notificationID.substring(13);
+                const response5 = await fetch(`/notification_info/${notificationID}`);
+                const notification_info = await response5.json();
+                if(notification_info.NotificationType == "Comment" || notification_info.NotificationType == "Reply"){
+                    const articleID = notification_info.Article_ID;
+                    window.location.href =  `/articleView/${articleID}`;
+                }else if(notification_info.NotificationType == "Follow"){
+                    const profileID = notification_info.Sender_ID;
+                    window.location.href =  `/profile/${profileID}`;
+                }
+            });
+          }
+          const notificationMore = document.querySelector("#notificationMore");
+          
+          notificationMore.addEventListener("click", function () {
+            console.log("notificationMore clicked");
+            window.location.href =  `/notification/${User_ID}`;
+          });
+          
+        // const response4 = await fetch(`/notification-list/${User_ID}`);
+        // const notificationList = await response4.json();
+        // console.log("notificationList: ", notificationList);
+        // notificationpanel.innerHTML += `<ul>`;
+        // for(let i = 0; i < 3; i++){
+        //     // console.log("notificationList[i].NotificationType: ", notificationList[i].NotificationType);
+        //     if(notificationList[i].NotificationType == "Comment" || notificationList[i].NotificationType == "Reply"){
+        //         if(notificationList[i].Is_Read == 0){
+        //         notificationpanel.innerHTML += `
+        //             <li class="notification-item"><strong>${notificationList[i].Content}<strong></li>
+        //         `;
+        //         }else{
+        //             notificationpanel.innerHTML += `
+        //             <li class="notification-item">${notificationList[i].Content}</li>
+        //         `;
+        //         }
+        //     }
+        // }
+        // notificationpanel.innerHTML += `
+        // </ul>
+        // <a href="/notifications">More...</a>
+        // `;
+    }
+    
 
 
 
-    isAuthor(currentURL);
-    replyDiv();
+
+
+    function getSubComments(parentCommentId){
+        const subComments = comments.filter(comment => comment.Parent_Comment_ID == parentCommentId);
+        subComments.forEach(comment => {
+        comment.subComment = getSubComments(comment.Comment_ID);
+        });
+        return subComments;
+    }
+    function renderComments(comments, n){
+        let commentDisplay = "";
+        if(n > 0){
+           n = 1;
+        }
+        comments.forEach(comment => {
+            commentDisplay += `
+            <div class="comment-display${n}">
+                <div class="commenterinfo">
+                    <img src="/images/${comment.Commenter_Avatar}" alt="avatar" class="avatar">
+                    <div class="commentername"><a href="/profile/${comment.User_ID}">${comment.Commenter_Username}</a></div>
+                    <div class="commenttimestamp">${comment.Comment_Time}</div>
+                </div>
+                <div class="commenttext">${comment.Comment_Text}</div>
+                <div class="reply-remove-div">
+                    <div class="replydivbtn">
+                        <img src="/images/comment.png" class="replyicon">
+                        <span class="reply">Reply</span>
+                    
+                    </div>
+                    <div id="${comment.User_ID}" class="removediv">
+                        <img src="/images/deleteaccount.png" class="removeicon">
+                        <a href="/removecomment/${comment.Comment_ID}" class="remove">Remove</a>
+                    </div>
+                </div>
+                <div class="reply-text-div">
+                    <form action="/reply/${comment.Article_ID}/${comment.Comment_ID}" method="POST">
+                        <div>
+                            <textarea rows="3" cols="30" name="reply" class="reply-textarea"></textarea>
+                        </div>
+                        <button type="submit" class="writereply">Reply</button>
+                    </form>
+                </div>
+            `;
+            if(comment.subComment){
+                commentDisplay += renderComments(comment.subComment, n + 1);
+            }
+            commentDisplay += `</div>`;
+        });
+        return commentDisplay;
+    }
+
+    hideCommentPanel();
     showToastMessage(loginStatus);
     blockCommentArea(loginStatus);
 
 });
-
-function replyDiv(){
-    const reply = document.querySelectorAll(".reply");
-    const replyTextDiv = document.querySelectorAll(".reply-text-div");
-    const subReply = document.querySelectorAll(".sub-reply");
-    for(let i = 0; i < reply.length; i++){
-        reply[i].addEventListener("click", function(){
-            console.log("reply clicked...");
-            replyTextDiv[i].innerHTML = `
-            <form action="/reply" method="POST">
-                <div class="reply-text">
-                    <textarea rows="3" name="reply" class="reply-textarea"></textarea>
-                    <button class="writereply">Reply</button>
-                </div>
-            </form>
-            `;
-        });
-    }
-    for(let i = 0; i < subReply.length; i++){
-        subReply[i].addEventListener("click", function(){
-            console.log("subreply clicked...");
-            replyTextDiv[i].innerHTML = `
-            <form action="/reply" method="POST">
-                <div class="reply-text">
-                    <textarea rows="3" name="reply" class="reply-textarea"></textarea>
-                    <button class="writereply">Reply</button>
-                </div>
-            </form>
-            `;
-        });
-    }
-//也许需要用到fetch（文章id/父级id  ）
-};
 
 function showToastMessage(loginStatus){
     // 获取 toastMessage 元素
@@ -75,34 +270,40 @@ async function blockCommentArea(loginStatus){
     }
 }
 
-async function isAuthor(currentURL){
-    const parsedUrl = new URL(currentURL);
-    const articleId = parsedUrl.pathname.split('/').pop();
-
-    console.log("client side" + articleId); 
-    const removeDiv = document.querySelectorAll(".removediv");
-    const subRemoveDiv = document.querySelectorAll(".sub-removediv");
-
+async function isAuthor(articleId){
     const response = await fetch(`/is_article_author/${articleId}`) ;
-    const isAuthor = await response.text();
-    if (isAuthor === "true") {
+    const isAuthor = await response.json();
+    console.log("isAuthor是: ", isAuthor);
+    if (isAuthor == true) {
         console.log("isAuthor is true");
-        for (let i = 0; i < removeDiv.length; i++) {
-            removeDiv[i].innerHTML = `
-                <img src="/images/deleteaccount.png" class="removeicon">
-                <a href="/remove" class="remove">Remove</a>
-            `;
-        }
-        for (let i = 0; i < subRemoveDiv.length; i++) {
-            subRemoveDiv[i].innerHTML = `
-                <img src="/images/deleteaccount.png" class="sub-removeicon">
-                <a href="/remove" class="sub-remove">Remove</a>
-            `;
-        }
+        return true;
+    }else{
+        console.log("isAuthor is false");
+        return false;
     }
     
 }
+function hideCommentPanel(){
+    const commentPanel = document.querySelector("#commentpanel");
+    const hideCommentBtn = document.querySelector("#hidecommentpanel");
+    const container = document.querySelector("#container");
+    hideCommentBtn.addEventListener("click", function(){
+        if(hideCommentBtn.textContent == "Hide comments"){
+        
+            commentPanel.style.display = "none";
+            hideCommentBtn.textContent = "Show comments";
+            // articlePanel.style.width = "130%";
+            container.style.gridTemplateColumns = "9fr 1fr";
 
-async function isReplyAuthor(currentURL){
+        }else if(hideCommentBtn.textContent == "Show comments"){
+        
+            console.log("恢复评论区");
+            commentPanel.style.display = "block";
+            hideCommentBtn.textContent = "Hide comments";
+            container.style.gridTemplateColumns = "7fr 3fr";
+        }
 
+    });
+   
 }
+

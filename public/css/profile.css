@@ -4,6 +4,7 @@ margin: 0;
 padding: 0;
 }
 
+/* navbar section */
 .navbar {
 background-color: #70c280;
 color: #121111;
@@ -32,6 +33,14 @@ padding: 0;
 display: flex;
 }
 
+.navbar-left {
+  margin-right: auto;
+  }
+  
+.navbar-right {
+margin-left: auto;
+}
+
 .navbar-functions ul li {
 margin-left: 10px;
 }
@@ -46,7 +55,77 @@ align-items: center;
 .navbar-functions ul li a .icon {
 margin-right: 5px;
 }
+#profile_icon{
+  width: 25px;
+}
+#icon-container {
+  display: none;
+  position: absolute;
+  top: 11%;
+  right: 10%;
+  
+  /* display: flex; */
+  flex-direction: column;
+  z-index: 99;
+  width: 400px;
+  background-color: aliceblue;
+  opacity: 0.95;
+  box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 0px 10px 10px;
 
+
+}
+
+#notificationTop {
+  text-align: center;
+}
+
+#notificationBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notifications {
+  margin: 10px;
+  border: 1px solid #bebebe;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+}
+
+.notifications:hover {
+  background-color: #f6ffed;
+  color: #87cba2;
+}
+.firstLine {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.red-dot {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+.senderInformation{
+  margin-left: 5px;
+}
+
+#notificationMore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* container section */
 .container {
 display: flex;
 margin: 20px;
@@ -54,6 +133,7 @@ overflow: hidden;
 box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Left column section */
 .left-column {
 flex: 3;
 display: flex;
@@ -63,20 +143,8 @@ position: relative;
 box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.right-column {
-flex: 1;
-box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
-}
-
 .left-column h2 {
 background-color: #FBD6BB;
-color: #1a0404;
-margin: 0;
-padding: 10px;
-}
-
-.right-column h2 {
-background-color:#70c280;
 color: #1a0404;
 margin: 0;
 padding: 10px;
@@ -89,14 +157,6 @@ align-items: center;
 justify-content: space-between;
 }
 
-.navbar-left {
-margin-right: auto;
-}
-
-.navbar-right {
-margin-left: auto;
-}
-
 .article,
 .notification {
 margin-top: 20px;
@@ -106,7 +166,6 @@ margin-bottom: 10px;
 padding: 10px;
 border: 1px solid #ccc;
 border-radius: 10px;
-/* height:min-content; */
 box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -126,10 +185,21 @@ align-items: center;
 order: 1;
 }
 
-/* .article-title a {
-text-decoration: none;
-color: #333;
-} */
+.article-link{
+  text-decoration: none;
+  color: inherit;
+}
+
+.article-link :visited {
+  color: inherit;
+}
+.editAndDeleteDiv{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  order: 2;
+}
 
 .edit-button {
   margin-left: 100px;
@@ -143,6 +213,10 @@ color: #fff;
 border: none;
 border-radius: 5px;
 cursor: pointer;
+}
+
+.edit-button:hover, .delete-button:hover {
+background-color: #70c280;
 }
 
 .article-meta,
@@ -159,12 +233,80 @@ order: 2;
 margin: 0 5px;
 }
 
+/* Pagebar Section */
+#pagesBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  }
+  
+  .page {
+  margin: 0 5px;
+  padding: 5px;
+  background-color: #eee;
+  cursor: pointer;
+  }
+  
+  .page:hover {
+  background-color: #e9e1ff;
+  color: #7949ff;
+  
+  }
+  
+  .deleteArticleWindow {  
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 20%;
+    top: 35%;
+    width: 70%;
+    /* height: 70px; */
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    padding-top: 20px;
+    border-radius: 5px;
+    border: 1px solid gray;} 
+  
+  .yesAndNoButton { 
+    display:flex; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-around; 
+  }
+  .yesDeleteArticle, .noDeleteArticle { 
+    margin: 5px; 
+  }
+
+/* Right column section */
+.right-column {
+flex: 1;
+box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+  
+.right-column h2 {
+background-color:#70c280;
+color: #1a0404;
+margin: 0;
+padding: 12px;
+}
+
 .right-column div {
 margin-bottom: 10px;
+padding: 5px;
 }
 
 .right-column label {
 font-weight: bold;
+margin-bottom: 5px;
 }
 
 .user-info-line {
@@ -173,14 +315,59 @@ align-items: center;
 }
 
 .user-avatar img {
-width: 50px;
-height: 50px;
+width: 100px;
+height: 100px;
 border-radius: 50%;
 margin-right: 10px;
 }
 
 .user-follows {
-margin-left: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+#divBesideAvatar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#followAndFollowerDiv{
+  position: relative;
+  text-decoration: none;
+  
+}
+#followDiv, #subscriberDiv{
+  color: #464646;
+}
+#followDiv:hover, #subscriberDiv:hover{
+  text-decoration: none;
+  color: #2b95ff;
+}
+.follow-button {
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #70c280;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.follow-button:hover {
+  background-color: #56a76f;
+}
+
+.follow-button.unfollow {
+  background-color: #554f4f;
+}
+
+.follow-button.unfollow:hover {
+  background-color: #a6a6a6;
 }
 
 .analytics-delete-buttons {
@@ -210,35 +397,25 @@ color: #0a0707;
 width: 90%;
 border: none;
 cursor: pointer;
+transition: background-color 0.3s ease;
 }
 
-
-#pagesBar {
-position: absolute;
-bottom: 0;
-left: 0;
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 10px;
-}
-
-.page {
-margin: 0 5px;
-padding: 5px;
-background-color: #eee;
-cursor: pointer;
-}
-
-.page:hover {
-background-color: #e9e1ff;
-color: #7949ff;
-
-}
-
+/* Screen fitting */
 @media screen and (max-width: 1200px) {
-  body {
+    body {
       width: 100%;
+    }
+  
+    .user-avatar img {
+      width: 80px;
+      height: 80px;
+    }
   }
-}
+
+  @media screen and (max-width: 500px) {
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }

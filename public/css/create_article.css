@@ -1,3 +1,4 @@
+
 body {
     font-size: 14px;
     margin: 0px;
@@ -45,6 +46,77 @@ body {
   .navbar_functions .icon {
     margin-right: 5px;
   }
+  #profile_icon{
+    width: 25px;
+  }
+
+  #icon-container {
+    display: none;
+    position: absolute;
+    top: 11%;
+    right: 10%;
+    
+    /* display: flex; */
+    flex-direction: column;
+    z-index: 99;
+    width: 400px;
+    background-color: aliceblue;
+    opacity: 0.95;
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 0px 0px 10px 10px;
+  
+  
+  }
+  
+  #notificationTop {
+    text-align: center;
+  }
+  
+  #notificationBottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .notifications {
+    margin: 10px;
+    border: 1px solid #bebebe;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .notifications:hover {
+    background-color: #f6ffed;
+    color: #87cba2;
+  }
+  .firstLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  .red-dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+  }
+  .senderInformation{
+    margin-left: 5px;
+  }
+  
+  #notificationMore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+  
   
   .container {
     display: flex;
@@ -113,3 +185,21 @@ body {
   .upload_hint {
     font-weight: bold;
   }
+  .edit_article_button {
+    padding: 10px 20px;
+    border: none;
+    color: black;
+    cursor: pointer;
+    background-color: #70c280;
+  }
+  #image {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+  }
+  .image_hint {
+    font-weight: bold;
+ }
+
+ 

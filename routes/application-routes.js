@@ -1,19 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { v4: uuid } = require("uuid");
-
-const articleDao = require("../modules/article-dao.js");
-const user_loginDao = require("../modules/user_login-dao.js");
-const userDao = require("../modules/users-dao.js");
-
-router.get("/", async function(req, res) {
-    console.log("enter home appage");
-    res.locals.title = "My route title!";
-    res.locals.allData = await articleDao.getArticleByArticleID(1);
-
-    res.render("home");
-});
-
 router.get("/user_login", async function(req, res) {
 
     res.render("user_login");

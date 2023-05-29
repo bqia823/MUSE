@@ -3,6 +3,12 @@
 }
 body {
   font-size: 14px;
+  margin:0px;
+}
+#toastmessage{
+  z-index: 100;
+  font-size: large;
+  background-color: antiquewhite;
 }
 .container {
   width: 100%;

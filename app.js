@@ -41,8 +41,14 @@ app.use(require("./middleware/toaster-middleware.js"));
 
 // Setup routes
 app.use(require("./routes/application-routes.js"));
+app.use(require("./routes/auth-route.js"));
 app.use(require("./routes/articleView-route.js"));
-
+app.use(require("./routes/create-article-routes.js"));
+app.use(require("./routes/edit-article-routes.js"));
+app.use(require("./routes/marie-routes.js"));
+app.use(require("./routes/notification-routes.js"));
+app.use(require("./routes/follows-routes.js"));
+app.use(require("./routes/subscribers-routes.js"));
 // Start the server running.
 app.listen(port, function () {
     console.log(`App listening on port ${port}!`);

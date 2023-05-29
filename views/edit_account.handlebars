@@ -1,3 +1,72 @@
+
+<script src="/client/editAccount.js"></script>
+<link rel="stylesheet" href="/css/edit_account.css" />
+
+<div class="container">
+    {{! Display a message if one was provided. }}
+    {{#if toastMessage}}
+    <p>{{toastMessage}}</p>
+    {{/if}}
+
+    <div class="frame"></div>
+    <div class="pannel">
+        <div class="pannelshadow"></div>
+        
+            <div class="button-container">
+                <form action="/edit_account/{{user.User_ID}}" method="POST">
+                <button type="submit" class="submitbtn">Submit</button>
+                
+            </div>
+            <div class="iconbox">
+                <div class="icon1" data-icon="boy1.png"></div>
+                <div class="icon2" data-icon="boy2.png"></div>
+                <div class="icon3" data-icon="boy3.png"></div>
+                <div class="icon4" data-icon="boy4.png"></div>
+                <div class="icon5" data-icon="girl1.png"></div>
+                <div class="icon6" data-icon="girl1.png"></div>
+                <div class="icon7" data-icon="girl3.png"></div>
+                <div class="icon8" data-icon="girl4.png"></div>
+                <div class="icon9" data-icon="girl5.png"></div>
+                <input type="hidden" id="icon" name="icon" value="">
+            </div>
+
+            <span class="chooseicon">Choose your icon</span>
+
+            <input type="text" name="Brief_Description" class="descriptiontext" placeholder="Please describe yourself in 50 words" value="{{userProfile.Brief_Description}}">
+            <span class="description">Description</span>
+
+            <input type="password" name="confirmpassword" class="confirmpasswordtext" placeholder="Please confirm your password">
+            <span class="confirmpassword">Confirm Password</span>
+
+            <input type="password" name="password" class="passwordtext" placeholder="Please enter your password">
+            <span class="password">Password</span>
+
+            <input type="date" name="birthdate" class="birthdatetext" placeholder="DD/MM/YYYY" value="{{userProfile.Date_Of_Birth}}">
+            <span class="birthdate">Birth date</span>
+
+            <input type="text" name="idname" class="idnametext" placeholder="Please enter your real name" value="{{userProfile.Real_Name}}">
+            <span class="idname">Real Name</span>
+
+            <input type="text" name="username" class="usernametext" placeholder="Please enter your username" value="{{userProfile.Username}}">
+            <span class="username">Username</span>
+        </form>
+    <button class="deletebtn" id="deleteBtn">Delete Account</button>
+    <div id="deleteAccount" class="deleteAccountWindow">
+        <div>Are you sure you want to delete your account?</div>
+            <div class="DeleteAccountYesAndNoButton">
+                {{!-- 这里的userId是当前登陆者的id,删除也是删除这个登录者 --}}
+                <div><button class="yesDeleteAccount" id="yes{{user.User_ID}}">Yes</button></div>
+                <div><button class="noDeleteAccount" id="no{{user.User_ID}}">No</button></div>
+        </div>
+    </div>
+
+        <a href="/profile/{{user.User_ID}}" class="cancelbtn">Return back to user profile</a>
+        <span class="creataccount">Edit Account</span>
+        <div class="logo"></div>
+    </div>
+</div>
+
+=======
 <script src="/client.js"></script>
 <link rel="stylesheet" href="./css/edit_account.css" />
 
@@ -52,4 +121,5 @@
         <div class="logo"></div>
     </div>
 </div>
+
 
