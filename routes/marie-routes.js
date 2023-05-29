@@ -250,14 +250,14 @@ router.get("/delete-article/:Article_Id", addUserToLocals,  async function (req,
     const authorID = article.User_ID;
     const User_ID = res.locals.user.User_ID;
     if(User_ID == authorID) {
-          //在删除文章之前，先删除评论，点赞，如果天乐更新了数据库加了通知和文章的联系，那也需要删除通知
-          await likeDao.deleteAllLikesForOneArticle(articleId);
+        //在删除文章之前，先删除评论，点赞，如果天乐更新了数据库加了通知和文章的联系，那也需要删除通知
+        await likeDao.deleteAllLikesForOneArticle(articleId);
         console.log("删除文章所有点赞");
-          await commentDao.removeArticlesAllComments(articleId);
+        await commentDao.removeArticlesAllComments(articleId);
         console.log("删除文章所有评论");
-          await articleDao.deleteArticle(articleId);
+        await articleDao.deleteArticle(articleId);
         console.log("删除文章");
-          res.redirect("/profile/" + User_ID);
+        res.redirect("/profile/" + User_ID);
     }else{
         res.setToastMessage("You can only delete your own article");
         res.redirect("/profile/" + User_ID);

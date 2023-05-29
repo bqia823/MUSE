@@ -116,12 +116,15 @@ body {
   overflow: hidden;
 }
 
-.icon1, .icon2, .icon3, .icon4, .icon5, .icon6, .icon7, .icon8, .icon9 {
-  padding: 5px;
+.icon{
+ padding: 5px; 
 }
+/* #icon1, #icon2, #icon3, #icon4, #icon5, #icon6, #icon7, #icon8, #icon9 {
+  
+} */
 
 
-.icon1 {
+#icon1 {
   width: 72px;
   height: 71px;
   background: url("../images/boy1.png");
@@ -135,7 +138,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.icon2 {
+#icon2 {
   width: 72px;
   height: 71px;
   background: url("../images/boy2.png");
@@ -149,7 +152,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.icon3 {
+#icon3 {
   width: 72px;
   height: 71px;
   background: url("../images/boy3.png");
@@ -163,7 +166,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.icon4 {
+#icon4 {
   width: 72px;
   height: 72px;
   background: url("../images/boy4.png");
@@ -177,7 +180,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.icon5 {
+#icon5 {
   width: 72px;
   height: 72px;
   background: url("../images/girl1.png");
@@ -191,7 +194,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.icon6 {
+#icon6 {
   width: 72px;
   height: 72px;
   background: url("../images/girl2.png");
@@ -205,7 +208,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.icon7 {
+#icon7 {
   width: 72px;
   height: 71px;
   background: url("../images/girl3.png");
@@ -219,7 +222,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.icon8 {
+#icon8 {
   width: 72px;
   height: 71px;
   background: url("../images/girl4.png");
@@ -233,7 +236,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.icon9 {
+#icon9 {
   width: 72px;
   height: 71px;
   background: url("../images/girl5.png");
