@@ -29,6 +29,18 @@ router.get("/user_info", addUserToLocals, async function(req, res) {
 
 });
 
+router.get("/api/users", addUserToLocals, async function(req, res) {
+  if(res.locals.user || res.locals.user.Is_Admin){
+     res.status(401).send("Unauthorized");
+  }else{
+//     an array of all users should be returned, as JSON.
+      const users = await userDao.getAllUsers();
+      res.json(users);
+  }
+     
+
+});
+
 router.get("/", addUserToLocals, function (req, res) {
     if (res.locals.user) {
       res.redirect("/home/1/publishTime");
@@ -177,7 +189,6 @@ router.get("/", addUserToLocals, function (req, res) {
       }
    
   }
-    
 
     //Getting all articles on one page
     const user = res.locals.user;
