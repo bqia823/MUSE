@@ -1,6 +1,6 @@
 const SQL = require("sql-template-strings");
 const dbPromise = require("./database.js");
-
+const crypto = require('crypto');
 /**
  * Inserts the given user into the database. Then, reads the ID which the database auto-assigned, and adds it
  * to the user.
@@ -9,12 +9,45 @@ const dbPromise = require("./database.js");
  */
 async function createUser(user) {
     const db = await dbPromise;
+    try {
+        const result = await db.run(SQL`
+            insert into User (
+                Username, 
+                Password, 
+                Real_Name, 
+                Date_Of_Birth, 
+                Brief_Description, 
+                Avatar, 
+                Is_Admin, 
+                authToken
+            ) values(
+                ${user.Username}, 
+                ${user.Password}, 
+                ${user.Real_Name}, 
+                ${user.Date_Of_Birth}, 
+                ${user.Brief_Description}, 
+                ${user.Avatar}, 
+                ${user.Is_Admin}, 
+                ${user.authToken})`);
 
-    const result = await db.run(SQL`
-        insert into User (Username, Password, Real_Name) values(${user.username}, ${user.password}, ${user.name})`);
+        // Get the auto-generated ID value, and assign it back to the user object.
+        user.User_ID = result.lastID;
+        
+    } catch (err) {
+        console.error("Failed to insert user into database:", err);
+        throw err;
+    }
+
+    // This should return the user with the new User_ID
+    return user;
+    // const result = await db.run(SQL`
+    //     insert into User (Username, Password, Real_Name) values(${user.username}, ${user.password}, ${user.name})`);
 
     // Get the auto-generated ID value, and assign it back to the user object.
-    user.id = result.lastID;
+    // user.id = result.lastID;
+}
+function generateAuthToken() {
+    return crypto.randomBytes(30).toString('hex');
 }
 
 /**
@@ -103,8 +136,7 @@ async function updateUser(user) {
 
     await db.run(SQL`
         update User
-        set Username = ${user.Username}, Password = ${user.Password},
-        Real_Name = ${user.name}, authToken = ${user.authToken}
+        set Username = ${user.Username}, Password = ${user.Password}, authToken = ${user.authToken}
         where User_ID = ${user.User_ID}`);
 }
 
@@ -124,6 +156,7 @@ async function deleteUser(id) {
 // Export functions.
 module.exports = {
     createUser,
+    generateAuthToken,
     retrieveUserById,
     retrieveUserWithCredentials,
     retrieveUserWithAuthToken,
