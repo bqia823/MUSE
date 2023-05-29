@@ -166,40 +166,51 @@ window.addEventListener("load", async function () {
       window.location.href = `/articleView/${Article_ID}`;
     });
   });
-
-  moreContainer.addEventListener("click", function () {
-    console.log("moreContainer clicked");
-    window.location.href =  `/profile/${User_ID}`;
-  });
+  if(User_ID){
+    moreContainer.addEventListener("click", function () {
+      console.log("moreContainer clicked");
+      window.location.href =  `/profile/${User_ID}`;
+    });
+  }
 
   //导航条
+  if(User_ID){
   navUserClick.addEventListener("click", function () {
     window.location.href =  `/profile/${User_ID}`;
   });
-  
+}
+  if(User_ID){
   navCreateArticle.addEventListener("click", function () {
     window.location.href = `/create_article`;
   });
-
+}
+  if(User_ID){
   navSignOut.addEventListener("click", function () {
     window.location.href = `/logout`;
   });
+
   for (let i = 0; i < Signout.length; i++) {
     userSignoutIcon[i].addEventListener("click", function () {
       window.location.href = `/signOut`;
     });
   }
+}
+
+if(User_ID){
 
   for (let i = 0; i < createArticle.length; i++) {
     createArticle[i].addEventListener("click", function () {
       window.location.href = `/creatArticle`;
     });
   }
+}
+if(User_ID){
   //鼠标移动到notification上显示下拉菜单
   navNotification.addEventListener("click", function () {
     console.log("navNotification clicked");
     window.location.href = `/notification/${User_ID}`;
   });
+
 
   navNotification.addEventListener("mouseover", function () {
    
@@ -241,7 +252,7 @@ window.addEventListener("load", async function () {
     console.log("notificationMore clicked");
     window.location.href =  `/notification/${User_ID}`;
   });
-
+}
 
   // for (let i = 0; i < notifications.length; i++) {
   //   notifications.addEventListener("mouseover", () => {
