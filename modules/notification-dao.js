@@ -41,7 +41,7 @@ async function getAllNotificationByUserID(User_ID) {
 
 async function retrieveNotificationByID(Notification_ID) {
   const db = await dbPromise;
-
+  console.log("通知的id: ", Notification_ID);
   const result = await db.get(SQL`
   SELECT * FROM Notification WHERE Notification_ID = ${Notification_ID}`);
   console.log("通知的result: ", result);

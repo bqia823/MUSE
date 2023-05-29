@@ -119,6 +119,10 @@ router.get("/", addUserToLocals, function (req, res) {
     if(!res.locals.user){
       res.redirect("/home/visitor/1/publishTime");
     }
+
+    //get notification unread number渲染出未读通知数量
+    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+    res.locals.unReadComment = allNotifications.length;
     //get current page
     const page = parseInt(req.params.pages); // 获取页码
     //get current sort

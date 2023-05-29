@@ -1,5 +1,10 @@
 window.addEventListener("load", async function () {
     console.log("notification Window loaded.");
+    //获取当前用户信息
+    const response1 = await fetch("/user_info");
+    const user_info = await response1.json();
+    const User_ID = user_info.User_ID;
+
     const notificationText = document.querySelectorAll(".text");
     for(let i = 0; i < notificationText.length; i++){
         notificationText[i].style.cursor = "pointer";
@@ -25,5 +30,58 @@ window.addEventListener("load", async function () {
           }
       });
     }
+
+    
+  //Page functions start here
+  const pages = document.querySelectorAll(".pages");
+  const previousPage = document.querySelector("#left");
+  const nextPage = document.querySelector("#right");
+  const path = window.location.pathname;
+  const regex = /\/notification\/(\w+)\/(\w+)/;
+
+  let userCurrentPage = "";
+  let userMatches = "";
+  let userPurple = undefined;
+
+ 
+    userMatches = path.match(regex);
+    userCurrentPage = userMatches[2];
+    console.log("userCurrentPage是: " + userCurrentPage);
+    userPurple = document.querySelector(`#page${userCurrentPage}`);
+    userPurple.style.color = "#7949ff";
+    userPurple.style.backgroundColor = "#e9e1ff";
+    const userNextPage = parseInt(userCurrentPage) + 1;
+    const userPreviousPage = parseInt(userCurrentPage) - 1;
+
+
+  previousPage.addEventListener("click", function () {
+      if (parseInt(userCurrentPage) != 1) {
+        window.location.href = `/notification/${User_ID}/${userPreviousPage}`;
+      }  
+  });
+
+  nextPage.addEventListener("click", async function () {
+      if (parseInt(userCurrentPage) < pages.length) {
+        window.location.href = `/notification/${User_ID}/${userNextPage}`;
+      }
+  });
+//处理页码跳转
+  let pageThis = null;
+  for (let i = 0; i < pages.length; i++) {
+    pages[i].addEventListener("click", function () {
+        const toPage = pages[i].innerHTML;
+        window.location.href = `/notification/${User_ID}/${toPage}`;
+        pageThis = document.querySelector(`#${pages[i].id}`);
+     
+    });
+
+   
+      if (parseInt(pages[i].innerHTML) === parseInt(userCurrentPage)) {
+        const thisPageId = pages[i].id;
+        const pageThis = document.querySelector(`#${thisPageId}`);
+      }
+   
+  }
+  //Page function end here
 
 });

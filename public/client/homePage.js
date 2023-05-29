@@ -24,6 +24,8 @@ window.addEventListener("load", async function () {
   const navSignOut = document.querySelector("#navSignOut");
   const content = document.querySelectorAll(".partDiscription");
   const previousContent = document.querySelectorAll(".previousPartDiscription");
+  
+  //这个方法用于将文章展示区域的html标签转换为字符串
   for (let i = 0; i < content.length; i++) {
    content[i].innerHTML = content[i].innerText;
   }
@@ -208,7 +210,7 @@ if(User_ID){
   //鼠标移动到notification上显示下拉菜单
   navNotification.addEventListener("click", function () {
     console.log("navNotification clicked");
-    window.location.href = `/notification/${User_ID}`;
+    window.location.href = `/notification/${User_ID}/1`;
   });
 
 
@@ -250,7 +252,7 @@ if(User_ID){
   
   notificationMore.addEventListener("click", function () {
     console.log("notificationMore clicked");
-    window.location.href =  `/notification/${User_ID}`;
+    window.location.href =  `/notification/${User_ID}/1`;
   });
 }
 

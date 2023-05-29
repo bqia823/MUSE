@@ -17,9 +17,9 @@
                 <a href="/user_login"><span class="icon"><img src="/images/login-box-line.png" id="sign_in_icon"></span>Sign in</a>
             </li>
             {{#if hasUnreadNotifications}}
-            <li id="notification"><a href="/notification/{{user.User_ID}}"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a></li>
+            <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a></li>
             {{else}}
-            <li id="notification"><a href="/notification/{{user.User_ID}}"><span class="icon"><img src="/images/notification-pink.png" id="notification_icon"></span>Notifications</a></li>
+            <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-pink.png" id="notification_icon"></span>Notifications</a></li>
             {{/if}}
             <li id="profile"><a href="/profile/{{user.User_ID}}"><span class="icon"><img src="/images/{{user.Avatar}}" id="profile_icon"></span>My Profile</a></li> 
             <li id="create-article"><a href="/create_article"><span class="icon"><img src="/images/article-line.png" id="create_article_icon"></span>Create article</a></li> 
