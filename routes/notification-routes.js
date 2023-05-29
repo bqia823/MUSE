@@ -6,22 +6,56 @@ const notificationDao = require("../modules/notification-dao.js");
 const sarahNotificationDao = require("../modules/sarah-notifications-dao.js");
 
 // Handler for /notification route
-router.get('/notification/:User_ID', addUserToLocals,  async (req, res) => {
-    const userID = req.params.User_ID;
-    if(res.locals.user){
-        if(res.locals.user.User_ID == userID){
-        const notifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-        res.locals.notificationsList = notifications;
-        res.render('notification');
-        }else{
-            res.redirect('/');
+router.get(
+    "/notification/:User_ID/:page",
+    addUserToLocals,
+    async (req, res) => {
+      const userID = req.params.User_ID;
+      const page = parseInt(req.params.page);
+      const startIndex = (page - 1) * 15;
+      const endIndex = startIndex + 15;
+  
+      const allNotifications = await notificationDao.getAllNotificationByUserID(
+        res.locals.user.User_ID
+      );
+  
+      const slicedNotifications = allNotifications.slice(startIndex, endIndex);
+  
+      const totalPages = parseInt(allNotifications.length / 15) + 1;
+  
+      let pageBar = [];
+      if (totalPages <= 3) {
+        for (let i = 1; i <= totalPages; i++) {
+          pageBar.push(i);
         }
-    }else{
-        res.redirect('/');
+      } else if (totalPages > 3 && page + 2 <= totalPages) {
+        for (let i = 1; i < totalPages; i++) {
+          if (
+            i == page - 2 ||
+            i == page - 1 ||
+            i == page ||
+            i == page + 1 ||
+            i == page + 2
+          ) {
+            pageBar.push(i);
+          }
+        }
+      }
+  
+      res.locals.pages = pageBar;
+  
+      for (let i = 0; i < slicedNotifications.length; i++) {
+        const sender = await sarahNotificationDao.getSenderByNotificationID(
+          slicedNotifications[i].Notification_ID
+        );
+        slicedNotifications[i].Avatar = sender.Avatar;
+        slicedNotifications[i].userName = sender.Username;
+      }
+  
+      res.locals.notificationsList = slicedNotifications;
+      res.render("notification");
     }
-    
-});
-
+  );
 router.get("/notification_info/:notification_ID", addUserToLocals, async function(req, res) {
     console.log("entering notification route...");
     const notification_ID = req.params.notification_ID;
@@ -44,7 +78,9 @@ router.get("/notificationIsRead/:notification_ID", addUserToLocals, async functi
 router.get("/getNotificationInfoOnly/:notification_ID", addUserToLocals, async function(req, res) {
     console.log("entering getNotificationInfoOnly route...");
     const notification_ID = req.params.notification_ID;
+    
     const notification = await notificationDao.retrieveNotificationByID(notification_ID);
+    console.log("notification是： " + notification);
     res.json(notification);
 });
 
@@ -57,7 +93,7 @@ router.get("/delete-notification/:Notification_ID", addUserToLocals,  async (req
         if(res.locals.user.User_ID == receiverID.User_ID){
             console.log("進入刪除通知");
             await notificationDao.deleteOneNotification(notificationID);
-            res.redirect('/notification/' + res.locals.user.User_ID);
+            res.redirect('/notification/' + res.locals.user.User_ID + '/1');
         }else{
             res.redirect('/');
         }

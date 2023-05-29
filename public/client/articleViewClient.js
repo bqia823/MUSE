@@ -156,7 +156,7 @@ window.addEventListener("load", async function() {
           
           notificationMore.addEventListener("click", function () {
             console.log("notificationMore clicked");
-            window.location.href =  `/notification/${User_ID}`;
+            window.location.href =  `/notification/${User_ID}/1`;
           });
           
         // const response4 = await fetch(`/notification-list/${User_ID}`);

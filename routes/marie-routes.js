@@ -80,15 +80,19 @@ router.get("/profile/:id", addUserToLocals, async function(req, res) {
 //Check 有没有关注过这个人
 router.get("/checkIsFollowing/:authorID", addUserToLocals, async function(req, res) {
     console.log("进入checkIsFollowing");
-    const authorID = req.params.authorID;
-    console.log("authorID: ", authorID);
-    const User_ID = res.locals.user.User_ID;
-    console.log("userID: ", User_ID);
-    const isFollowing = await marieUserDao.checkIsFollowing(User_ID, authorID);
-    const message = {
-        isFollowing: isFollowing
+    if(res.locals.user){
+        const authorID = req.params.authorID;
+        console.log("authorID: ", authorID);
+        const User_ID = res.locals.user.User_ID;
+        console.log("userID: ", User_ID);
+        const isFollowing = await marieUserDao.checkIsFollowing(User_ID, authorID);
+        const message = {
+            isFollowing: isFollowing
+        }
+        res.json(message);
+    }else{
+        res.redirect("/home/visitor/1/publishTime");
     }
-    res.json(message);
     
 });
 

@@ -59,7 +59,20 @@ body{
   cursor: pointer;
 }
 
-
+#unReadComment {
+  position: relative;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  width: 15px;
+  height: 15px;
+  font-size: 1px;
+  font-weight: bold;
+  top: -30px;
+  left: 10px;
+  z-index: 1;
+}
 #icon-container {
   display: none;
   position: absolute;
