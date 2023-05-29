@@ -4,6 +4,7 @@ const router = express.Router();
 
 const createArticleDao = require("../modules/create-article-dao.js");
 const sarahNotificationDao = require("../modules/sarah-notifications-dao.js");
+const notificationDao = require("../modules/notification-dao.js");
 // const newArticleNotificationDao = require('../modules/notification-new-article-dao.js');
 
 const { addUserToLocals } = require("../middleware/auth-middleware.js");
@@ -16,6 +17,10 @@ const path = require("path");
 
 router.get("/create_article", addUserToLocals, async function (req, res) {
   console.log("enter create_article");
+  //get notification unread number渲染出未读通知数量
+  const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+  res.locals.unReadComment = allNotifications.length;
+
    // 获得三个提醒项
    if(res.locals.user){
     const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  

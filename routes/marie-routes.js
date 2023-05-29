@@ -19,6 +19,9 @@ router.get("/profile/:id", addUserToLocals, async function(req, res) {
    
     const userID = req.params.id;
     console.log("个人页面userID: ", userID);
+    //get notification unread number渲染出未读通知数量
+    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+    res.locals.unReadComment = allNotifications.length;
      // 获得三个提醒项
      if(res.locals.user){
         const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
@@ -62,6 +65,13 @@ router.get("/profile/:id", addUserToLocals, async function(req, res) {
         const subcriberCount = await marieUserDao.getSubcriberCount(userID);
         res.locals.followsCount = followsCount;
         res.locals.subcriberCount = subcriberCount;
+        //添加页码系统
+    
+        const page = parseInt(req.params.page);
+        const startIndex = (page - 1) * 15;
+        const endIndex = startIndex + 15;
+
+  
         res.render('profile', { 
         userProfile: userProfile.user,
         articles: userProfile.articles, // Pass the articles to the template

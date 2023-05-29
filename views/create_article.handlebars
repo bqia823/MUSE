@@ -11,7 +11,9 @@
         <ul class="navbar_functions">
             <li><a href="/"><span class="icon"><img src="/images/home.png" id="home_icon"></span>Home</a></li>
             {{#if hasUnreadNotifications}}
-            <li id="notification"><a href="/notification/{{user.User_ID}}"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a></li>
+            <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a>
+            <div id="unReadComment">{{unReadComment}}</div>
+            </li>
             {{else}}
             <li id="notification"><a href="/notification/{{user.User_ID}}"><span class="icon"><img src="/images/notification-pink.png" id="notification_icon"></span>Notifications</a></li>
             {{/if}}

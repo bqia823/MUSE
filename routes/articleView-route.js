@@ -34,7 +34,9 @@ router.get("/showComments", addUserToLocals, async function(req, res) {
 
 router.get("/articleView/:Article_ID", addUserToLocals, async function(req, res) {   
     console.log("entering article view...");
-    
+     //get notification unread number渲染出未读通知数量
+    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+    res.locals.unReadComment = allNotifications.length;
     const Article_ID = req.params.Article_ID;
     const article = await articleDao.getArticleByArticleID(Article_ID);
     res.locals.article = article; 

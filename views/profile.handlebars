@@ -15,7 +15,9 @@
                     <a href="/user_login"><span class="icon"><img src="/images/login-box-line.png" id="sign_in_icon"></span>Sign in</a>
                 </li>
                  {{#if hasUnreadNotifications}}
-                <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a></li>
+                <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a>
+                <div id="unReadComment">{{unReadComment}}</div>
+                </li>
                 {{else}}
                 <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-pink.png" id="notification_icon"></span>Notifications</a></li>
                 {{/if}}
@@ -100,14 +102,12 @@
                 </div>
             {{/each}}
 
-            <div id="pagesBar">
-                <div id="left" class="page">&lt;</div>
-                {{#if articles}}
-                {{#each pages}}
-                <div class="page" id="{{this.page}}">{{this.page}}</div>
-                {{/each}}
-                {{/if}}
-                <div class="page" id="right">&gt;</div>
+            <div class="pagenumber">
+            {{!-- <div id="left" class="page">&lt;</div>
+            {{#each pages}}
+            <div class="pages" id="page{{this}}">{{this}}</div>
+            {{/each}}
+            <div class="page" id="right">&gt;</div> --}}
             </div>
         </div>
      
@@ -127,8 +127,8 @@
                             
                         </div>
                         <div id="followAndFollowerDiv">
-                            <div id="followDiv"><a href="/followsList" id="followslink">Follows</a>: {{followsCount.[COUNT(*)]}}</div>
-                            <div id="subscriberDiv"><a href="/subscribersList" id="followerslink">Followers</a>: {{subcriberCount.[COUNT(*)]}}</div>
+                            <div id="followDiv"><a href="/followsList/1" id="followslink">Follows</a>: {{followsCount.[COUNT(*)]}}</div>
+                            <div id="subscriberDiv"><a href="/subscribersList/1" id="followerslink">Followers</a>: {{subcriberCount.[COUNT(*)]}}</div>
                         </div>
                     </div>
                 </div>
