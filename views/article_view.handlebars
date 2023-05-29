@@ -13,31 +13,59 @@
         <div class="navbar-functions">
             <ul>
                 
-                <li><a href="/"><span class="icon">🏠</span>Home</a></li>
-                {{#unless user}}
-                <li>
-                    <a href="/sign_in_page"><span class="icon"><img src="/images/login-box-line.png" id="sign_in_icon"></span>Sign in</a>
+                <li id="home"><a href="/"><span class="icon"><img src="/images/home.png" id="home_icon"></span>Home</a></li>
+          
+                <li id="sign-in">
+                    <a href="/user_login"><span class="icon"><img src="/images/login-box-line.png" id="sign_in_icon"></span>Sign in</a>
                 </li>
-                {{/unless}}
-                {{#if user}}
-                <li><a href="/notifications"><span class="icon">🔔</span>Notifications</a></li>
-                <li><a href="/profile"><span class="icon">👤</span>My Profile</a></li> 
-                <li><a href="/createArticle"><span class="icon"><img src="/images/article-line.png" id="create_article_icon"></span>Create article</a></li> 
-                <li><a href="/logout"><span class="icon">🚪</span>Sign Out</a></li>
-                {{/if}}
+         
+                {{#if hasUnreadNotifications}}
+            <li id="notification"><a href="/notification/{{user.User_ID}}"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a></li>
+            {{else}}
+            <li id="notification"><a href="/notification/{{user.User_ID}}"><span class="icon"><img src="/images/notification-pink.png" id="notification_icon"></span>Notifications</a></li>
+            {{/if}}
+                <li id="profile"><a href="/profile/{{user.User_ID}}"><span class="icon"><img src="/images/{{user.Avatar}}" id="profile_icon"></span>My Profile</a></li> 
+                <li id="create-article"><a href="/create_article"><span class="icon"><img src="/images/article-line.png" id="create_article_icon"></span>Create article</a></li> 
+                <li id="log-out"><a href="/logout"><span class="icon"><img src="/images/logout-box.png" id="logout_icon"></span>Sign Out</a></li>
+          
             </ul>
         </div>
     </nav>
+    {{!-- <div id="notificationpanel">
+       
+      
+    </div> --}}
+    <div id="icon-container">
+      <div id="notificationTop">Notification</div><span><strong>Unread notification: {{unreadNotificationsCount.count}}</strong></span>
+      <div id="notificationBottom">
+        {{#each notifications}}
+        <div class="notifications" id="notifications{{this.Notification_ID}}">
+            <div class="firstLine">
+              <div class="contentLine" >{{this.Content}}</div>
+            {{#unless this.Is_Read}}
+            <div class="red-dot"></div>
+            {{/unless}}
+          </div>
+          
+        <!-- 头像，用户名，发布时间 -->
+        <div class="senderInformation">{{this.Timestamp}}</div>
+      </div>
+      {{/each}}
+      <div id="notificationMore">More</div>
+    </div>
+  </div>
+
 <div id="container">
     <div id="articlepanel">
         <div class="banner">
             <div id="paneltitle">{{article.Title}}</div>
+            <button id="hidecommentpanel">Hide comments</button>
         </div>
         <div id="article">
             <div class="authorinfo">
                 <div class="articledetail">
                     <img src="/images/{{authorAvatar.Avatar}}" class="avatar">
-                    <a href="/authorpage" class="authorname">{{author.Username}}</a>
+                    <a href="/profile/{{article.User_ID}}" class="authorname">{{author.Username}}</a>
                     <span class="publishtime">Published on: {{article.Date}}</span>
                 </div>
                 <div id="likediv">
@@ -48,7 +76,10 @@
                 </div>
             </div>
             <div id="articletext">
-            {{article.Content}}
+            {{{article.Content}}}
+            </div>
+            <div id="articleImageDiv">
+                <img src="/uploadedFiles/{{article.Image}}" id="articleImage" alt="article image">
             </div>
                 {{#if isAuthor}}
                 <p></p>
@@ -61,63 +92,10 @@
             <div id="commenttitle">Comments</div>
         </div>
         <div id="numberofcomments">{{commentCount.[COUNT(*)]}}&nbsp;&nbsp;&nbsp;Comments</div>
-        {{#each commentArray}}
-         <div class="comment" id="{{this.User_ID}}">
-            <div class="commentorinfo">
-                <img src="/images/{{this.childAvatar.Avatar}}" class="avatar">
-                <a href="/authorpage" class="commentorname">{{this.childUsername.Username}}</a>
-                    <div class="commenttimestamp">Published on: {{this.Comment_Time}}</div>
-            </div>
-            <div class="commenttext">
-                {{this.Comment_Text}}
-            </div>
-          {{#if ../user}}
-            <div class="reply-remove-div">
-                <div class="replydiv">
-                    <img src="/images/comment.png" class="replyicon">
-                    <span class="reply">Reply</span>
-                
-                </div>
-                {{#ifCond this.User_ID ../user.User_ID}}
-                <div class="removediv">
-                {{!-- <img src="/images/deleteaccount.png" class="removeicon">
-                <a href="/remove" class="remove">Remove</a> --}}
-                </div>
-                {{/ifCond}}
-              
-            </div>
-          {{/if}}
-           {{!--一个父级评论的子评论区，这里可能会用到另一个#each循环，每一个循环的div的id是父评论ID-子评论ID--}}
-            <div class="subreply" id="{{this.Parent_Comment_ID}}-{{this.User_ID}}">
-                <img src="/images/boy1.png" class="childavatar">
-                <a href="/authorpage" class="childcommentname">UserName</a>
-                <div class="childcommenttime">Published on: 2013.08.26</div>
-                <div class="childcommenttext">
-                    comment text................
-                </div>
-                {{#if ../user}}
-                <div class="sub-reply-remove-div">
-                    <div class="sub-replydiv">
-                        <img src="/images/comment.png" class="sub-replyicon">
-                        <span class="sub-reply">Reply</span>
-                    
-                    </div>
-                    {{#ifCond this.User_ID ../user.User_ID}}
-                    <div class="sub-removediv">
-                        {{!-- <img src="/images/deleteaccount.png" class="sub-removeicon">
-                        <a href="/remove" class="sub-remove">Remove</a> --}}
-                    </div>
-                    {{/ifCond}}
-                </div>
-                {{/if}}
-            </div>
-
-            <div class="reply-text-div">
-
-            </div>
+        <div class="comment">
+            
         </div>
-        {{/each}}
-        
+    
      
         <div id="comment-textarea-div">
             <form action="/writecomment?Article_ID={{article.Article_ID}}" method="POST">

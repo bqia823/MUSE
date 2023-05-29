@@ -28,12 +28,30 @@ async function getAuthorAvatarByArticleID(Article_ID){
     `);
     return result;
   }
-  
 
+async function deleteAllArticlesForOneUser(userId) {
+    const db = await dbPromise;
+    // await db.run(SQL`
+    // DELETE FROM Comment WHERE Article_ID IN (SELECT Article_ID FROM Article WHERE User_ID = ${userId});
+    // `);
+    await db.run(SQL`
+    DELETE FROM Article WHERE User_ID = ${userId}
+    `);
+}
+//删除文章时，删除文章的所有数据
+async function deleteArticle(Article_ID) {
+    const db = await dbPromise;
+    await db.run(SQL`
+    DELETE FROM Article
+    WHERE Article_ID = ${Article_ID}
+    `);
+      }
 // Export functions.
 module.exports = {
     getArticleByArticleID,
     getAuthorNameByArticleID,
-    getAuthorAvatarByArticleID
+    getAuthorAvatarByArticleID,
+    deleteAllArticlesForOneUser,
+    deleteArticle
 };
   
