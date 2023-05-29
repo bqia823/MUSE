@@ -4,6 +4,7 @@ const router = express.Router();
 
 const sarahNotificationDao = require('../modules/sarah-notifications-dao.js');
 const editArticleDao = require('../modules/edit-article-dao.js');
+const notificationDao = require('../modules/notification-dao.js');
 const { addUserToLocals } = require('../middleware/auth-middleware.js');
 const upload = require('../middleware/multer-uploader.js'); // 导入 multer 上传中间件
 const fs = require('fs');
@@ -11,6 +12,10 @@ const path = require('path');
 
 
 router.get("/editArticle/:Article_ID", addUserToLocals, async function(req, res) {
+    //get notification unread number渲染出未读通知数量
+    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+    res.locals.unReadComment = allNotifications.length;
+
     const Article_ID = req.params.Article_ID;
     const article = await editArticleDao.getArticleById(Article_ID);
     if(res.locals.user){

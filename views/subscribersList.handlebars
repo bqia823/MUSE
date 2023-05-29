@@ -17,7 +17,9 @@
                 <a href="/user_login"><span class="icon"><img src="/images/login-box-line.png" id="sign_in_icon"></span>Sign in</a>
             </li>
             {{#if hasUnreadNotifications}}
-            <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a></li>
+            <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a>
+            <div id="unReadComment">{{unReadComment}}</div>
+            </li>
             {{else}}
             <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-pink.png" id="notification_icon"></span>Notifications</a></li>
             {{/if}}
@@ -59,8 +61,8 @@
             </div>
 
             
-                {{#each subscribersList}}
-                <a href="profile/{{this.User_ID}}"><div id="fansDisplayBar">
+                {{#each slicedSubscribersList}}
+                <a href="/profile/{{this.User_ID}}"><div id="fansDisplayBar">
                 {{!-- <form action="subscribersList/{{this.User_ID}}" method="GET"> --}}
                 
                     <div class="fansInfomation">
@@ -74,14 +76,12 @@
             </div>
         </div>
 
-        <div id="pagesBar">
-            <!-- need to get article from datebase, give one example of displayed pages here-->
-            <div id="left" class="page">&lt;</div>
-            <!-- 这里的pages是获得全部的页数(article size/15 + 1)，再服务器端判断一共有几页以选择呈现形式 -->
-            {{#each pages}}
-            <div class="pages" id="page{{this}}">{{this}}</div>
-            {{/each}}
-            <div class="page" id="right">&gt;</div>
-        </div>
+        <div class="pagenumber">
+        <div id="left" class="page">&lt;</div>
+        {{#each pages}}
+          <div class="pages" id="page{{this}}">{{this}}</div>
+        {{/each}}
+        <div class="page" id="right">&gt;</div>
+      </div>
     </div>
 </div>

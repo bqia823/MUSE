@@ -99,7 +99,7 @@ window.addEventListener('load', async function() {
  const previousPage = document.querySelector("#left");
  const nextPage = document.querySelector("#right");
  const path = window.location.pathname;
- const regex = /\/subscribersList\/(\w+)/;
+ const regex = /\/followsList\/(\w+)/;
 
  let userCurrentPage = "";
  let userMatches = "";
@@ -118,13 +118,13 @@ window.addEventListener('load', async function() {
 
  previousPage.addEventListener("click", function () {
      if (parseInt(userCurrentPage) != 1) {
-       window.location.href = `/subscribersList/${userPreviousPage}`;
+       window.location.href = `/followsList/${userPreviousPage}`;
      }  
  });
 
  nextPage.addEventListener("click", async function () {
      if (parseInt(userCurrentPage) < pages.length) {
-       window.location.href = `/subscribersList/${userNextPage}`;
+       window.location.href = `/followsList/${userNextPage}`;
      }
  });
 //处理页码跳转
@@ -132,7 +132,7 @@ window.addEventListener('load', async function() {
  for (let i = 0; i < pages.length; i++) {
    pages[i].addEventListener("click", function () {
        const toPage = pages[i].innerHTML;
-       window.location.href = `/subscribersList/${toPage}`;
+       window.location.href = `/followsList/${toPage}`;
        pageThis = document.querySelector(`#${pages[i].id}`);
     
    });

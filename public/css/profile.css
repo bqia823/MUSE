@@ -114,6 +114,20 @@ margin-right: 5px;
   background-color: red;
   border-radius: 50%;
 }
+#unReadComment {
+  position: relative;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  width: 15px;
+  height: 15px;
+  font-size: 1px;
+  font-weight: bold;
+  top: -30px;
+  left: 10px;
+  z-index: 1;
+}
 .senderInformation{
   margin-left: 5px;
 }
@@ -160,6 +174,7 @@ justify-content: space-between;
 .article,
 .notification {
 margin-top: 20px;
+margin-left: 40px;
 width: 90%;
 background-color: #fff6ed;
 margin-bottom: 10px;
@@ -234,29 +249,40 @@ margin: 0 5px;
 }
 
 /* Pagebar Section */
-#pagesBar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+.pagenumber {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  }
-  
-  .page {
-  margin: 0 5px;
-  padding: 5px;
-  background-color: #eee;
-  cursor: pointer;
-  }
-  
-  .page:hover {
+  margin: 5px;
+}
+
+.page {
+  border: 1px solid #bebebe;
+  border-radius: 4px;
+  margin: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.page:hover {
   background-color: #e9e1ff;
   color: #7949ff;
-  
-  }
+}
+
+.pages {
+  border: 1px solid #bebebe;
+  border-radius: 4px;
+  margin: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.pages:hover {
+  background-color: #e9e1ff;
+  color: #7949ff;
+}
+
   
   .deleteArticleWindow {  
     display: none;
