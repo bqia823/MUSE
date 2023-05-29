@@ -318,6 +318,7 @@ if(res.locals.user){
 }
 });
 
+
 // Route handler for rendering the edit account page
 router.get("/edit-account", async function(req, res) {
     console.log("entering /edit-account...");
@@ -391,6 +392,7 @@ router.post("/edit_account", async function (req, res) {
 //         res.status(500).send('Internal Server Error');
 //     }
 // });
+
 
 
 // Route handler for histogram

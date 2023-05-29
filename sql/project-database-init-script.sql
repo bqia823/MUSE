@@ -71,12 +71,6 @@ CREATE TABLE Notification (
 );
 
 CREATE TABLE Article_Like (
-    User_ID INT,
-    Article_ID INT,
-    PRIMARY KEY (User_ID, Article_ID),
-    FOREIGN KEY (User_ID) REFERENCES User(User_ID),
-    FOREIGN KEY (Article_ID) REFERENCES Article(Article_ID)
-CREATE TABLE Article_Like (
     User_ID INTEGER,
     Article_ID INTEGER,
     PRIMARY KEY (User_ID, Article_ID),
