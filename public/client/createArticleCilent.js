@@ -10,7 +10,7 @@ window.addEventListener("load", async function () {
     // const editor = document.querySelector("#editor");
     //  editor.setAttribute("contenteditable", true);
     
-    const notificationBtn = document.querySelector("#notificationBtn");
+    const notificationBtn = document.querySelector("#notification");
     const newContent = document.querySelector("#icon-container");
     const notifications = document.querySelectorAll(".notifications");
     if(User_ID){
