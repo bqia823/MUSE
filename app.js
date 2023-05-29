@@ -7,7 +7,6 @@
 // Setup Express
 const express = require("express");
 const session = require('express-session');  
-const authRoutes = require('./routes/auth-routes');
 const app = express();
 const port = 3000;
 
@@ -27,7 +26,6 @@ app.use(session({
     saveUninitialized: false
 }));
 
-app.use('/', authRoutes);
 // Setup cookie-parser
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());

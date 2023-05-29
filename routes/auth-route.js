@@ -55,7 +55,7 @@ router.post("/user_login", async function (req, res) {
 router.get("/logout", function (req, res) {
     res.clearCookie("authToken");
     res.locals.user = null;
-    res.redirect("./user_login");
+    res.redirect("/");
 });
 
 router.get("/create-account", function (req, res) {
