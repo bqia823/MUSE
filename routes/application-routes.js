@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+
 const { v4: uuid } = require("uuid");
 
 const articleDao = require("../modules/article-dao.js");
@@ -25,6 +26,7 @@ router.get("/user_info", addUserToLocals, async function(req, res) {
       }
       res.json(user);
   }
+
 });
 
 router.get("/", addUserToLocals, function (req, res) {

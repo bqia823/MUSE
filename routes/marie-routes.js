@@ -300,6 +300,7 @@ router.get("/analytics", addUserToLocals, async (req, res) => {
 });
 
 
+
 // Get Top Three Articles
 router.get('/api/top-articles', addUserToLocals, async (req, res) => {
 console.log("entering /api/top-articles...");
@@ -316,6 +317,83 @@ if(res.locals.user){
     res.redirect("/");
 }
 });
+
+
+// Route handler for rendering the edit account page
+router.get("/edit-account", async function(req, res) {
+    console.log("entering /edit-account...");
+    res.locals.title = "Edit Account";
+  
+    try {
+      // Retrieve the user profile data
+      const userID = 1; // Testing with the actual user ID
+      const userProfile = await userDao.getUserProfile(userID);
+  
+      // Render the edit account page template and pass the user profile data
+      res.render('edit_account', {
+        userProfile: userProfile.user
+      });
+    } catch (error) {
+      console.error('Error in /edit-account route:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+router.post("/edit_account", async function (req, res) {
+    console.log("entering /edit_account...");
+    res.locals.title = "Edit Account";
+
+    try {
+      // Retrieve the form data
+      const userProfileData = {
+        username: req.body.username,
+        description: req.body.Brief_Description,
+        password: req.body.password,
+        birthdate: req.body.birthdate,
+        idname: req.body.idname,
+        icon: req.body.icon,
+      };
+  
+      // Update the user profile
+      await userDao.updateUserProfile(1, userProfileData); // Assuming the user ID is 1 for testing purposes
+      console.log('User Profile Data:', userProfileData);
+  
+      res.setToastMessage("User profile updated successfully");
+      res.redirect("/profile");
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      res.setToastMessage("Failed to update user profile");
+      res.redirect("/profile");
+    }
+  });
+
+// router.post("/edit_account", async function(req, res) {
+//     const userID = 1; // test with the actual user ID
+
+//     // Retrieve the updated user profile data from the form
+//     const updatedProfile = {
+//         id: userID,
+//         username: req.body.username,
+//         description: req.body.description,
+//         confirmpassword: req.body.confirmpassword,
+//         password: req.body.password,
+//         birthdate: req.body.birthdate,
+//         idname: req.body.idname,
+//         icon: req.body.icon
+//     };
+
+//     // Update the user profile in the database
+//     try {
+//         await userDao.updateUserProfile(updatedProfile);
+//         res.setToastMessage("User profile updated successfully!");
+//         res.redirect("/profile");
+//     } catch (error) {
+//         console.error('Error updating user profile:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
+
+
 
 // Route handler for histogram
 router.get('/comments-per-day', addUserToLocals, async (req, res) => {
