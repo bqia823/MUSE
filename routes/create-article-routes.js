@@ -2,6 +2,7 @@ const { v4: uuid } = require("uuid");
 const express = require("express");
 const router = express.Router();
 
+const articleDao = require("../modules/article-dao.js");
 const createArticleDao = require("../modules/create-article-dao.js");
 const sarahNotificationDao = require("../modules/sarah-notifications-dao.js");
 const notificationDao = require("../modules/notification-dao.js");
@@ -17,9 +18,9 @@ const path = require("path");
 
 router.get("/create_article", addUserToLocals, async function (req, res) {
   console.log("enter create_article");
-  //get notification unread number渲染出未读通知数量
-  const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-  res.locals.unReadComment = allNotifications.length;
+  // //get notification unread number渲染出未读通知数量
+  // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+  // res.locals.unReadComment = allNotifications.length;
 
    // 获得三个提醒项
    if(res.locals.user){
@@ -77,17 +78,21 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
       // res.setToastMessage("Title and content cannot be empty!");
       res.json({ success: false, message: 'Title and content cannot be empty!' });
     } else {
+      
       await createArticleDao.createArticle(article);
 
       //加入notification功能
+      const authorUserName = await articleDao.getAuthorNameByArticleID(article.Article_ID);
+      console.log("authorUserName: ", authorUserName);
       const followers = await getFollowersByUserID(article.User_ID);
       for (const follower of followers) {
         const notification = {
-          Content: "Your subcribed author has a new article posted!",
+          Content: `Your subscribed author ${authorUserName.Username} has a new article posted!`,
           Is_Read: true,
           Sender_ID: article.User_ID,
           Receiver_ID: follower, // follower就是关注者（订阅者）的ID
-          Notification_Type: "article_posted",
+          NotificationType: "article_posted",
+          Article_ID: article.Article_ID,
         };
         await createArticleDao.createNotificationWhenPublishNewArticle(notification);
       }

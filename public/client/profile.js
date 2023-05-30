@@ -111,7 +111,10 @@ window.addEventListener('load', async function() {
                 }else if(notification_info.NotificationType == "Follow"){
                     const profileID = notification_info.Sender_ID;
                     window.location.href =  `/profile/${profileID}`;
-                }
+                }else if(notification_info.NotificationType == "article_posted"){
+                  const articleID = notification_info.Article_ID;
+                  window.location.href =  `/articleView/${articleID}`;
+              }
             });
           }
           const notificationMore = document.querySelector("#notificationMore");

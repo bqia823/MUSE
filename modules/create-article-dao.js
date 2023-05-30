@@ -4,22 +4,24 @@ const dbPromise = require("./database.js");
 async function createArticle(article) {
   const db = await dbPromise;
 
-  await db.run(SQL`
+  const result = await db.run(SQL`
         INSERT INTO Article (Title, Content, Image, Likes_Count, User_ID)
         VALUES (${article.Title}, ${article.Content}, ${article.Image}, ${article.Likes_Count}, ${article.User_ID})`);
+  article.Article_ID = result.lastID;
 }
 
 async function createNotificationWhenPublishNewArticle(notification) {
   const db = await dbPromise;
 
   const result = await db.run(SQL`
-        INSERT INTO Notification (Content, Is_Read, Sender_ID, Receiver_ID, NotificationType)
+        INSERT INTO Notification (Content, Is_Read, Sender_ID, Receiver_ID, NotificationType, Article_ID)
         VALUES (
             ${notification.Content},
             ${notification.Is_Read},
             ${notification.Sender_ID},
             ${notification.Receiver_ID},
-            ${notification.NotificationType}
+            ${notification.NotificationType},
+            ${notification.Article_ID}
         )
     `);
 

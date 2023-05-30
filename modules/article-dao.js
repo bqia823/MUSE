@@ -11,13 +11,16 @@ async function getArticleByArticleID(Article_ID){
 
 
 async function getAuthorNameByArticleID(Article_ID){
+    console.log("getAuthorNameByArticleID的Article_ID是" + Article_ID);
     const db = await dbPromise;
     const result = await db.get(SQL`
     SELECT Username 
     FROM User 
     WHERE User_ID = (SELECT User_ID FROM Article WHERE Article_ID = ${Article_ID})
     `);
+  
     return result;
+    
 }
 async function getAuthorAvatarByArticleID(Article_ID){
     const db = await dbPromise;

@@ -13,9 +13,9 @@ const path = require('path');
 
 router.get("/editArticle/:Article_ID", addUserToLocals, async function(req, res) {
     console.log("editArticle路由");
-    //get notification unread number渲染出未读通知数量
-    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-    res.locals.unReadComment = allNotifications.length;
+    // //get notification unread number渲染出未读通知数量
+    // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+    // res.locals.unReadComment = allNotifications.length;
 
     const Article_ID = req.params.Article_ID;
     const article = await editArticleDao.getArticleById(Article_ID);
