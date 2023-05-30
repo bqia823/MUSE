@@ -201,6 +201,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid rgba(240,240,240,1);
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
 }
 
 .textpassword {
