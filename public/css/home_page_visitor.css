@@ -127,6 +127,10 @@ body{
   margin-top: 10px;
   font-size: 25px;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width:500px;
 }
 
 .displayTitle:hover{

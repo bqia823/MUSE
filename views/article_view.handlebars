@@ -64,7 +64,8 @@
             <button id="hidecommentpanel">Hide comments</button>
         </div>
         <div id="article">
-            <div class="authorinfo">
+            <div id="parentEditArticle">
+                 <div class="authorinfo">
                 <div class="articledetail">
                     <img src="/images/{{authorAvatar.Avatar}}" class="avatar">
                     <a href="/profile/{{article.User_ID}}" class="authorname">{{author.Username}}</a>
@@ -77,15 +78,17 @@
                 <span id="likenumber">{{article.Likes_Count}}</span>
                 </div>
             </div>
-            <div id="articletext">
-            {{{article.Content}}}
-            </div>
+            {{#if article.Image}}
             <div id="articleImageDiv">
                 <img src="/uploadedFiles/{{article.Image}}" id="articleImage" alt="article image">
             </div>
-                {{#if isAuthor}}
-                <p></p>
-                {{/if}}
+            {{/if}}
+            <div id="articletext">
+            {{{article.Content}}}
+            </div>
+            </div>
+            
+            <div id="editArticle">Edit</div>
                
             </div>   
     </div>

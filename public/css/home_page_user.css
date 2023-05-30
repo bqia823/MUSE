@@ -246,6 +246,10 @@ body{
   margin-top: 10px;
   font-size: 25px;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width:500px;
 }
 .displayTitle:hover{
   color:#87cba2
@@ -359,16 +363,19 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   background-color: #ffffff;
   box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.25);
   margin-left: 15px;
   margin-right: 15px;
   overflow: auto;
   width: 90%;
-
-
+  height: 1000px;
   border: 10px #7949ff;
+}
+
+#titleAndList{
+  width: 100%;
 }
 
 #previousArticlesTitle {
@@ -376,13 +383,15 @@ body{
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
   background-color: #87cba2;
-  width: 400px;
+  /* width: 400px; */
+  width:100%;
   height: 83px;
   text-align: center;
   font-style: normal;
   font-weight: 400;
   font-size: 32px;
   line-height: 22px;
+  
 }
 
 .previousArticlesList {
@@ -402,9 +411,15 @@ body{
 }
 .previousDisplayTitle{
   font-size: large;
+  font-weight:bold;
   margin-left: 10px;
   margin-top: 10px;
+  padding-right: 10px;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+ 
 }
 .previousUserUsername{
   font-size: medium;
@@ -461,10 +476,15 @@ body{
   justify-content: center;
   width: 80%;
   padding: 10px;
+  margin-bottom: 20px;
   cursor: pointer;
 
 }
-
+#noPreviousArticles{
+  font-size: 20px;
+  margin-top: 30px;
+  text-align: center;
+}
 #more:visited {
   color: inherit;
 }

@@ -104,8 +104,8 @@
 
     <!--  JavaScript 代码 -->
     <script>
-        $(document).ready(function () {
-            $('form').on('submit', function (event) {
+        $(document).ready(async function () {
+            $('form').on('submit', async function (event) {
                 const content = document.getElementById('editor').innerHTML;
                 document.getElementById('hiddenContent').value = content;
                 event.preventDefault(); // 阻止表单的默认提交事件
@@ -115,12 +115,17 @@
                     data: new FormData(this), // 创建一个 FormData 对象，包含表单的数据
                     processData: false, // 告诉 jQuery 不要处理发送的数据
                     contentType: false, // 告诉 jQuery 不要设置 Content-Type 请求头
-                    success: function (data) {
+                    success: async function (data) {
                         // 请求成功的处理逻辑
                         // data 参数是服务器返回的响应
                         if (data.success) {
                             alert('You have successfully published the article!');
-                            location.reload();
+                            //location.reload();
+                            //window.location.href =  `/profile/${profileID}`;
+                            const reponse = await fetch('/directToArticlePageAfterPublish');
+                            const latestArticle = await reponse.json();
+                            console.log("latestArticle 是" + latestArticle.Article_ID);
+                            window.location.href =  `/articleView/${latestArticle.Article_ID}`;
                         } else {
                             alert('You have failed to publish the article!');
                         }

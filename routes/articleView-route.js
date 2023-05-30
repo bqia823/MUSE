@@ -34,14 +34,13 @@ router.get("/showComments", addUserToLocals, async function(req, res) {
 
 router.get("/articleView/:Article_ID", addUserToLocals, async function(req, res) {   
     console.log("entering article view...");
-     //get notification unread number渲染出未读通知数量
-    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-    res.locals.unReadComment = allNotifications.length;
+
     const Article_ID = req.params.Article_ID;
     const article = await articleDao.getArticleByArticleID(Article_ID);
     res.locals.article = article; 
     res.locals.author = await articleDao.getAuthorNameByArticleID(Article_ID);
     res.locals.authorAvatar = await articleDao.getAuthorAvatarByArticleID(Article_ID);
+    
     //显示点赞状态
     const likerIDArray = await likeDao.getLikerByArticleID(Article_ID);
     if(res.locals.user){     
@@ -61,6 +60,10 @@ router.get("/articleView/:Article_ID", addUserToLocals, async function(req, res)
 
     // 获得三个提醒项
     if(res.locals.user){
+        //get notification unread number渲染出未读通知数量
+        const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+        res.locals.unReadComment = allNotifications.length;
+
         const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
         for (let i = 0; i < notifications.length; i++) {
         notifications[i].userInformation =
@@ -75,6 +78,8 @@ router.get("/articleView/:Article_ID", addUserToLocals, async function(req, res)
             console.log("有未读通知");
             res.locals.hasUnreadNotifications = true;
             }
+        
+
         res.locals.notifications = notifications;
     }
 

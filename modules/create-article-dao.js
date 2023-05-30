@@ -37,8 +37,18 @@ async function getFollowersByUserID(User_ID) {
   return results.map((row) => row.Subscriber_ID);
 }
 
+async function getLatestArticleByUserID(User_ID) {
+  const db = await dbPromise;
+  const result = await db.get(SQL`
+  SELECT * FROM Article WHERE User_ID = ${User_ID} ORDER BY Date DESC LIMIT 1
+  `);
+  return result;
+}
+
+
 module.exports = {
   createArticle,
   createNotificationWhenPublishNewArticle,
   getFollowersByUserID,
+  getLatestArticleByUserID
 };

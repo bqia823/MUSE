@@ -148,9 +148,10 @@ body {
   }
   
   .title_text {
-    width: 90%; 
+    width: 98.7%; 
     padding: 10px;
     border: 1px solid #c4c4c4;
+    margin-top: 20px;
   }
   
   #editor {

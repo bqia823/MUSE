@@ -26,9 +26,9 @@
             </div>
             <div id="sortList">
               <select id="sortOptions" name="sortOptions">
-                <option value="publishTime" selected>publish time</option>
-                <option value="authorName">author name</option>
-                <option value="articleTitle">article title</option>
+                <option value="publishTime" {{publishTimeSelect}}>publish time</option>
+                <option value="authorName" {{authorNameSelect}}>author name</option>
+                <option value="articleTitle" {{articleTitleSelect}}>article title</option>
               </select>
             </div>
           </div>
@@ -62,7 +62,7 @@
               </div>
              
               <div class="authorInformation">
-                <div class="userClick" id="user{{this.Article_ID}}">
+                <div class="userClick" id="user{{this.User_ID}}">
                   <div class="authorLine"><img class="userImage" src="/images/{{this.userInformation.Avatar}}" class="avatar"></div>
                   <div class="authorLine" id="{{this.userInformation.Username}}">{{this.userInformation.Username}}</div>
                 </div>

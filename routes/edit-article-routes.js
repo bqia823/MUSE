@@ -42,37 +42,49 @@ router.get("/editArticle/:Article_ID", addUserToLocals, async function(req, res)
             res.locals.hasUnreadNotifications = true;
             }
         res.locals.notifications = notifications;
-    
-    
-    res.render("edit_article");
-} else {
+    }else {
     res.redirect("/user_login");
-}
+    }
+    console.log("进入" + Article_ID + "路由");
+    console.log("article的内容", article);
+    res.locals.article = article;
+    // console.log("article的图片", article.Image);
+    res.render("edit_article");
+
 });
 
 
 router.post ("/editArticle/:Article_ID", addUserToLocals, upload.single('imageFile'), async function (req, res) {
     console.log("publishArticle路由");
-    
+    console.log("req.body.content", req.body.content);
     let articleID = req.params.Article_ID;;
     if(res.locals.user){
         console.log("articleID", articleID);
+
+        let imageName;
+        if (req.file) {
         const fileInfo = req.file;
         const oldFileName = fileInfo.path;
         const newFileName = `./public/uploadedFiles/${fileInfo.originalname}`;
         console.log(newFileName);
         fs.renameSync(oldFileName, newFileName);
+            imageName = path.basename(newFileName);
+            res.locals.fileName = fileInfo.originalname;
+        } else {
+            const currentArticle = await editArticleDao.getArticleById(articleID);
+            imageName = currentArticle.Image;
+        }
 
         const article = {
             Article_ID: articleID,
             Title: req.body.title,
             Content: req.body.content,
-            Image: fileInfo.originalname,  // 使用上传后的文件名作为 Image 属性的值
+            Image: imageName,
             Likes_Count: 0,
-            User_ID: 1 //*这里需要改成当前用户的ID
+            User_ID: res.locals.user.User_ID 
         } 
     
-        res.locals.fileName = fileInfo.originalname;
+       
     
 
         if (article.Title.length == 0 && article.Content.length == 0) {

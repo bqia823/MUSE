@@ -145,10 +145,14 @@ async function followUser(followerId, userId) {
 
     // Insert into Notification table
     // const uniqueNotificationId = Date.now(); 
+      //get the followerUsername by followerId
+    const follower = await db.get(SQL`
+    SELECT * FROM User WHERE User_ID = ${followerId}
+    `);
 
     const notificationQuery = `
     INSERT INTO Notification (Content, Timestamp, Is_Read, Sender_ID, Receiver_ID, NotificationType, Article_ID) 
-    VALUES ('User ${followerId} has started following you', CURRENT_TIMESTAMP, 0, ${followerId}, ${userId}, 'Follow', NULL)
+    VALUES ('User ${follower.Username} has started following you', CURRENT_TIMESTAMP, 0, ${followerId}, ${userId}, 'Follow', NULL)
     `;
     await db.run(notificationQuery);
     console.log(`Notification created successfully!`);

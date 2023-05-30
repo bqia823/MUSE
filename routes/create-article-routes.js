@@ -48,6 +48,10 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
     console.log("enter createArticle");
     const userID = req.params.User_ID;
     const fileInfo = req.file;
+    let imageName = ""; // 默认图片名为空
+  
+    // 如果用户上传了图片
+    if(fileInfo){
     console.log("fileInfo: ", fileInfo);
     const oldFileName = fileInfo.path;
     const newFileName = `./public/uploadedFiles/${fileInfo.originalname}`;
@@ -55,21 +59,23 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
     console.log("fileInfo.originalname: ", fileInfo.originalname);
     console.log("oldFileName: ", oldFileName);
     console.log("newFileName: ", newFileName);
+    imageName = fileInfo.originalname; // 使用上传后的文件名作为 Image 属性的值
+  }
     const article = {
-      // Article_ID: uuid(),
       Title: req.body.title,
       Content: req.body.content,
-      Image: fileInfo.originalname, // 使用上传后的文件名作为 Image 属性的值
+      Image: imageName, // 使用上传后的文件名作为 Image 属性的值
       Likes_Count: 0,
       User_ID: userID,
     };
 
-    res.locals.fileName = fileInfo.originalname;
+    res.locals.fileName = imageName;
     
 
-    if (article.Title.length == 0 && article.Content.length == 0) {
+    //如果标题或内容为空，不允许发布文章
+  if (article.Title.trim().length == 0 || article.Content.trim().length == 0) {
       // res.setToastMessage("Title and content cannot be empty!");
-      res.json({ success: false });
+      res.json({ success: false, message: 'Title and content cannot be empty!' });
     } else {
       await createArticleDao.createArticle(article);
 
@@ -77,7 +83,7 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
       const followers = await getFollowersByUserID(article.User_ID);
       for (const follower of followers) {
         const notification = {
-          Content: "我发布了一篇新文章，快来看看",
+          Content: "Your subcribed author has a new article posted!",
           Is_Read: true,
           Sender_ID: article.User_ID,
           Receiver_ID: follower, // follower就是关注者（订阅者）的ID
@@ -91,5 +97,16 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
     }
   }
 );
+
+router.get("/directToArticlePageAfterPublish", addUserToLocals, async function (req, res) {
+  console.log("enter directToArticlePageAfterPublish");
+  if(res.locals.user){
+    const latestArticle = await createArticleDao.getLatestArticleByUserID(res.locals.user.User_ID);
+    // const articleID = latestArticle.Article_ID;
+    res.json(latestArticle);
+  }else{
+    res.redirect("/user_login");
+  }
+});
 
 module.exports = router;
