@@ -3,9 +3,11 @@ const dbPromise = require("./database.js");
 
 async function createComment(comment) {
   const db = await dbPromise;
+  // const currentDate = new Date();
+  // const options = { hour12: true };
+  // const formattedDate = currentDate.toLocaleString('en-US', options);
   const currentDate = new Date();
-  const options = { hour12: true };
-  const formattedDate = currentDate.toLocaleString('en-US', options);
+  const formattedDate = currentDate.toISOString().slice(0, 19).replace('T', ' ');
 
   const result = await db.run(SQL`
   INSERT INTO Comment (Comment_Text, Comment_Time, Article_ID, User_ID, Parent_Comment_ID) 
@@ -118,6 +120,13 @@ async function removeUsersAllComments(userId) {
   DELETE FROM Comment WHERE Article_ID = ${articleId}
   `);
 }
+//删除文章时，删除发表文章的发出的所有notification
+async function removeArticlesAllNotifications(articleId) {
+  const db = await dbPromise;
+  await db.run(SQL`
+  DELETE FROM Notification WHERE Article_ID = ${articleId}
+  `);
+}
 
 //=======================================================
 
@@ -133,6 +142,7 @@ module.exports = {
   getUserIDByCommentID,
   removeUsersAllComments,
   removeArticlesAllComments,
+  removeArticlesAllNotifications
 
 
 

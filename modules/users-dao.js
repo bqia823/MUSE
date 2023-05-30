@@ -132,13 +132,62 @@ async function retrieveAllUsers() {
  * @param user the user to update
  */
 async function updateUser(user) {
+    try {
     const db = await dbPromise;
 
-    await db.run(SQL`
-        update User
-        set Username = ${user.Username}, Password = ${user.Password}, authToken = ${user.authToken}
-        where User_ID = ${user.User_ID}`);
+        let updateString = 'update User set ';
+        let updateValues = [];
+
+        if (user.Username !== undefined) {
+            updateString += 'Username = ?, ';
+            updateValues.push(user.Username);
+        }
+
+        if (user.Password !== undefined) {
+            updateString += 'Password = ?, ';
+            updateValues.push(user.Password);
+        }
+
+        if (user.Real_Name !== undefined) {
+            updateString += 'Real_Name = ?, ';
+            updateValues.push(user.Real_Name);
+        }
+
+        if (user.Date_Of_Birth !== undefined) {
+            updateString += 'Date_Of_Birth = ?, ';
+            updateValues.push(user.Date_Of_Birth);
+        }
+
+        if (user.Brief_Description !== undefined) {
+            updateString += 'Brief_Description = ?, ';
+            updateValues.push(user.Brief_Description);
+        }
+
+        if (user.Avatar !== undefined) {
+            updateString += 'Avatar = ?, ';
+            updateValues.push(user.Avatar);
+        }
+
+        if (user.authToken !== undefined) {
+            updateString += 'authToken = ?, ';
+            updateValues.push(user.authToken);
+        }
+
+        // Remove the last comma and space
+        updateString = updateString.slice(0, -2);
+        
+        updateString += ' where User_ID = ?';
+        updateValues.push(user.User_ID);
+
+        await db.run(updateString, updateValues);
+
+    } catch (error) {
+        console.error('Error in updateUser:', error);
+        throw error;
+    }
 }
+
+
 
 /**
  * Deletes the user with the given id from the database.

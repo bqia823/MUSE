@@ -165,25 +165,46 @@ router.get("/", addUserToLocals, function (req, res) {
     const totalPages = parseInt(allArticles.length / 15) + 1;
     console.log(`total page is ${totalPages}`);
   
+    // let pageBar = [];
+    // if (totalPages <= 3) {
+    //   for (let i = 1; i <= totalPages; i++) {
+    //     pageBar.push(i);
+    //   }
+    // } else if (totalPages > 3 && page + 2 <= totalPages) {
+    //   for (let i = 1; i < totalPages; i++) {
+    //     if (
+    //       i == page - 2 ||
+    //       i == page - 1 ||
+    //       i == page ||
+    //       i == page + 1 ||
+    //       i == page + 2
+    //     ) {
+    //       pageBar.push(i);
+    //     }
+    //   }
+    // }
     let pageBar = [];
-    if (totalPages <= 3) {
+
+    if (totalPages <= 5) {
+      // If there are 5 or less pages, just show all pages.
       for (let i = 1; i <= totalPages; i++) {
         pageBar.push(i);
       }
-    } else if (totalPages > 3 && page + 2 <= totalPages) {
-      for (let i = 1; i < totalPages; i++) {
-        if (
-          i == page - 2 ||
-          i == page - 1 ||
-          i == page ||
-          i == page + 1 ||
-          i == page + 2
-        ) {
-          pageBar.push(i);
-        }
+    } else {
+      // If there are more than 5 pages, we need to decide what to show.
+      
+      // Determine the start of the range:
+      let startPage = Math.max(1, page - 2);
+      
+      // Adjust startPage if we are near the end:
+      startPage = Math.min(startPage, totalPages - 4);
+    
+      // Now we add 5 pages to the page bar, from startPage to startPage + 4:
+      for (let i = 0; i < 5; i++) {
+        pageBar.push(startPage + i);
       }
     }
-  
+    
     res.locals.pages = pageBar;
   
     //Getting three most rescent notifications

@@ -1,9 +1,11 @@
 window.addEventListener('load', async function() {
     console.log('profile Window loaded.');
     //获取当前用户信息
+    console.log('准备进入/user_info 路由');
     const response1 = await fetch("/user_info");
     const user_info = await response1.json();
     const User_ID = user_info.User_ID;
+    console.log('User_info得出User_ID: ', User_ID);
     //判断用户是否登录，如果登录，显示导航条上的部分内容
     const homeBtn = document.querySelector("#home");
     const signInBtn = document.querySelector("#sign-in");
@@ -40,8 +42,10 @@ window.addEventListener('load', async function() {
     const userFollowsDiv = document.querySelector('.user-follows');
     if(User_ID != profileID){
       //显示follow按钮的状态
+      console.log("准备进入checkIsFollowing路由");
       const response6 = await fetch(`/checkIsFollowing/${profileID}`);
       const isFollowing = await response6.json();
+      console.log('checkisfollow路由得出isfollowing是: ', isFollowing);
       if(isFollowing.isFollowing == true){
         followButton.innerHTML = "Unfollow";
         followButton.classList.remove('follow');
@@ -67,7 +71,8 @@ window.addEventListener('load', async function() {
     //判断当前用户是否是当前页面的用户，如果不是，阻止超链接跳转
     const followslink = document.querySelector("#followslink");
     const followerslink = document.querySelector("#followerslink");
-    if(User_ID != profileID){
+    if(User_ID != profileID || User_ID == null){
+      console.log('User_ID:和profileID不相等', User_ID);
       followslink.addEventListener("click", function (event) {
         event.preventDefault();
       });

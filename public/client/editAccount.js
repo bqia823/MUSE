@@ -28,7 +28,7 @@ window.addEventListener('load', async function() {
         console.log('Icon input value set:', iconInput.value);
   
         // Show alert message for avatar click
-        alert('New Avatar is selected!');
+        // alert('New Avatar is selected!');
       }
     });
   }
@@ -40,7 +40,7 @@ window.addEventListener('load', async function() {
     if(submitButton) {
     submitButton.addEventListener('click', function() {
       // Show alert message for submit button click
-      alert('User Profile is updated!');
+      // alert('User Profile is updated!');
     });
   };
 

@@ -25,7 +25,7 @@ const getCommentsCount = async (user_id) => {
 const getLikesCount = async (user_id) => {
   const db = await dbPromise;
   const result = await db.get (SQL`
-  SELECT SUM(Likes_Count) as count
+  SELECT COALESCE(SUM(Likes_Count), 0) as count
   FROM Article
   WHERE User_ID = ${user_id}`);
   console.log(result);
