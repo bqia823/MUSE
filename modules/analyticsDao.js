@@ -14,14 +14,13 @@ const getFollowersCount = async (user_id) => {
 
 const getCommentsCount = async (user_id) => {
   const db = await dbPromise;
-  const result = await db.get(SQL`
-  SELECT COUNT(*) as count 
-  FROM Comment 
-  WHERE User_ID = ${user_id}`);
-  console.log(result);
-  return result.count;
-
+  const result = await db.get (SQL`
+  SELECT COUNT(*) AS Comment_Count FROM Comment WHERE Article_ID IN (SELECT Article_ID FROM Article WHERE User_ID = ${user_id})
+`);
+  return result.Comment_Count;
+ 
 };
+
 
 const getLikesCount = async (user_id) => {
   const db = await dbPromise;
@@ -60,14 +59,22 @@ const getCommentsPerDay = async (user_id) => {
   const db = await dbPromise;
   const rows = await db.all(SQL`
     SELECT DATE(Comment_Time) as Day, COUNT(*) as Count
-    FROM Comment
-    WHERE User_ID = ${user_id}
+    FROM Comment WHERE Article_ID IN (SELECT Article_ID FROM Article WHERE User_ID = ${user_id})
     GROUP BY Day
-    ORDER BY Day
+    ORDER BY Day DESC
+    LIMIT 10
   `);
   return rows;
 };
 
+// const getCommentsCount = async (user_id) => {
+//   const db = await dbPromise;
+//   const result = await db.get (SQL`
+//   SELECT COUNT(*) AS Comment_Count FROM Comment WHERE Article_ID IN (SELECT Article_ID FROM Article WHERE User_ID = ${user_id})
+// `);
+//   return result.Comment_Count;
+ 
+// };
 module.exports = {
   getFollowersCount,
   getCommentsCount,

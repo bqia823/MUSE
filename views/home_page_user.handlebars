@@ -1,62 +1,63 @@
 <link rel="stylesheet" href="/css/home_page_user.css" />
-  <script src="/client/homePage.js"></script>
-  {{#if toastMessage}}
-  <div id="toastmessage">
-    <p>{{toastMessage}}</p>
-  </div>
-  {{/if}}
+<script src="/client/homePage.js"></script>
+{{#if toastMessage}}
+<div id="toastmessage">
+  <p>{{toastMessage}}</p>
+</div>
+{{/if}}
 
-  <div id="container">
-    <div id="header">
-      <div id="leftTopBar">
-        <div id="logo">
-          <img id="muse" src="/images/logopng-after-trim.png" alt="logo" />
-        </div>
-        <div id="MUSE">MUSE</div>
+<div id="container">
+  <div id="header">
+    <div id="leftTopBar">
+      <div id="logo">
+        <img id="muse" src="/images/logopng-after-trim.png" alt="logo" />
       </div>
-      <div id="rightTopBar">
-        <div class="rightTop">
-          <img class="rightTop" src="/images/article-line.png" alt="create article" title="create new article" />
-        </div>
-        <div class="rightTopText" id="navCreateArticle">create new article</div>
-        {{#if hasUnreadNotifications}}
-        <div id="bell" class="rightTop">
-          <img class="rightTop" src="/images/notification-red.png" alt="Noticfication" title="Noticfication" />
-          <div id="unReadComment">{{unReadComment}}</div>
-        </div>
-        {{else}}
-        <div id="bell" class="rightTop">
-          <img class="rightTop" src="/images/notification-pink.png" alt="Noticfication" title="Noticfication" />
-        </div>
-        {{/if}}
-        <div class="rightTopText" id="navNotification">Notification</div>
-
-        <div class="rightTop">
-          <img src="/images/{{user.Avatar}}" class="rightTop" alt="user icon" title="user icon" />
-        </div>
-        <div class="rightTopText" id="navUserClick">My profile</div>
-
-        <div class="rightTop">
-          <img src="/images/logout-box.png" class="rightTop" alt="log out" title="log out" />
-        </div>
-        <div class="rightTopText" id="navSignOut">Sign out</div>
-
-      </div>
+      <div id="MUSE">MUSE</div>
     </div>
-   
+    <div id="rightTopBar">
+      <div class="rightTop">
+        <img class="rightTop" src="/images/article-line.png" alt="create article" title="create new article" />
+      </div>
+      <div class="rightTopText" id="navCreateArticle">create new article</div>
+      {{#if hasUnreadNotifications}}
+      <div id="bell" class="rightTop">
+        <img class="rightTop" src="/images/notification-red.png" alt="Noticfication" title="Noticfication" />
+        <div id="unReadComment">{{unReadComment}}</div>
+      </div>
+      {{else}}
+      <div id="bell" class="rightTop">
+        <img class="rightTop" src="/images/notification-pink.png" alt="Noticfication" title="Noticfication" />
+      </div>
+      {{/if}}
+      <div class="rightTopText" id="navNotification">Notification</div>
 
-    <div id="icon-container">
-      <div id="notificationTop">Notification</div><span><strong>Unread notification: {{unreadNotificationsCount.count}}</strong></span>
-      <div id="notificationBottom">
-        {{#each notifications}}
-        {{!-- {{#each users}} --}}
-        <div class="notifications" id="notifications{{this.Notification_ID}}">
-            <div class="firstLine">
-              <div class="contentLine" >{{this.Content}}</div>
-            {{#unless this.Is_Read}}
-            <div class="red-dot"></div>
-            {{/unless}}
-          </div>
+      <div class="rightTop">
+        <img src="/images/{{user.Avatar}}" class="rightTop" alt="user icon" title="user icon" />
+      </div>
+      <div class="rightTopText" id="navUserClick">My profile</div>
+
+      <div class="rightTop">
+        <img src="/images/logout-box.png" class="rightTop" alt="log out" title="log out" />
+      </div>
+      <div class="rightTopText" id="navSignOut">Sign out</div>
+
+    </div>
+  </div>
+
+
+  <div id="icon-container">
+    <div id="notificationTop">Notification</div><span><strong>Unread notification:
+        {{unreadNotificationsCount.count}}</strong></span>
+    <div id="notificationBottom">
+      {{#each notifications}}
+      {{!-- {{#each users}} --}}
+      <div class="notifications" id="notifications{{this.Notification_ID}}">
+        <div class="firstLine">
+          <div class="contentLine">{{this.Content}}</div>
+          {{#unless this.Is_Read}}
+          <div class="red-dot"></div>
+          {{/unless}}
+        </div>
         <!-- 头像，用户名，发布时间 -->
         <div class="senderInformation">{{this.Timestamp}}</div>
       </div>
@@ -78,9 +79,9 @@
           </div>
           <div>
             <select id="sortOptions" name="sortOptions">
-              <option value="publishTime" selected>publish time</option>
-              <option value="authorName">author name</option>
-              <option value="articleTitle">article title</option>
+              <option value="publishTime" {{publishTimeSelect}}>publish time</option>
+              <option value="authorName" {{authorNameSelect}}>author name</option>
+              <option value="articleTitle" {{articleTitleSelect}}>article title</option>
             </select>
           </div>
           {{!-- <form action=`/home/:${currentPage}` method="get"> --}}
@@ -98,16 +99,17 @@
             {{{this.Content}}}
           </div>
           <div class="thridLine">
-              <div class="likesAndComments">
+            <div class="likesAndComments">
               <div class="like">
-                  <div class="likeImage">
-                    <img id="like{{this.Article_ID}}" class="likes" src="/images/{{this.like}}" alt="like" title="like" />
-                  </div>
+                <div class="likeImage">
+                  <img id="like{{this.Article_ID}}" class="likes" src="/images/{{this.like}}" alt="like" title="like" />
+                </div>
                 <div class="likeNumber">{{this.Likes_Count}}</div>
               </div>
               <div class="comment">
                 <div class="commentImage">
-                  <img id="comment{{this.Article_ID}}" class="comments" src="/images/comment.png" alt="comment" title="comment" />
+                  <img id="comment{{this.Article_ID}}" class="comments" src="/images/comment.png" alt="comment"
+                    title="comment" />
                 </div>
                 <div class="commentNumber">{{this.commentNumber}}</div>
               </div>
@@ -139,26 +141,33 @@
   </div>
 
   <div id="previousArticles">
-    <div id="previousArticlesTitle">Previous articles</div>
-    {{#each fourArticles}}
-    <div class="previousArticlesList">
-      <div class="previousDisplayTitle" id="previousTitle{{this.Article_ID}}">
-        {{this.Title}}
-      </div>
-      <div class="secondLine">
-        <div class="avatarAndUsername">
-          <div class="previousUserAvatar">
-            <img src="/images/{{this.user.Avatar}}" class="avatar">
+    <div id="titleAndList">
+      <div id="previousArticlesTitle">Previous articles</div>
+      {{#if fourArticles}}
+        {{#each fourArticles}}
+        <div class="previousArticlesList">
+          <div class="previousDisplayTitle" id="previousTitle{{this.Article_ID}}">
+            {{this.Title}}
           </div>
-          <div class="previousUserUsername">{{this.user.Username}}</div>
+          <div class="secondLine">
+            <div class="avatarAndUsername">
+              <div class="previousUserAvatar">
+                <img src="/images/{{this.user.Avatar}}" class="avatar">
+              </div>
+              <div class="previousUserUsername">{{this.user.Username}}</div>
+            </div>
+            <div class="previousDate">{{this.Date}}</div>
+          </div>
+          <div class="previousPartDiscription" id="previousDescription{{this.Article_ID}}">
+            {{{this.Content}}}
+          </div>
         </div>
-        <div class="previousDate">{{this.Date}}</div>
-      </div>
-      <div class="previousPartDiscription" id="previousDescription{{this.Article_ID}}">
-        {{{this.Content}}}
-      </div>
+        {{/each}}
+      {{else}}
+      <div id="noPreviousArticles">You haven't created any articles yet.</div>
+      {{/if}}
     </div>
-    {{/each}}
+
     <div id="moreContainer">More</div>
   </div>
-  </div>
+</div>

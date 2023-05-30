@@ -59,20 +59,22 @@
                 </div>
 
             </div>
-
-            
-                {{#each slicedSubscribersList}}
-                <a href="/profile/{{this.User_ID}}"><div id="fansDisplayBar">
-                {{!-- <form action="subscribersList/{{this.User_ID}}" method="GET"> --}}
-                
-                    <div class="fansInfomation">
+            <div id="fansBar">
+               {{#each slicedSubscribersList}}
+               <div class="fansDisplayBar">
+                 <a href="/profile/{{this.User_ID}}">
+                  <div class="fansInfomation">
                     <div class="fansLine"><img class="userImage" src="/images/{{this.Avatar}}" class="thumbnailavatar"></div>
                     <div class="fansLine" id="{{this.Username}}">{{this.Username}}</div>
+                  </div>
+                </a>
                 
-               
-            </div></a>
+                
+            
                 {{!-- </form> --}}
+                </div>
                 {{/each}}
+
             </div>
         </div>
 

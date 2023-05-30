@@ -82,6 +82,8 @@ window.addEventListener("load", async function() {
     }
     //判断用户身份,如果是作者本人或者评论者本人，显示删除按钮
     //如果用户是visitor，不显示回复按钮
+    //如果用户是本人，显示edit按钮
+    const editArticle = document.querySelector("#editArticle");
     const replyDivBtn = document.querySelectorAll(".replydivbtn");
     
     const response3 = await fetch(`/is_article_author/${articleId}`) ;
@@ -91,6 +93,10 @@ window.addEventListener("load", async function() {
     if(User_ID){
         if(isAuthor.isAuthor === true){
             console.log("是作者本人");
+            editArticle.style.display = "block";
+            editArticle.addEventListener("click", function(){
+                window.location.href = `/editArticle/${articleId}`;
+            });
             for(let i = 0; i < removeDiv.length; i++){
                 removeDiv[i].style.display = "block";
             }

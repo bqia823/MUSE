@@ -26,7 +26,7 @@
         {{#each notifications}}
         <div class="notifications" id="notifications{{this.Notification_ID}}">
             <div class="firstLine">
-              <div class="contentLine" >{{this.Content}}</div>
+              <div class="contentLine">{{this.Content}}</div>
             {{#unless this.Is_Read}}
             <div class="red-dot"></div>
             {{/unless}}
@@ -53,22 +53,23 @@
                 <span class="content_hint" class="content_text">Content:</span>
             </div>
             <div class="sub_group" id="editor">{{{article.Content}}}</div>
-            <input type="hidden" id="hiddenContent" name="content"></div>
+            <input type="hidden" id="hiddenContent" name="content">
+            </div>
         </div>
         <div class="input_group">
             <div class="sub_group">
-                <div>
+                <div class="image-display">
                     <label class="image_hint" for="txtCaption">Your image:</label>
                     <img id="image" src="/uploadedFiles/{{article.Image}}">
                 </div>
                 <br>
                 <div>
-                    <span class="image_hint">Upload an new image in the following formats: .png, .jpg, .jpeg, .bmp:
+                    <span class="image_hint">Upload a new image in the following formats: .png, .jpg, .jpeg, .bmp:
                     </span>
                 </div>
                 <br>
                 <div>
-                    <input id="image" type="file" name="imageFile" accept=".png,.jpg,.jpeg,.bmp">
+                    <input type="file" name="imageFile" accept=".png,.jpg,.jpeg,.bmp">
                     {{!-- <label for="txtCaption">Caption:</label>
 
                     <input id="txtCaption" type="text" name="caption"> --}}
@@ -102,7 +103,15 @@
 
     <!--  JavaScript 代码 -->
     <script>
+        const userID = '{{user.User_ID}}';
         $(document).ready(function () {
+            // 检查图片 URL 是否为空
+            const imageUrl = $('#image').attr('src');
+            if (!imageUrl || imageUrl == '/uploadedFiles/') {
+            // 如果图片 URL 为空，则隐藏显示图片的部分
+            $('.image-display').hide();
+            
+        }
             $('form').on('submit', function (event) {
                 const content = document.getElementById('editor').innerHTML;
                 document.getElementById('hiddenContent').value = content;
@@ -117,8 +126,11 @@
                         // 请求成功的处理逻辑
                         // data 参数是服务器返回的响应
                         if (data.success) {
-                            alert('You have successfully published the article!');
-                            location.reload();
+                        alert('You have successfully re-published the article!');
+                         var currentURL = window.location.href;
+                        const parsedUrl = new URL(currentURL);
+                        const articleId = parsedUrl.pathname.split('/').pop();
+                        window.location.href = '/articleView/' + articleId;
                         } else {
                             alert('You have failed to publish the article!');
                         }

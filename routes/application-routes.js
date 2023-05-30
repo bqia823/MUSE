@@ -45,6 +45,7 @@ router.get("/", addUserToLocals, function (req, res) {
     if (res.locals.user) {
       res.redirect("/home/1/publishTime");
     } else {
+      console.log("再次进入 vistor homePage.js...");
       res.redirect("/home/visitor/1/publishTime");
     }
   });
@@ -52,7 +53,7 @@ router.get("/", addUserToLocals, function (req, res) {
   router.get("/home/visitor/:pages/:sort", addUserToLocals, async function (req, res) {
     console.log("user是" + res.locals.user);
     const page = parseInt(req.params.pages); // 获取页码
-    const sort = req.params.sort; // 获取页码
+    const sort = req.params.sort; // 获取排序方式
     const pageSize = 15; // 每页显示的文章数量
     //根据页数截取15篇文章
     const startIndex = (page - 1) * pageSize;
@@ -66,12 +67,18 @@ router.get("/", addUserToLocals, function (req, res) {
   
     if (sort === "authorName") {
       allArticles = await sarahArticleDao.getAllArticlesByAuthorName();
-      console.log("articles" + allArticles);
+      res.locals.authorNameSelect = "selected";
     } else if (sort === "articleTitle") {
       allArticles = await sarahArticleDao.getAllArticlesByTitle();
+      res.locals.articleTitleSelect = "selected";
     } else if (sort === "publishTime") {
+      console.log("进入publishTime");
       allArticles = await sarahArticleDao.getAllArticlesByPublishTime();
+      res.locals.publishTimeSelect = "selected";
     }
+    console.log("authorNameSelect" + res.locals.authorNameSelect);
+    console.log("articleTitleSelect" + res.locals.articleTitleSelect);
+    console.log("publishTimeSelect" + res.locals.publishTimeSelect);
   
     const slicedArticles = allArticles.slice(startIndex, endIndex);
   
@@ -119,10 +126,11 @@ router.get("/", addUserToLocals, function (req, res) {
     if(!res.locals.user){
       res.redirect("/home/visitor/1/publishTime");
     }
-
-    //get notification unread number渲染出未读通知数量
-    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-    res.locals.unReadComment = allNotifications.length;
+    if(res.locals.user){
+      //get notification unread number渲染出未读通知数量
+      const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+      res.locals.unReadComment = allNotifications.length;
+    }
     //get current page
     const page = parseInt(req.params.pages); // 获取页码
     //get current sort
@@ -138,11 +146,18 @@ router.get("/", addUserToLocals, function (req, res) {
   
     if (sort === "authorName") {
       allArticles = await sarahArticleDao.getAllArticlesByAuthorName();
+      res.locals.authorNameSelect = "selected";
     } else if (sort === "articleTitle") {
       allArticles = await sarahArticleDao.getAllArticlesByTitle();
+      res.locals.articleTitleSelect = "selected";
     } else if (sort === "publishTime") {
+      console.log("进入publishTime");
       allArticles = await sarahArticleDao.getAllArticlesByPublishTime();
+      res.locals.publishTimeSelect = "selected";
     }
+    console.log("authorNameSelect" + res.locals.authorNameSelect);
+    console.log("articleTitleSelect" + res.locals.articleTitleSelect);
+    console.log("publishTimeSelect" + res.locals.publishTimeSelect);
   
     const slicedArticles = allArticles.slice(startIndex, endIndex);
   

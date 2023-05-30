@@ -192,13 +192,29 @@ flex-direction: column;
 
 }
 
-.article-title,
-.notification-title {
+.article-title,.notification-title{
 display: flex;
 justify-content: space-between;
 align-items: center;
 order: 1;
+text-overflow: ellipsis;
+/* width: 800px; */
 }
+
+.profileArticleTitle{
+  width: 790px;
+  margin-left: 10px; 
+  font-weight: bold;
+  font-size:20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* .article-link{
+ 
+  
+} */
 
 .article-link{
   text-decoration: none;
@@ -211,6 +227,7 @@ order: 1;
 .editAndDeleteDiv{
   display: flex;
   flex-direction: row;
+
   justify-content: flex-end;
   align-items: center;
   order: 2;

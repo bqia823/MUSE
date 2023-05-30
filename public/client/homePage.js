@@ -40,18 +40,20 @@ window.addEventListener("load", async function () {
   if(!User_ID){
     signIn = document.querySelector("#sign-in");
   }
+
   const selectBox = document.querySelector("#sortOptions");
 
-  let value = selectBox.value;
+  let value = "";
 
   selectBox.addEventListener("change", function (event) {
    value = selectBox.value;
-
+   console.log("value is " + value);
     //When the value of select box changed, we add another input element to receive the range
     if (document.cookie.includes("authToken")) {
       if (value === "publishTime") {
         window.location.href = "/home/1/publishTime";
       } else if (value === "authorName") {
+        console.log("选择了authorName");
         window.location.href = "/home/1/authorName";
       } else if (value === "articleTitle") {
         window.location.href = "/home/1/articleTitle";
@@ -60,12 +62,14 @@ window.addEventListener("load", async function () {
       if (value === "publishTime") {
         window.location.href = "/home/visitor/1/publishTime";
       } else if (value === "authorName") {
+        console.log("选择了authorName");
         window.location.href = "/home/visitor/1/authorName";
       } else if (value === "articleTitle") {
         window.location.href = "/home/visitor/1/articleTitle";
       }
     }
   });
+
   if(!User_ID){
     signIn.addEventListener("click", function () {
       window.location.href = "/user_login";
@@ -256,45 +260,6 @@ if(User_ID){
   });
 }
 
-  // for (let i = 0; i < notifications.length; i++) {
-  //   notifications.addEventListener("mouseover", () => {
-  //     for (let i = 0; i < newContent.length; i++) {
-  //       newContent[i].style.display = "flex";
-  //     }
-  //   });
-
-    // newContent.addEventListener("mouseover", () => {
-    //   for (let i = 0; i < notifications.length; i++) {
-    //     notifications[i].style.display = "flex";
-    //   }
-    // });
-
-    // notifications.addEventListener("mouseover", function () {
-    //   newContent.style.display === "flex"
-      // for (let i = 0; i < newContent.length; i++) {
-      //   if (newContent.style.display === "flex") {
-      //     newContent.style.display = "none";
-      //   } else if (newContent.style.display === "none") {
-      //     newContent.style.display = "flex";
-      //   }
-      // }
-       // notifications.addEventListener("mouseout", () => {
-    //   setTimeout(() => {
-    //     if (!isMouseOver(newContent)) {
-    //       newContent.style.display = "none";
-    //     }
-    //   }, 100);
-    // });
-  
-
-  // for (let i = 0; i < newContent.length; i++) {
-  //   newContent.addEventListener("mouseenter", () => {
-  //     clearTimeout(hideTimeout);
-  //   });
-  //   newContent.addEventListener("mouseleave", () => {
-  //     newContent.style.display = "none";
-  //   });
-  // }
     });
 
    

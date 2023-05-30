@@ -124,11 +124,25 @@ VALUES
 ( 'This is a comment 7', '2023-04-12 07:30:00 ', 6, 1, NULL),
 ( 'This is a comment 8', '2023-04-12 19:30:00 ', 8, 7, NULL),
 ( 'This is a comment 9', '2023-04-15 12:30:00 ', 7, 8, NULL),
-( 'This is a comment 11', '2023-04-17 12:30:00 ', 1, 3, 1),
-( 'This is a comment 12', '2023-04-18 12:30:00 ', 1, 4, 1),
-( 'This is a comment 13', '2023-04-19 12:30:00 ', 2, 1, 3),
-( 'This is a comment 14', '2023-04-21 12:30:00 ', 3, 2, 4),
-( 'This is a comment 15', '2023-04-30 12:30:00 ', 4, 3, 5);
+( 'This is a comment 11', '2023-04-17 12:30:00 ', 1, 3, NULL),
+( 'This is a comment 12', '2023-04-18 12:30:00 ', 1, 4, NULL),
+( 'This is a comment 13', '2023-04-19 12:30:00 ', 2, 1, NULL),
+( 'This is a comment 14', '2023-04-21 12:30:00 ', 3, 2, NULL),
+( 'This is a comment 15', '2023-04-30 12:30:00 ', 1, 2, NULL),
+( 'This is a comment 16', '2023-04-11 12:30:00 ', 1, 3, NULL),
+( 'This is a comment 17', '2023-04-12 12:30:00 ', 1, 4, NULL),
+( 'This is a comment 18', '2023-04-13 12:30:00 ', 1, 5, NULL),
+( 'This is a comment 19', '2023-04-14 12:30:00 ', 1, 6, NULL),
+( 'This is a comment 20', '2023-04-15 12:30:00 ', 5, 7, NULL),
+( 'This is a comment 21', '2023-04-16 12:30:00 ', 5, 8, NULL),
+( 'This is a comment 22', '2023-04-17 12:30:00 ', 5, 9, NULL),
+( 'This is a comment 23', '2023-04-18 12:30:00 ', 5, 10, NULL),
+( 'This is a comment 24', '2023-04-19 12:30:00 ', 5, 3, NULL),
+( 'This is a comment 25', '2023-04-20 12:30:00 ', 5, 4, NULL),
+( 'This is a comment 26', '2023-04-21 12:30:00 ', 5, 5, NULL),
+( 'This is a comment 27', '2023-04-22 12:30:00 ', 5, 6, NULL);
+
+
 
 -- Inserting data into Subscription table
 INSERT INTO Subscription (Subscriber_ID, Author_ID)
