@@ -53,6 +53,21 @@ body {
   box-shadow: 10px 10px 60px rgba(0, 0, 0, 0.4000000059604645);
   border-radius: 20px;
 }
+
+.toastMessage {
+  width: 100%;
+  color: rgba(253, 1, 1, 0.685);
+  position: absolute;
+  top: 900px;
+  left: 92px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: left;
+  cursor: pointer;
+}
+
 .submitbtn {
   width: 700px;
   height: 50px;

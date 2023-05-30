@@ -12,7 +12,7 @@
         <div class="pannel">
             <div class="pannelshadow"></div>
             <form action="/create_account" method="POST">
-
+                <div class="toastMessage">{{toastMessage}}</div>
                 <button type="submit" class="submitbtn">Submit</button>
 
                 <div class="iconcontainer">
@@ -30,7 +30,7 @@
                 <span class="chooseicon">Please choose your icon</span>
 
                 <input type="text" name="Brief_Description" class="descriptiontext"
-                    placeholder="Please describe yourself in 50 words" value="{{userProfile.Brief_Description}}">
+                    placeholder="Please describe yourself in 30 words" value="{{userProfile.Brief_Description}}">
                 <span class="description">Description</span>
 
                 <input type="password" name="repassword" class="confirmpasswordtext"
@@ -107,6 +107,13 @@
 
         // Listen for the blur event on the repassword input field
         repasswordInput.addEventListener('blur', checkPasswordConsistency);
+
+        $(document).ready(function () {
+            var toastMessage = $.cookie('toastMessage');
+            if (toastMessage) {
+                document.getElementById("toastMessage").textContent = toastMessage;
+            }
+        });
 
 
     </script>
