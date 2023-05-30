@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { addUserToLocals } = require("../middleware/auth-middleware.js");
+const { v4: uuid } = require("uuid");
+const bcrypt = require('bcrypt');
 
 const Handlebars = require('handlebars');
 
@@ -102,7 +104,7 @@ router.get("/checkIsFollowing/:authorID", addUserToLocals, async function(req, r
         }
         res.json(message);
     }else{
-        res.redirect("/home/visitor/1/publishTime");
+        res.json({isFollowing: false});
     }
     
 });
@@ -244,39 +246,66 @@ router.get("/edit-account/:User_ID", addUserToLocals, async function(req, res) {
     }
   });
 
-  // Route handler for submit function in the edit_account page 
-router.post("/edit_account/:User_ID", addUserToLocals, async function (req, res) {
+  // Route handler for rendering the edit account page
+  router.post("/edit_account/:User_ID", async function (req, res) {
     console.log("entering /edit_account...");
-    res.locals.title = "Edit Account";
+    console.log("req.body: ", req.body);
     const userID = req.params.User_ID;
-    // const icon = req.body.icon;
+    const saltRounds = 10;
     
     try {
-      // Retrieve the form data
-      if(res.locals.user.User_ID == userID){
-        const userProfileData = {
-            username: req.body.username,
-            description: req.body.Brief_Description,
-            password: req.body.password,
-            birthdate: req.body.birthdate,
-            idname: req.body.idname,
-            icon: req.body.icon,
-        };
+        let user = await userDao.retrieveUserById(userID);
+        let updatedUser = {User_ID: userID,};
+        let isUpdated = false;
     
-        // Update the user profile
-        await marieUserDao.updateUserProfile(userID, userProfileData, res.locals.user); 
-        console.log('User Profile Data:', userProfileData);
+        if (req.body.username && user.Username !== req.body.username && req.body.username.length >= 3 && req.body.username.length <= 10) {
+            updatedUser.Username = req.body.username;
+            isUpdated = true;
+        }
     
-        res.setToastMessage("User profile updated successfully");
+        if (req.body.Brief_Description && user.Brief_Description !== req.body.Brief_Description && req.body.Brief_Description.length >= 1 && req.body.Brief_Description.length <= 30) {
+            updatedUser.Brief_Description = req.body.Brief_Description;
+            isUpdated = true;
+        }
+
+        if (req.body.password && req.body.password.length >= 5 && req.body.password === req.body.repassword) {
+            // Hash the password
+            const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+            updatedUser.Password = hashedPassword;
+            isUpdated = true;
+        } else if (req.body.password !== req.body.repassword) {
+            throw new Error('The passwords entered twice are inconsistent');
+        }
+
+        if (req.body.birthdate && user.Date_Of_Birth !== req.body.birthdate) {
+            updatedUser.Date_Of_Birth = req.body.birthdate;
+            isUpdated = true;
+        }
+
+        if (req.body.idname && user.Real_Name !== req.body.idname) {
+            updatedUser.Real_Name = req.body.idname;
+            isUpdated = true;
+        }
+
+        if (req.body.icon && user.Avatar !== req.body.icon) {
+            updatedUser.Avatar = req.body.icon;
+            isUpdated = true;
+        }
+
+        // Only run the update if there are changes
+        if (isUpdated) {
+            await userDao.updateUser(updatedUser);
+            res.setToastMessage("User was successfully updated");
         res.redirect("/profile/" + userID);
-        }else{
-            res.setToastMessage("You can only edit your own account");
+        } else {
+            res.setToastMessage("No changes made");
             res.redirect("/profile/" + userID);
         }
-    } catch (error) {
-      console.error("Error updating user profile:", error);
-      res.setToastMessage("Failed to update user profile");
-      res.redirect("/profile" + userID);
+        
+    } catch (err) {
+        console.error(err);
+        res.setToastMessage(err.message);
+        res.render("edit_account", { toastMessage: err.message });
     }
   });
 
@@ -293,6 +322,8 @@ router.get("/delete-article/:Article_Id", addUserToLocals,  async function (req,
         console.log("删除文章所有点赞");
         await commentDao.removeArticlesAllComments(articleId);
         console.log("删除文章所有评论");
+        await commentDao.removeArticlesAllNotifications(articleId);
+        console.log("删除文章所有通知");
         await articleDao.deleteArticle(articleId);
         console.log("删除文章");
         res.redirect("/profile/" + User_ID);
@@ -360,52 +391,52 @@ if(res.locals.user){
 
 
 // Route handler for rendering the edit account page
-router.get("/edit-account", async function(req, res) {
-    console.log("entering /edit-account...");
-    res.locals.title = "Edit Account";
+// router.get("/edit-account", async function(req, res) {
+//     console.log("entering /edit-account...");
+//     res.locals.title = "Edit Account";
   
-    try {
-      // Retrieve the user profile data
-      const userID = 1; // Testing with the actual user ID
-      const userProfile = await userDao.getUserProfile(userID);
+//     try {
+//       // Retrieve the user profile data
+//       const userID = 1; // Testing with the actual user ID
+//       const userProfile = await userDao.getUserProfile(userID);
   
-      // Render the edit account page template and pass the user profile data
-      res.render('edit_account', {
-        userProfile: userProfile.user
-      });
-    } catch (error) {
-      console.error('Error in /edit-account route:', error);
-      res.status(500).send('Internal Server Error');
-    }
-  });
+//       // Render the edit account page template and pass the user profile data
+//       res.render('edit_account', {
+//         userProfile: userProfile.user
+//       });
+//     } catch (error) {
+//       console.error('Error in /edit-account route:', error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   });
 
-router.post("/edit_account", async function (req, res) {
-    console.log("entering /edit_account...");
-    res.locals.title = "Edit Account";
+// router.post("/edit_account", async function (req, res) {
+//     console.log("entering /edit_account...");
+//     res.locals.title = "Edit Account";
 
-    try {
-      // Retrieve the form data
-      const userProfileData = {
-        username: req.body.username,
-        description: req.body.Brief_Description,
-        password: req.body.password,
-        birthdate: req.body.birthdate,
-        idname: req.body.idname,
-        icon: req.body.icon,
-      };
+//     try {
+//       // Retrieve the form data
+//       const userProfileData = {
+//         username: req.body.username,
+//         description: req.body.Brief_Description,
+//         password: req.body.password,
+//         birthdate: req.body.birthdate,
+//         idname: req.body.idname,
+//         icon: req.body.icon,
+//       };
   
-      // Update the user profile
-      await userDao.updateUserProfile(1, userProfileData); // Assuming the user ID is 1 for testing purposes
-      console.log('User Profile Data:', userProfileData);
+//       // Update the user profile
+//       await userDao.updateUserProfile(1, userProfileData); // Assuming the user ID is 1 for testing purposes
+//       console.log('User Profile Data:', userProfileData);
   
-      res.setToastMessage("User profile updated successfully");
-      res.redirect("/profile");
-    } catch (error) {
-      console.error("Error updating user profile:", error);
-      res.setToastMessage("Failed to update user profile");
-      res.redirect("/profile");
-    }
-  });
+//       res.setToastMessage("User profile updated successfully");
+//       res.redirect("/profile");
+//     } catch (error) {
+//       console.error("Error updating user profile:", error);
+//       res.setToastMessage("Failed to update user profile");
+//       res.redirect("/profile");
+//     }
+//   });
 
 // router.post("/edit_account", async function(req, res) {
 //     const userID = 1; // test with the actual user ID

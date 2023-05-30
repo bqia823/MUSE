@@ -2,7 +2,7 @@
 console.log("进入 homePage.js...");
 //This is client side JS code
 window.addEventListener("load", async function () {
-   //获取当前用户信息
+  //Getting user information
    const response1 = await fetch("/user_info");
    const user_info = await response1.json();
    const User_ID = user_info.User_ID;
@@ -14,11 +14,13 @@ window.addEventListener("load", async function () {
   const Signout = document.querySelectorAll(".Signout");
   const articlesTitle = document.querySelectorAll(".displayTitle");
   const authorInformation = document.querySelectorAll(".userClick");
-  const pages = document.querySelectorAll(".pages");
-  const previousPage = document.querySelector("#left");
+
+ 
   const navUserClick = document.querySelector("#navUserClick");
   const moreContainer = document.querySelector("#moreContainer");
-  const previousDisplayTitle = document.querySelectorAll(".previousDisplayTitle");
+  const previousDisplayTitle = document.querySelectorAll(
+    ".previousDisplayTitle"
+  );
   const notificationMore = document.querySelector("#notificationMore");
   const navCreateArticle = document.querySelector("#navCreateArticle");
   const navSignOut = document.querySelector("#navSignOut");
@@ -33,12 +35,12 @@ window.addEventListener("load", async function () {
     previousContent[i].innerHTML = previousContent[i].innerText;
   }
   
-
- 
-
-  let signIn = {};
-  if(!User_ID){
+  let signIn = undefined;
+  if (!User_ID) {
     signIn = document.querySelector("#sign-in");
+    signIn.addEventListener("click", function () {
+      window.location.href = "/user_login";
+    });
   }
 
   const selectBox = document.querySelector("#sortOptions");
@@ -70,31 +72,47 @@ window.addEventListener("load", async function () {
     }
   });
 
-  if(!User_ID){
-    signIn.addEventListener("click", function () {
-      window.location.href = "/user_login";
-    });
-  }
-
+  const previousPage = document.querySelector("#left");
   const nextPage = document.querySelector("#right");
+  const pages = document.querySelectorAll(".pages");
   const path = window.location.pathname;
   const homeUserRegex = /\/home\/(\w+)/;
   const homeVisitorRegex = /\/home\/visitor\/(\w+)/;
-  console.log("homeVisitorRegex" + homeVisitorRegex);
+
   let userCurrentPage = "";
+  let userNextPage = "";
+  let userPreviousPage = "";
+
   let visitorCurrentPage = "";
+  let visitorNextPage = "";
+  let visitorPreviousPage = "";
+
+  let userMatches = "";
+  let visitorMatches = "";
+  let userPurple = undefined;
+  let visitorPurple = undefined;
+  value = selectBox.value;
+
+  //document.cookie.includes("authToken")
   if (document.cookie.includes("authToken")) {
-    console.log("wowowowowowowowowwo");
-    const userMatches = path.match(homeUserRegex);
+    userMatches = path.match(homeUserRegex);
     userCurrentPage = userMatches[1];
-    const userNextPage = parseInt(userCurrentPage) + 1;
-    const userPreviousPage = parseInt(userCurrentPage) - 1;
+    console.log("user current page is " + userCurrentPage);
+    userPurple = document.querySelector(`#page${userCurrentPage}`);
+    console.log("user purple is " + userPurple);
+    userPurple.style.color = "#7949ff";
+    userPurple.style.backgroundColor = "#e9e1ff";
+    userNextPage = parseInt(userCurrentPage) + 1;
+    userPreviousPage = parseInt(userCurrentPage) - 1;
   } else {
-    console.log("hahahahahahaahaha");
-    const visitorMatches = path.match(homeVisitorRegex);
-    const visitorCurrentPage = visitorMatches[1];
+    visitorMatches = path.match(homeVisitorRegex);
+    visitorCurrentPage = visitorMatches[1];
+    visitorPurple = document.querySelector(`#page${visitorCurrentPage}`);
+    console.log("visitor current page is " + visitorPurple);
+    visitorPurple.style.color = "#7949ff";
+    visitorPurple.style.backgroundColor = "#e9e1ff";
     visitorNextPage = parseInt(visitorCurrentPage) + 1;
-    const visitorPreviousPage = parseInt(visitorCurrentPage) - 1;
+    visitorPreviousPage = parseInt(visitorCurrentPage) - 1;
   }
 
   
@@ -104,29 +122,35 @@ window.addEventListener("load", async function () {
         window.location.href = `/home/${userPreviousPage}/${value}`;
       }
     } else {
+      if (parseInt(visitorCurrentPage) != 1) {
       window.location.href = `/home/visitor/${visitorPreviousPage}/${value}`;
+    }
     }
   });
 
   nextPage.addEventListener("click", async function () {
     console.log("nextPage clicked");
     if (document.cookie.includes("authToken")) {
+      if (parseInt(userCurrentPage) < pages.length) {
       window.location.href = `/home/${userNextPage}/${value}`;
+      }
     } else {
+      if (parseInt(visitorCurrentPage) < pages.length) {
       window.location.href = `/home/visitor/${visitorNextPage}/${value}`;
+    }
     }
   });
 
+  let pageThis = null;
   for (let i = 0; i < pages.length; i++) {
     pages[i].addEventListener("click", function () {
       const toPage = pages[i].innerHTML;
       if (document.cookie.includes("authToken")) {
         window.location.href = `/home/${toPage}/${value}`;
+        pageThis = document.querySelector(`#${pages[i].id}`);
       } else {
         window.location.href = `/home/visitor/${toPage}/${value}`;
-        const pageThis = document.querySelector(`#${pages[i].id}`);
-        pageThis.style.color = "#7949ff";
-        pageThis.style.backgroundColor = "#e9e1ff";
+        pageThis = document.querySelector(`#${pages[i].id}`);
       }
     });
 
@@ -134,15 +158,11 @@ window.addEventListener("load", async function () {
       if (parseInt(pages[i].innerHTML) === parseInt(userCurrentPage)) {
         const thisPageId = pages[i].id;
         const pageThis = document.querySelector(`#${thisPageId}`);
-        pageThis.style.color = "#7949ff";
-        pageThis.style.backgroundColor = "#e9e1ff";
       }
     } else {
       if (parseInt(pages[i].innerHTML) === parseInt(visitorCurrentPage)) {
         const thisPageId = pages[i].id;
         const pageThis = document.querySelector(`#${thisPageId}`);
-        pageThis.style.color = "#7949ff";
-        pageThis.style.backgroundColor = "#e9e1ff";
       }
     }
   }

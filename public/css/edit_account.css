@@ -2,6 +2,7 @@
   box-sizing: border-box;
 }
 body {
+  margin: 0px;
   font-size: 14px;
   margin: 0px;
 }
@@ -54,58 +55,41 @@ body {
   border-radius: 20px;
 }
 
-.button-container {
-  display: flex;
-  justify-content: space-between;
+.toastMessage {
+  width: 100%;
+  color: rgba(253, 1, 1, 0.685);
   position: absolute;
-  top: 815px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 750px; 
+  top: 870px;
+  left: 92px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 24px;
+  opacity: 1;
+  text-align: left;
+  cursor: pointer;
 }
-.submitbtn, .deletebtn {
+
+.submitbtn {
+  width: 150px;
   height: 50px;
   background: rgba(160,215,255,1);
   opacity: 1;
-  flex: 1;
-  margin: 5px;
+  position: absolute;
+  top: 815px;
+  left: 92px;
   overflow: hidden;
   cursor: pointer;
   font-family: Italiana;
   font-weight: Regular;
   font-size: 24px;
   text-align: center;
+  border-radius: 7px;
+  border-color: #fff;
 }
 
-.deleteAccountWindow {  
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 20%;
-  top: 35%;
-  width: 70%;
-  /* height: 70px; */
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background-color: #fff;
-  padding-top: 20px;
-  border-radius: 5px;
-  border: 1px solid gray;} 
-
-.yesAndNoButton { 
-  display:flex; 
-  flex-direction: row; 
-  align-items: center; 
-  justify-content: space-around; 
-}
-.yesDeleteAccount, .noDeleteAccount { 
-  margin: 5px; 
-}
-.iconbox {
-  width: 242px;
-  height: 242px;
+.iconcontainer {
+  width: 250px;
+  height: 250px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -116,136 +100,135 @@ body {
   overflow: hidden;
 }
 
-.icon{
- padding: 5px; 
+.icon1, .icon2, .icon3, .icon4, .icon5, .icon6, .icon7, .icon8, .icon9 {
+  padding: 3px;
 }
 /* #icon1, #icon2, #icon3, #icon4, #icon5, #icon6, #icon7, #icon8, #icon9 {
   
 } */
 
-
-#icon1 {
-  width: 72px;
-  height: 71px;
+.icon1 {
+  width: 70px;
+  height: 70px;
   background: url("../images/boy1.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: relative;
-  top: 0px;
-  left: 0px;
+  top: 5px;
+  left: 5px;
   overflow: hidden;
   cursor: pointer;
 }
-#icon2 {
-  width: 72px;
-  height: 71px;
+.icon2 {
+  width: 70px;
+  height: 70px;
   background: url("../images/boy2.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 0px;
+  top: 5px;
   left: 85px;
   overflow: hidden;
   cursor: pointer;
 }
-#icon3 {
-  width: 72px;
-  height: 71px;
+.icon3 {
+  width: 70px;
+  height: 70px;
   background: url("../images/boy3.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 0px;
+  top: 5px;
   left: 170px;
   overflow: hidden;
   cursor: pointer;
 }
-#icon4 {
-  width: 72px;
-  height: 72px;
+.icon4 {
+  width: 70px;
+  height: 70px;
   background: url("../images/boy4.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 85px;
-  left: 0px;
+  top: 88px;
+  left: 5px;
   overflow: hidden;
   cursor: pointer;
 }
-#icon5 {
-  width: 72px;
-  height: 72px;
+.icon5 {
+  width: 70px;
+  height: 70px;
   background: url("../images/girl1.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 85px;
+  top: 88px;
   left: 85px;
   overflow: hidden;
   cursor: pointer;
 }
-#icon6 {
-  width: 72px;
-  height: 72px;
+.icon6 {
+  width: 70px;
+  height: 70px;
   background: url("../images/girl2.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 85px;
+  top: 88px;
   left: 170px;
   overflow: hidden;
   cursor: pointer;
 }
-#icon7 {
-  width: 72px;
-  height: 71px;
+.icon7 {
+  width: 70px;
+  height: 70px;
   background: url("../images/girl3.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 171px;
-  left: 0px;
+  top: 170px;
+  left: 5px;
   overflow: hidden;
   cursor: pointer;
 }
-#icon8 {
-  width: 72px;
-  height: 71px;
+.icon8 {
+  width: 70px;
+  height: 70px;
   background: url("../images/girl4.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 171px;
+  top: 170px;
   left: 85px;
   overflow: hidden;
   cursor: pointer;
 }
-#icon9 {
-  width: 72px;
-  height: 71px;
+.icon9 {
+  width: 70px;
+  height: 70px;
   background: url("../images/girl5.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   opacity: 1;
   position: absolute;
-  top: 171px;
+  top: 170px;
   left: 170px;
   overflow: hidden;
   cursor: pointer;
@@ -262,6 +245,18 @@ body {
   opacity: 1;
   text-align: left;
 }
+.passwordHint {
+  width: 100%;
+  color: rgba(254, 6, 6, 0.808);
+  position: absolute;
+  top: 296px;
+  left: 256px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+  }
 .descriptiontext {
   width: 706px;
   height: 38px;
@@ -300,6 +295,20 @@ body {
   opacity: 1;
   text-align: left;
 }
+
+.descriptionHint {
+  width: 100%;
+  color: rgba(254, 6, 6, 0.808);
+  position: absolute;
+  top: 440px;
+  left: 256px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+}
+
 .confirmpasswordtext {
   width: 706px;
   height: 38px;
@@ -414,6 +423,20 @@ body {
   opacity: 1;
   text-align: left;
 }
+
+.birthdateHint {
+  width: 100%;
+  color: rgba(254, 6, 6, 0.808);
+  position: absolute;
+  top: 227px;
+  left: 256px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+}
+
 .idnametext {
   width: 706px;
   height: 38px;
@@ -492,17 +515,17 @@ body {
   opacity: 1;
   text-align: left;
 }
-.cancelbtn {
+.haveaccount {
   width: 256px;
   color: rgba(0,0,0,1);
   position: absolute;
   top: 92px;
-  right: 126px;
+  left: 626px;
   font-family: Italiana;
   font-weight: Regular;
   font-size: 16px;
   opacity: 1;
-  text-align: right;
+  text-align: left;
   cursor: pointer;
 }
 .creataccount {
@@ -529,9 +552,74 @@ body {
   left: 90px;
   overflow: hidden;
 }
-#deleteBtn{
+
+.passwordAvailability {
+  width: 100%;
+  color: rgba(254, 6, 6, 0.808);
   position: absolute;
-  right:7%;
-  bottom: 3%;
-  z-index: 100;
+  top: 367px;
+  left: 256px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+}
+  
+.usernameAvailability {
+  width: 100%;
+  color: rgba(254, 6, 6, 0.808);
+  position: absolute;
+  top: 92px;
+  left: 256px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+}
+
+.deletebtn {
+  width: 300px;
+  height: 50px;
+  background: rgba(160,215,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 815px;
+  left: 392px;
+  overflow: hidden;
+  cursor: pointer;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 24px;
+  text-align: center;
+  border-radius: 7px;
+  border-color: #fff;
+}
+
+.deleteAccountWindow {  
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 20%;
+  top: 35%;
+  width: 70%;
+  /* height: 70px; */
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #fff;
+  padding-top: 20px;
+  border-radius: 5px;
+  border: 1px solid gray;} 
+
+.DeleteAccountYesAndNoButton { 
+  display:flex; 
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: space-around; 
+}
+.yesDeleteAccount, .noDeleteAccount { 
+  margin: 5px; 
 }

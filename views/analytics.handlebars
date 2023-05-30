@@ -29,7 +29,9 @@
         {{#each articles}}
         <div class="article-card">
             <h1><span class="rank">Rank {{addOne @index}}</span></h1>
+            {{#if this.Image}}
             <img class="article-image" src="/uploadedFiles/{{this.Image}}" alt="Article Thumbnail">
+            {{/if}}
             <h4 class="article-title">{{this.Title}}</h4>
             <p class="article-info">Popularity: <span class="popularity">{{this.Popularity}}</span></p>
             <p class="article-info">Comments: <span class="comments">{{this.Comments_Count}}</span></p>

@@ -1,5 +1,5 @@
 // For total's
-// window.onload = async function() {
+window.onload = async function() {
     console.log('analytics.js loaded');
     // Fetch user ID from the user profile (replace this with your code to fetch the user ID dynamically)
     // const userId = 1; // Replace getCurrentUserId() with your code to get the current user's ID
@@ -24,5 +24,5 @@
     });
 
  
-
+}
 
