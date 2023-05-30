@@ -133,7 +133,12 @@ router.post("/create_account", async function (req, res) {
                 throw new Error(`All information is required`);
             }
         }
-        
+        // Check if birthdate is in the future
+        const currentDate = new Date();
+        const birthdate = new Date(user.Date_Of_Birth);
+        if (birthdate >=currentDate) {
+        throw new Error('Birth date cannot be in the future');
+        }
         // Check if username is between 3-10 characters
         if (!(user.Username.length >= 3 && user.Username.length <= 10)) {
             throw new Error('Please limit username to 3-10 characters');
