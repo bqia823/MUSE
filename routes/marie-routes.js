@@ -18,11 +18,11 @@ const analyticsDao = require("../modules/analyticsDao.js");
 router.get("/profile/:id", addUserToLocals, async function(req, res) {
    
     const userID = req.params.id;
-    if(res.locals.user){
-    //get notification unread number渲染出未读通知数量
-    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-    res.locals.unReadComment = allNotifications.length;
-    }
+    // if(res.locals.user){
+    // //get notification unread number渲染出未读通知数量
+    // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+    // res.locals.unReadComment = allNotifications.length;
+    // }
      // 获得三个提醒项
      if(res.locals.user){
         const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  

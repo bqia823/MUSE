@@ -60,9 +60,9 @@ router.get("/articleView/:Article_ID", addUserToLocals, async function(req, res)
 
     // 获得三个提醒项
     if(res.locals.user){
-        //get notification unread number渲染出未读通知数量
-        const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-        res.locals.unReadComment = allNotifications.length;
+        // //get notification unread number渲染出未读通知数量
+        // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+        // res.locals.unReadComment = allNotifications.length;
 
         const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
         for (let i = 0; i < notifications.length; i++) {

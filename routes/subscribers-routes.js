@@ -8,9 +8,9 @@ const { addUserToLocals } = require("../middleware/auth-middleware.js");
 
 
 router.get("/subscribersList/:page", addUserToLocals, async function (req, res) {
-    //get notification unread number渲染出未读通知数量
-    const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-    res.locals.unReadComment = allNotifications.length;
+    // //get notification unread number渲染出未读通知数量
+    // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
+    // res.locals.unReadComment = allNotifications.length;
     const page = parseInt(req.params.page);
     const startIndex = (page - 1) * 15;
     const endIndex = startIndex + 15;
