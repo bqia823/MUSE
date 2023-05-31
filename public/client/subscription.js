@@ -1,10 +1,10 @@
 window.addEventListener('load', async function() {
     console.log('subscription Window loaded.');
-    //获取当前用户信息
+    //get local user info
     const response1 = await fetch("/user_info");
     const user_info = await response1.json();
     const User_ID = user_info.User_ID;
-    //判断用户是否登录，如果登录，显示导航条上的部分内容
+    //check user login status判断用户是否登录，如果登录，显示导航条上的部分内容
     const homeBtn = document.querySelector("#home");
     const signInBtn = document.querySelector("#sign-in");
     const notificationBtn = document.querySelector("#notification");
@@ -32,7 +32,7 @@ window.addEventListener('load', async function() {
         
     }
     
-    //当鼠标移动到notificaiton按钮时，显示通知
+    //when the cursor is on notification button, show notifications当鼠标移动到notificaiton按钮时，显示通知
     const newContent = document.querySelector("#icon-container");
     const notifications = document.querySelectorAll(".notifications");
     // const redDot = document.querySelectorAll(".red-dot");
@@ -52,7 +52,7 @@ window.addEventListener('load', async function() {
               newContent.style.display = "none";
             }
           });
-          //点击notification，跳转到对应的文章
+          //click notifications to redirect点击notification，跳转到对应的文章
           for(let i = 0; i < notifications.length; i++){
               notifications[i].style.cursor = "pointer";
               notifications[i].addEventListener("click", async function () {

@@ -99,7 +99,7 @@ async function getUserIDByCommentID(Comment_ID){
   `);
   return result;
 }
-//删除用户时，删除用户的所有评论
+//delete all comments from the user 删除用户时，删除用户的所有评论
 async function removeUsersAllComments(userId) {
   const db = await dbPromise;
   await db.run(SQL`
@@ -113,14 +113,14 @@ async function removeUsersAllComments(userId) {
   DELETE FROM Comment WHERE User_ID = ${userId}
   `);
   }
-//删除文章时，删除文章的所有评论
+//delete all comments from the article 删除文章时，删除文章的所有评论
   async function removeArticlesAllComments(articleId) {
   const db = await dbPromise;
   await db.run(SQL`
   DELETE FROM Comment WHERE Article_ID = ${articleId}
   `);
 }
-//删除文章时，删除发表文章的发出的所有notification
+//delete all notification from the article 删除文章时，删除发表文章的发出的所有notification
 async function removeArticlesAllNotifications(articleId) {
   const db = await dbPromise;
   await db.run(SQL`

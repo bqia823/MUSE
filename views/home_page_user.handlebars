@@ -50,7 +50,7 @@
         {{unreadNotificationsCount.count}}</strong></span>
     <div id="notificationBottom">
       {{#each notifications}}
-      {{!-- {{#each users}} --}}
+   
       <div class="notifications" id="notifications{{this.Notification_ID}}">
         <div class="firstLine">
           <div class="contentLine">{{this.Content}}</div>
@@ -58,10 +58,10 @@
           <div class="red-dot"></div>
           {{/unless}}
         </div>
-        <!-- 头像，用户名，发布时间 -->
+    
         <div class="senderInformation">{{this.Timestamp}}</div>
       </div>
-      {{!-- {{/each}} --}}
+
       {{/each}}
       <div id="notificationMore">More</div>
     </div>
@@ -84,7 +84,7 @@
               <option value="articleTitle" {{articleTitleSelect}}>article title</option>
             </select>
           </div>
-          {{!-- <form action=`/home/:${currentPage}` method="get"> --}}
+        
 
         </div>
       </div>
@@ -132,7 +132,7 @@
     <div id="pagesBar">
       <!-- need to get article from datebase, give one example of displayed pages here-->
       <div id="left" class="page">&lt;</div>
-      <!-- 这里的pages是获得全部的页数(article size/15 + 1)，再服务器端判断一共有几页以选择呈现形式 -->
+        <!-- pages here is all pages with no duplications -->
       {{#each pages}}
       <div class="pages" id="page{{this}}">{{this}}</div>
       {{/each}}

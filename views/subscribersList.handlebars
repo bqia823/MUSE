@@ -7,11 +7,6 @@
             <span>MUSE</span>
         </div>
         <ul class="navbar_functions">
-            {{!-- <li><a href=" "><span class="icon"></span>Home</a></li>
-            <li><a href="#"><span class"icon"></span>Create Article</a></li>
-            <li><a href="/notifications"><span class="icon"></span>Notifications</a></li>
-            <li><a href="/profile"><span class="icon">👤</span>My Profile</a></li>
-            <li><a href="/logout"><span class="icon">🚪</span>Sign Out</a></li> --}}
             <li id="home"><a href="/"><span class="icon"><img src="/images/home.png" id="home_icon"></span>Home</a></li> 
             <li id="sign-in">
                 <a href="/user_login"><span class="icon"><img src="/images/login-box-line.png" id="sign_in_icon"></span>Sign in</a>
@@ -42,7 +37,6 @@
             {{/unless}}
           </div>
           
-        <!-- 头像，用户名，发布时间 -->
         <div class="senderInformation">{{this.Timestamp}}</div>
       </div>
       {{/each}}

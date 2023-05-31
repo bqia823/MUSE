@@ -41,7 +41,7 @@ async function deleteAllArticlesForOneUser(userId) {
     DELETE FROM Article WHERE User_ID = ${userId}
     `);
 }
-//删除文章时，删除文章的所有数据
+//delete all article data from the article 删除文章时，删除文章的所有数据
 async function deleteArticle(Article_ID) {
     const db = await dbPromise;
     await db.run(SQL`

@@ -37,7 +37,7 @@ async function removeLikeCountAndLiker(Article_ID, User_ID){
     DELETE FROM Article_Like WHERE Article_ID = ${Article_ID} AND User_ID = ${User_ID}
     `);
 }
-//清除用户的所有like（删除用户时用）
+//clear all the like from users 清除用户的所有like（删除用户时用）
 async function deleteAllLikesForOneUser(userId) {
     const db = await dbPromise;
     await db.run(SQL`
@@ -45,7 +45,7 @@ async function deleteAllLikesForOneUser(userId) {
     `);
     await db.run(SQL`DELETE FROM Article_Like WHERE User_ID = ${userId}`);
     }
-//清除文章的所有like（删除文章时用）
+//clear all the like from article 清除文章的所有like（删除文章时用）
 async function deleteAllLikesForOneArticle(articleId) {
     console.log("准备删除文章的所有like");
     const db = await dbPromise;

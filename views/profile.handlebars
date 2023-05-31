@@ -48,7 +48,7 @@
                 {{/unless}}
             </div>
 
-            <!-- 头像，用户名，发布时间 -->
+
             <div class="senderInformation">{{this.Timestamp}}</div>
         </div>
         {{/each}}
@@ -63,13 +63,7 @@
                 <h2>Articles</h2>
             </div>
             <div class="navbar-right">
-                {{!-- <div class="sorted-by"> --}}
-                    {{!-- Sorted By: --}}
-                    {{!-- <select id="sorting-options">
-                        <option value="asc">Ascending by Date</option>
-                        <option value="desc">Descending by Date</option>
-                    </select> --}}
-                    {{!-- </div> --}}
+
             </div>
         </div>
 
@@ -88,22 +82,19 @@
                         <form action="/editArticle/{{this.Article_ID}}" method="get">
                             <button class="edit-button" onclick="editArticle('{{this.Article_ID}}')">Edit</button>
                         </form>
-                        {{!-- <form action="/delete-article/{{this.Article_ID}}" method="get"> --}}
+                       
                             <button class="delete-button" onclick="confirmDelete('{{this.Article_ID}}')">Delete</button>
-                            {{!--
-                        </form> --}}
+                           
                     </div>
                     {{/if}}
                 </div>
             </div>
             <div class="article-meta">
-                {{!-- <a href="/like?Article_ID={{article.Article_ID}}" title="Like this article!"><img
-                        src="{{likeIcon}}" class="heart"></a> --}}
+              
                 <p class="article-likes">{{this.Likes_Count}} 💗<span class="icon"></span></p>
                 <p class="article-comments">{{this.Comments_Count}}<span class="icon"> 💬</span></p>
                 <p class="article-author"><span class="icon">👤</span> {{this.Username}}</p>
-                {{!-- <a href="/authorpage" class="article-author"><span class="icon">👤</span> {{this.Username}}</a>
-                --}}
+              
                 <p class="article-date"><span class="icon">📅</span> {{this.Date}}</p>
             </div>
         </div>
@@ -118,11 +109,7 @@
         {{/each}}
 
         <div class="pagenumber">
-            {{!-- <div id="left" class="page">&lt;</div>
-            {{#each pages}}
-            <div class="pages" id="page{{this}}">{{this}}</div>
-            {{/each}}
-            <div class="page" id="right">&gt;</div> --}}
+
         </div>
     </div>
 

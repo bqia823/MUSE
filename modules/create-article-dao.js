@@ -35,7 +35,6 @@ async function getFollowersByUserID(User_ID) {
 
   const results = await db.all(follower);
 
-  // 这个函数应该返回一个包含所有关注者ID的数组
   return results.map((row) => row.Subscriber_ID);
 }
 

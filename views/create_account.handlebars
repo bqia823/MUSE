@@ -69,15 +69,15 @@
     <script>
         $(document).ready(function () {
             $('.iconcontainer div').on('click', function () {
-                $('.iconcontainer div').css('outline', ''); // 取消所有图标的突出显示
-                $(this).css('outline', '2px solid red'); // 突出显示选中的图标
-                $('#icon').val($(this).attr('data-icon')); // 更新隐藏的输入字段的值
+                $('.iconcontainer div').css('outline', ''); // cancel all outlines
+                $(this).css('outline', '2px solid red'); // emphasize the clicked one
+                $('#icon').val($(this).attr('data-icon')); // update the hidden input field
             });
         });
 
         document.querySelector("input[name='username']").addEventListener("input", function () {
             const username = this.value;
-            if (!username.trim()) { // 如果用户名为空或者只有空白字符
+            if (!username.trim()) { // if the username is empty
                 document.getElementById("usernameAvailability").textContent = '';
             } else {
                 fetch(`/check_username/${username}`)

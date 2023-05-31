@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/home_page_visitor.css" />
   <script src="/client/homePage.js"></script>
 
-{{!-- <form action=`/home/visitor/:${currentPage}`, method="get"> --}}
+
   <div id="container">
     <div id="header">
       <div id="leftTopBar">
@@ -80,7 +80,7 @@
         <!-- need to get article from datebase, give one example of displayed pages here-->
         <div id="left" class="page">&lt;</div>
         {{#if pages}}
-        <!-- 这里的pages是获得全部去重的页数，再服务器端判断一共有几页以选择呈现形式 -->
+        <!-- pages here is all pages with no duplications -->
         {{#each pages}}
         <div class="pages" id= "page{{this}}">{{this}}</div>
         {{/each}}
@@ -90,4 +90,3 @@
       </div>
     </div>
   </div>
-{{!-- </form> --}}

@@ -33,7 +33,7 @@
             {{/unless}}
           </div>
           
-        <!-- 头像，用户名，发布时间 -->
+        
         <div class="senderInformation">{{this.Timestamp}}</div>
       </div>
       {{/each}}
@@ -69,8 +69,7 @@
                 <br>
                 <div>
                     <input id="inpFile" type="file" name="imageFile" accept=".png,.jpg,.jpeg,.bmp">
-                    {{!-- <label for="txtCaption">Caption:</label>
-                    <input id="txtCaption" type="text" name="caption"> --}}
+                   
                 </div>
 
             </div>
@@ -108,16 +107,15 @@
             $('form').on('submit', async function (event) {
                 const content = document.getElementById('editor').innerHTML;
                 document.getElementById('hiddenContent').value = content;
-                event.preventDefault(); // 阻止表单的默认提交事件
+                event.preventDefault(); // prevent the browser from submitting the form
                 $.ajax({
-                    url: $(this).attr('action'), // 提交到表单的 action 属性指定的 URL
+                    url: $(this).attr('action'), 
                     type: 'POST',
-                    data: new FormData(this), // 创建一个 FormData 对象，包含表单的数据
-                    processData: false, // 告诉 jQuery 不要处理发送的数据
-                    contentType: false, // 告诉 jQuery 不要设置 Content-Type 请求头
+                    data: new FormData(this), // create a FormData instance
+                    processData: false, 
+                    contentType: false, 
                     success: async function (data) {
-                        // 请求成功的处理逻辑
-                        // data 参数是服务器返回的响应
+                        // logic when the request is successful
                         if (data.success) {
                             alert('You have successfully published the article!');
                             //location.reload();
@@ -131,7 +129,7 @@
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        // 请求失败的处理逻辑
+                        // logic when the request fails
                         alert('You have failed to publish the article!');
                     }
                 });
@@ -141,22 +139,6 @@
   $('input[data-formula], a.ql-action, a.ql-remove').hide();
 });
     </script>
-    {{!--
-    <script>
-        fetch('/checkLoginStatus')
-            .then(response => response.json())
-            .then(data => {
-                if (data.loggedIn) {
-                    // 如果用户是登陆的状态，那么就加载页面
-                } else {
-                    //如果用户是没有登陆的状态，那么就跳转到登陆页面
-                    window.location.href = '/login';
-                }
-            });
-
-    </script> --}}
-
-
 
 
 </body>

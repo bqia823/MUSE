@@ -70,7 +70,7 @@ if (totalPages <= 5) {
          res.locals.slicedSubscribersList = slicedSubscribersList;
         res.locals.subscribersList = subscribersList;
 
-          // 获得三个提醒项
+          // get at most 3 notifications for the user
  
           const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
           for (let i = 0; i < notifications.length; i++) {
@@ -78,12 +78,12 @@ if (totalPages <= 5) {
               await sarahNotificationDao.getSenderByNotificationID(notifications[i].Notification_ID);
           }
   
-              //获得所有未读通知数量
+              //get unread notifications count
           const unreadNotificationsCount = await sarahNotificationDao.getUnreadNotificationCountByUserID(res.locals.user.User_ID);
           res.locals.unreadNotificationsCount = unreadNotificationsCount;
-          //判断是否有未读通知
+          //check if there is unread notifications
           if(unreadNotificationsCount.count > 0){
-            console.log("有未读通知");
+            console.log("has unread notifications");
             res.locals.hasUnreadNotifications = true;
             }
           res.locals.notifications = notifications;

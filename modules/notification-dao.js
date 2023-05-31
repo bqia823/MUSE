@@ -56,7 +56,7 @@ async function updateNotificationIsRead(Notification_ID) {
   return result;
 
 }
-//删除用户时，删除该用户的所有通知
+//when delete account, delete all the notification删除用户时，删除该用户的所有通知
 async function deleteUsersAllNotification(userId) {
   const db = await dbPromise;
   await db.run(SQL`
@@ -67,7 +67,7 @@ async function deleteUsersAllNotification(userId) {
   `);
 }
 
-//删除当前用户的一个通知项
+//delete one notification from the user 删除当前用户的一个通知项
 async function deleteOneNotification(Notification_ID) {
   const db = await dbPromise;
   await db.run(SQL`
@@ -76,68 +76,6 @@ async function deleteOneNotification(Notification_ID) {
 }
 
 
-// async function getThreeNotifications() {
-//   const db = await dbPromise;
-
-//   const allNotifications = await db.get(SQL`
-//         select * from Notification ORDER BY Timestamp DESC`);
-//   let threeNotifications = [];
-//   for (let i = 0; i < 3; i++) {
-//     threeNotifications.push(allNotifications[i]);
-//   }
-//   return threeNotifications;
-// }
-
-// async function getNotifications(userID) {
-//   try {
-//     const db = await dbPromise;
-//     const notifications = await db.all(`
-//     SELECT * FROM Notification WHERE Receiver_ID = ? ORDER BY Timestamp DESC LIMIT 15`, [userID]);
-//     if (!notifications) throw new Error('Notifications not found.');
-    
-//     console.log('Notifications: ', notifications);
-//     return notifications;
-//   } catch (error) {
-//     console.error('Error: ', error);
-//     throw error;
-//   }
-// }
-
-
-// async function retrieveNotificationById(id) {
-//   const db = await dbPromise;
-
-//   const testData = await db.get(SQL`
-//         select * from test
-//         where id = ${id}`);
-
-//   return testData;
-// }
-
-// async function retrieveAllSubNotification() {
-//   const db = await dbPromise;
-
-//   const allTestData = await db.all(SQL`select * from test`);
-
-//   return allTestData;
-// }
-
-// async function updateNotification(testData) {
-//   const db = await dbPromise;
-
-//   return await db.run(SQL`
-//         update test
-//         set stuff = ${testData.stuff}
-//         where id = ${testData.id}`);
-// }
-
-// async function deleteNotification(id) {
-//   const db = await dbPromise;
-
-//   return await db.run(SQL`
-//         delete from test
-//         where id = ${id}`);
-// }
 
 // Export functions.
 module.exports = {
