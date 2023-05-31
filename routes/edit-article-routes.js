@@ -13,9 +13,7 @@ const path = require('path');
 
 router.get("/editArticle/:Article_ID", addUserToLocals, async function(req, res) {
     console.log("editArticle路由");
-    // //get notification unread number渲染出未读通知数量
-    // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-    // res.locals.unReadComment = allNotifications.length;
+    
 
     const Article_ID = req.params.Article_ID;
     const article = await editArticleDao.getArticleById(Article_ID);
@@ -23,9 +21,9 @@ router.get("/editArticle/:Article_ID", addUserToLocals, async function(req, res)
     console.log("进入articleID " + Article_ID + " 路由");
     console.log("article的内容", article);
     res.locals.article = article;
-    // console.log("article的图片", article.Image);
 
-      // 获得三个提醒项
+
+      // get at most Three Notifications
       if(res.locals.user){
         const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
         for (let i = 0; i < notifications.length; i++) {
@@ -33,10 +31,10 @@ router.get("/editArticle/:Article_ID", addUserToLocals, async function(req, res)
             await sarahNotificationDao.getSenderByNotificationID(notifications[i].Notification_ID);
         }
 
-            //获得所有未读通知数量
+            //get unread notifications count
         const unreadNotificationsCount = await sarahNotificationDao.getUnreadNotificationCountByUserID(res.locals.user.User_ID);
         res.locals.unreadNotificationsCount = unreadNotificationsCount;
-        //判断是否有未读通知
+        //check if there are unread notifications
         if(unreadNotificationsCount.count > 0){
             console.log("有未读通知");
             res.locals.hasUnreadNotifications = true;

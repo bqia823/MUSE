@@ -45,25 +45,20 @@ router.get("/", addUserToLocals, function (req, res) {
     if (res.locals.user) {
       res.redirect("/home/1/publishTime");
     } else {
-      console.log("再次进入 vistor homePage.js...");
       res.redirect("/home/visitor/1/publishTime");
     }
   });
   
   router.get("/home/visitor/:pages/:sort", addUserToLocals, async function (req, res) {
     console.log("user是" + res.locals.user);
-    const page = parseInt(req.params.pages); // 获取页码
-    const sort = req.params.sort; // 获取排序方式
-    const pageSize = 15; // 每页显示的文章数量
-    //根据页数截取15篇文章
+    const page = parseInt(req.params.pages); // get pages
+    const sort = req.params.sort; // get sorting method
+    const pageSize = 15; // max number of articles per page
+    //slice 15 articles per page
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    //文章排序方式
-  
-    //Getting all sorted articles
+
     let allArticles = [];
-  
-    // allArticles = await sarahArticleDao.getAllArticlesByPublishTime();
   
     if (sort === "authorName") {
       allArticles = await sarahArticleDao.getAllArticlesByAuthorName();
@@ -85,25 +80,45 @@ router.get("/", addUserToLocals, function (req, res) {
     //Setting up page bar view
     const totalPages = parseInt(allArticles.length / 15) + 1;
   
+    // let pageBar = [];
+    // if (totalPages <= 3) {
+    //   for (let i = 1; i <= totalPages; i++) {
+    //     pageBar.push(i);
+    //   }
+    // } else if (totalPages > 3 && page + 2 <= totalPages) {
+    //   for (let i = 1; i < totalPages; i++) {
+    //     if (
+    //       i == page - 2 ||
+    //       i == page - 1 ||
+    //       i == page ||
+    //       i == page + 1 ||
+    //       i == page + 2
+    //     ) {
+    //       pageBar.push(i);
+    //     }
+    //   }
+    // }
     let pageBar = [];
-    if (totalPages <= 3) {
+
+    if (totalPages <= 5) {
+      // If there are 5 or less pages, just show all pages.
       for (let i = 1; i <= totalPages; i++) {
         pageBar.push(i);
       }
-    } else if (totalPages > 3 && page + 2 <= totalPages) {
-      for (let i = 1; i < totalPages; i++) {
-        if (
-          i == page - 2 ||
-          i == page - 1 ||
-          i == page ||
-          i == page + 1 ||
-          i == page + 2
-        ) {
-          pageBar.push(i);
-        }
+    } else {
+      // If there are more than 5 pages, we need to decide what to show.
+      
+      // Determine the start of the range:
+      let startPage = Math.max(1, page - 2);
+      
+      // Adjust startPage if we are near the end:
+      startPage = Math.min(startPage, totalPages - 4);
+    
+      // Now we add 5 pages to the page bar, from startPage to startPage + 4:
+      for (let i = 0; i < 5; i++) {
+        pageBar.push(startPage + i);
       }
     }
-  
     res.locals.pages = pageBar;
   
     for (let i = 0; i < slicedArticles.length; i++) {
@@ -126,11 +141,7 @@ router.get("/", addUserToLocals, function (req, res) {
     if(!res.locals.user){
       res.redirect("/home/visitor/1/publishTime");
     }
-    // if(res.locals.user){
-    //   //get notification unread number渲染出未读通知数量
-    //   const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-    //   res.locals.unReadComment = allNotifications.length;
-    // }
+    
     //get current page
     const page = parseInt(req.params.pages); // 获取页码
     //get current sort
@@ -208,7 +219,6 @@ router.get("/", addUserToLocals, function (req, res) {
     res.locals.pages = pageBar;
   
     //Getting three most rescent notifications
-    // const notificationList = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
     if(res.locals.user){
     const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);
     
@@ -218,13 +228,13 @@ router.get("/", addUserToLocals, function (req, res) {
       notifications[i].userInformation =
         await sarahNotificationDao.getSenderByNotificationID(notifications[i].Notification_ID);
     }
-    //获得所有未读通知数量
+    //get unread notifications count
     const unreadNotificationsCount = await sarahNotificationDao.getUnreadNotificationCountByUserID(res.locals.user.User_ID);
     res.locals.unreadNotificationsCount = unreadNotificationsCount;
     res.locals.notifications = notifications;
-    //判断是否有未读通知
+    //check if there are unread notifications
     if(unreadNotificationsCount.count > 0){
-      console.log("有未读通知");
+      console.log("has unread notifications");
       res.locals.hasUnreadNotifications = true;
       }
    
@@ -271,7 +281,7 @@ router.get("/", addUserToLocals, function (req, res) {
   router.get("/like/:articleId", addUserToLocals, async function (req, res) {
     const Article_ID = req.params.articleId;
     //const article = await articleDao.getArticleByArticleID(Article_ID);
-    //获得所有点赞这篇文章的用户ID
+    //get all likersID
     const likerIDArray = await likeDao.getLikerByArticleID(Article_ID);
     // if (res.locals.user) {
     if (

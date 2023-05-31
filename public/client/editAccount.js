@@ -44,22 +44,20 @@ window.addEventListener('load', async function() {
     });
   };
 
-  //获取所有的delete button
+  //get delete account button
   const deleteAccountButton = document.querySelector("#deleteBtn");
- // 获取所有的弹窗
   const deleteAccountWindow = document.querySelector(".deleteAccountWindow");
-  //获取所有弹窗中的yes和no按钮
   const deleteAccountYesButton = document.querySelector(".yesDeleteAccount");
   const deleteAccountNoButton = document.querySelector(".noDeleteAccount");
 
- // 遍历删除按钮，添加监听事件，一点击就会弹出弹窗
+ // addeventlistner to delete button 添加监听事件，一点击就会弹出弹窗
 
     deleteAccountButton.addEventListener("click", function () {
       console.log("deleteAccountButton clicked");
       deleteAccountWindow.style.display = "flex";
       
     });
-  
+    //if click yes button, delete the account
     const substring = deleteAccountYesButton.id.substring(3);
     console.log(substring + "substring的值");
     deleteAccountYesButton.addEventListener("click", async function () {
@@ -68,7 +66,7 @@ window.addEventListener('load', async function() {
       window.location.href = `/delete-account/${substring}`;
     });
   
-  //遍历所有no button,如果用户点击这个按钮，弹窗直接消失
+  //loop through all no button 遍历所有no button,如果用户点击这个按钮，弹窗直接消失
  
   deleteAccountNoButton.addEventListener("click", function () {
     console.log("deleteAccountNoButton clicked");

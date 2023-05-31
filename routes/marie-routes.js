@@ -150,7 +150,7 @@ router.get("/delete-account/:User_ID", addUserToLocals, async function (req, res
 // -- DELETE FROM User WHERE User_ID = 2;
 });
 
-router.get("/api/delete-account/:User_ID", addUserToLocals, async function (req, res) {
+router.delete("/api/delete-account/:User_ID", addUserToLocals, async function (req, res) {
     console.log("进入删除用户路由");
     if(!res.locals.user) {
         return res.status(401).send("please login first");

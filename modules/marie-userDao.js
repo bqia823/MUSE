@@ -189,7 +189,7 @@ async function unfollowUser(followerId, userId) {
   }
 }
 
-//获得当前用户（非本人）的关注的人的数量
+//get the count of the profile owner's follows 获得当前用户（非本人）的关注的人的数量
 async function getFollowsCount(userID) {
   const db = await dbPromise;
   const result = await db.get(SQL`
@@ -197,7 +197,7 @@ async function getFollowsCount(userID) {
   `);
   return result;
 }
-//获得当前用户（非本人）的粉丝的数量
+//get the count of the profile owner's subscribers获得当前用户（非本人）的粉丝的数量
 async function getSubcriberCount(userID) {
   const db = await dbPromise;
   const result = await db.get(SQL`

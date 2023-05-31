@@ -18,23 +18,21 @@ const path = require("path");
 
 router.get("/create_article", addUserToLocals, async function (req, res) {
   console.log("enter create_article");
-  // //get notification unread number渲染出未读通知数量
-  // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-  // res.locals.unReadComment = allNotifications.length;
 
-   // 获得三个提醒项
+
+   // get at most Three Notifications
    if(res.locals.user){
     const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
     for (let i = 0; i < notifications.length; i++) {
     notifications[i].userInformation =
         await sarahNotificationDao.getSenderByNotificationID(notifications[i].Notification_ID);
     }
-      //获得所有未读通知数量
+      //get unread notifications count
       const unreadNotificationsCount = await sarahNotificationDao.getUnreadNotificationCountByUserID(res.locals.user.User_ID);
       res.locals.unreadNotificationsCount = unreadNotificationsCount;
-   //判断是否有未读通知
+   //check if there are unread notifications
    if(unreadNotificationsCount.count > 0){
-    console.log("有未读通知");
+    console.log("has unread notifications");
     res.locals.hasUnreadNotifications = true;
     }
     res.locals.notifications = notifications;
@@ -49,9 +47,9 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
     console.log("enter createArticle");
     const userID = req.params.User_ID;
     const fileInfo = req.file;
-    let imageName = ""; // 默认图片名为空
+    let imageName = ""; // default value for Image property
   
-    // 如果用户上传了图片
+    // if there is a file uploaded, rename it and get the new file name
     if(fileInfo){
     console.log("fileInfo: ", fileInfo);
     const oldFileName = fileInfo.path;
@@ -60,12 +58,12 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
     console.log("fileInfo.originalname: ", fileInfo.originalname);
     console.log("oldFileName: ", oldFileName);
     console.log("newFileName: ", newFileName);
-    imageName = fileInfo.originalname; // 使用上传后的文件名作为 Image 属性的值
+    imageName = fileInfo.originalname; 
   }
     const article = {
       Title: req.body.title,
       Content: req.body.content,
-      Image: imageName, // 使用上传后的文件名作为 Image 属性的值
+      Image: imageName, 
       Likes_Count: 0,
       User_ID: userID,
     };
@@ -73,7 +71,7 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
     res.locals.fileName = imageName;
     
 
-    //如果标题或内容为空，不允许发布文章
+    //if the title or content is empty, return error message
   if (article.Title.trim().length == 0 || article.Content.trim().length == 0) {
       // res.setToastMessage("Title and content cannot be empty!");
       res.json({ success: false, message: 'Title and content cannot be empty!' });
@@ -81,7 +79,7 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
       
       await createArticleDao.createArticle(article);
 
-      //加入notification功能
+      //add notification to all followers
       const authorUserName = await articleDao.getAuthorNameByArticleID(article.Article_ID);
       console.log("authorUserName: ", authorUserName);
       const followers = await getFollowersByUserID(article.User_ID);
@@ -90,7 +88,7 @@ router.post("/createArticle/:User_ID", addUserToLocals, upload.single("imageFile
           Content: `Your subscribed author ${authorUserName.Username} has a new article posted!`,
           Is_Read: true,
           Sender_ID: article.User_ID,
-          Receiver_ID: follower, // follower就是关注者（订阅者）的ID
+          Receiver_ID: follower, 
           NotificationType: "article_posted",
           Article_ID: article.Article_ID,
         };

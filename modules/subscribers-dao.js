@@ -9,7 +9,7 @@ async function getSubscribersById(User_ID) {
         FROM User 
         JOIN Subscription ON User.User_ID = Subscription.Subscriber_ID
         WHERE Subscription.Author_ID = ${User_ID}`);
-        console.log(subscribers);  // 添加这行
+        console.log(subscribers);  
     return subscribers;
 }
 

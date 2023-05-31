@@ -14,7 +14,7 @@ router.get("/user_login", async function (req, res) {
 
 router.post("/user_login", async function (req, res) {
     // Get the username and password submitted in the form
-    console.log("已输入密码");
+    console.log("has entered password");
     const username = req.body.username;
     const password = req.body.password;
 
@@ -52,7 +52,7 @@ router.post("/user_login", async function (req, res) {
 
 router.post("/api/user_login", async function (req, res) {
     // Get the username and password submitted in the form
-    console.log("已输入密码");
+    console.log("has entered password");
     const username = req.body.username;
     const password = req.body.password;
 

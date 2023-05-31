@@ -27,7 +27,8 @@ window.addEventListener("load", async function () {
   const content = document.querySelectorAll(".partDiscription");
   const previousContent = document.querySelectorAll(".previousPartDiscription");
   
-  //这个方法用于将文章展示区域的html标签转换为字符串
+  //this method can convey the HTML string to text string 这个方法用于将文章展示区域的html标签转换为字符串
+  //for showing the article content in the home page
   for (let i = 0; i < content.length; i++) {
    content[i].innerHTML = content[i].innerText;
   }
@@ -254,7 +255,7 @@ if(User_ID){
     }
   });
 
-    //点击notification，跳转到对应的文章
+     //click notifications to redirect点击notification，跳转到对应的文章
     for(let i = 0; i < notifications.length; i++){
       notifications[i].style.cursor = "pointer";
       notifications[i].addEventListener("click", async function () {

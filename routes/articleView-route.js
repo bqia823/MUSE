@@ -41,7 +41,7 @@ router.get("/articleView/:Article_ID", addUserToLocals, async function(req, res)
     res.locals.author = await articleDao.getAuthorNameByArticleID(Article_ID);
     res.locals.authorAvatar = await articleDao.getAuthorAvatarByArticleID(Article_ID);
     
-    //显示点赞状态
+    //show like icon status
     const likerIDArray = await likeDao.getLikerByArticleID(Article_ID);
     if(res.locals.user){     
         if(likerIDArray.map(item => item.User_ID).includes(res.locals.user.User_ID)){      
@@ -54,15 +54,12 @@ router.get("/articleView/:Article_ID", addUserToLocals, async function(req, res)
         res.locals.likeIcon = "/images/like.png";
     }
 
-    // //获得评论数
+    // get comment count
     const commentCount = await commentDao.getTotalCommentCount(Article_ID);
     res.locals.commentCount = commentCount;
 
-    // 获得三个提醒项
+    // get at most 3 comments
     if(res.locals.user){
-        // //get notification unread number渲染出未读通知数量
-        // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-        // res.locals.unReadComment = allNotifications.length;
 
         const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
         for (let i = 0; i < notifications.length; i++) {
@@ -70,12 +67,12 @@ router.get("/articleView/:Article_ID", addUserToLocals, async function(req, res)
             await sarahNotificationDao.getSenderByNotificationID(notifications[i].Notification_ID);
         }
 
-            //获得所有未读通知数量
+            //get unread notifications count
         const unreadNotificationsCount = await sarahNotificationDao.getUnreadNotificationCountByUserID(res.locals.user.User_ID);
         res.locals.unreadNotificationsCount = unreadNotificationsCount;
-        //判断是否有未读通知
+        //check if there is unread notifications
         if(unreadNotificationsCount.count > 0){
-            console.log("有未读通知");
+            console.log("has unread notifications");
             res.locals.hasUnreadNotifications = true;
             }
         
@@ -99,26 +96,25 @@ router.get("/like", addUserToLocals, async function(req, res){
     //获得所有点赞这篇文章的用户ID
     const likerIDArray = await likeDao.getLikerByArticleID(Article_ID);
     if(res.locals.user){
-        console.log("LIKE判断：有users对象储存在本地");
+        console.log("LIKE判断：has users object stored in locals");
         if(likerIDArray.map(item => item.User_ID).includes(res.locals.user.User_ID)){
-            console.log("LIKE判断：点赞这篇文章的所有用户ID里面有当前用户的ID, 取消点赞");
+            console.log("LIKE判断：local user ID is in the array, cancel like");
             res.locals.likeIcon = "/images/like.png";
             await likeDao.removeLikeCountAndLiker(Article_ID, res.locals.user.User_ID);
             const likeCount = await likeDao.getLikeCount(Article_ID);
             res.locals.likeCount = likeCount;
             res.redirect(req.headers.referer);
         }else{
-            console.log("LIKE判断：点赞这篇文章的所有用户ID里面没有当前用户的ID，点赞");
+            console.log("LIKE判断：local user ID is not in the array，add like");
             res.locals.likeIcon = "/images/liked.png";
             await likeDao.updateLikeCountAndLiker(Article_ID, res.locals.user.User_ID);
             const likeCount = await likeDao.getLikeCount(Article_ID);
             res.locals.likeCount = likeCount;
-            //当用户点赞后，通知作者
-            // await notificationDao.createNotificationWhenLike(res.locals.user, article); 
+ 
             res.redirect(req.headers.referer);
         }
     }else{
-        console.log("LIKE判断：没有users对象储存在本地");
+        console.log("LIKE判断：no local user object");
         res.setToastMessage("You need to login first!");
         res.locals.likeIcon = "/images/like.png";
         res.redirect(req.headers.referer);

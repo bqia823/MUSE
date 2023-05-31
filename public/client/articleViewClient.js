@@ -1,15 +1,15 @@
 console.log("reply client js...");
 window.addEventListener("load", async function() {
-    // 获取登录状态
+    // get login status
     const response = await fetch("/user_login_status");
     const loginStatus = await response.json();
     console.log("loginStatus: " + loginStatus);
-    //获取当前用户信息
+    //get local user info
     const response1 = await fetch("/user_info");
     const user_info = await response1.json();
     const User_ID = user_info.User_ID;
 
-    //判断用户是否登录，如果登录，显示导航条上的部分内容
+    //check if the user has logged in 判断用户是否登录，如果登录，显示导航条上的部分内容
     const homeBtn = document.querySelector("#home");
     const signInBtn = document.querySelector("#sign-in");
     const notificationBtn = document.querySelector("#notification");
@@ -35,29 +35,27 @@ window.addEventListener("load", async function() {
         notificationBtn.style.display = "none";
         
     }
-    // 将ql-editor的样式设为不可编辑
+    // set ql-editor's ediable to false 将ql-editor的样式设为不可编辑
     if(this.document.querySelector(".ql-editor") != undefined){
         const editor = document.querySelector(".ql-editor");
         editor.setAttribute("contenteditable", false);
     }
     
-    // const articleText = document.querySelector("#articletext");
- 
-    // articleText.innerHTML = articleText.innerText;
     
 
-    // 获取文章id
+    // get article id 获取文章id
     var currentURL = window.location.href;
     const parsedUrl = new URL(currentURL);
     const articleId = parsedUrl.pathname.split('/').pop();
     console.log("articleId: " + articleId);
-    // 展示文章所有评论
+    // get article comments 展示文章所有评论
     const response2 = await fetch(`/showComments?Article_ID=${articleId}`);
     const comments = await response2.json();
     
     const renderedComments = [];
+    //get top level comments 获取顶级评论
     const topLevelComments = comments.filter(comment => comment.Parent_Comment_ID == null);
-
+    //get sub comments 获取子评论
     topLevelComments.forEach(comment => {
         comment.subComment = getSubComments(comment.Comment_ID);
         renderedComments.push(comment);
@@ -66,7 +64,7 @@ window.addEventListener("load", async function() {
     const commentArea = document.querySelector(".comment");
     const commentDisplay = renderComments(renderedComments, 0);
     commentArea.innerHTML = commentDisplay;
-    //点击reply触发弹窗
+    //show reply div when click reply button 点击reply触发弹窗
     const reply = document.querySelectorAll(".reply");
     const replyDiv = document.querySelectorAll(".reply-text-div");
     for(let i = 0; i < reply.length; i++){
@@ -80,6 +78,7 @@ window.addEventListener("load", async function() {
             }
         });
     }
+    //check user's identity to decide whether to show delete button and edit button
     //判断用户身份,如果是作者本人或者评论者本人，显示删除按钮
     //如果用户是visitor，不显示回复按钮
     //如果用户是本人，显示edit按钮
@@ -122,8 +121,7 @@ window.addEventListener("load", async function() {
         }       
     }
     
-    
-    //当鼠标移动到notificaiton按钮时，显示通知
+    //when cursor is on notification button, show the notifications 当鼠标移动到notificaiton按钮时，显示通知
     const newContent = document.querySelector("#icon-container");
     const notifications = document.querySelectorAll(".notifications");
     if(User_ID){
@@ -141,7 +139,7 @@ window.addEventListener("load", async function() {
               newContent.style.display = "none";
             }
           });
-          //点击notification，跳转到对应的文章
+          //click notifications to redirect点击notification，跳转到对应的文章
           for(let i = 0; i < notifications.length; i++){
               notifications[i].addEventListener("click", async function () {
                 console.log("notification clicked");
@@ -254,9 +252,11 @@ window.addEventListener("load", async function() {
         });
         return commentDisplay;
     }
-
+    //hide comment panel function
     hideCommentPanel();
+    //show toastmessage when click like button without login
     showToastMessage(loginStatus);
+    //block comment area when not login
     blockCommentArea(loginStatus);
 
 });

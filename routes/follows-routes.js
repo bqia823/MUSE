@@ -7,9 +7,6 @@ const notificationDao = require("../modules/notification-dao.js");
 const { addUserToLocals } = require("../middleware/auth-middleware.js");
 
 router.get("/followsList/:page", addUserToLocals, async function (req, res) {
-    // //get notification unread number渲染出未读通知数量
-    // const allNotifications = await notificationDao.getAllNotificationByUserID(res.locals.user.User_ID);
-    // res.locals.unReadComment = allNotifications.length;
     
       const page = parseInt(req.params.page);
       const startIndex = (page - 1) * 15;
@@ -71,7 +68,7 @@ router.get("/followsList/:page", addUserToLocals, async function (req, res) {
         res.locals.slicedFollowsList = slicedFollowsList;
         
 
-         // 获得三个提醒项
+         // get at most 3 notifications for the user
     if(res.locals.user){
         const notifications = await sarahNotificationDao.getThreeNotifications(res.locals.user.User_ID);  
         for (let i = 0; i < notifications.length; i++) {
@@ -79,12 +76,12 @@ router.get("/followsList/:page", addUserToLocals, async function (req, res) {
             await sarahNotificationDao.getSenderByNotificationID(notifications[i].Notification_ID);
         }
 
-            //获得所有未读通知数量
+            //get notification unread number渲染出未读通知数量
         const unreadNotificationsCount = await sarahNotificationDao.getUnreadNotificationCountByUserID(res.locals.user.User_ID);
         res.locals.unreadNotificationsCount = unreadNotificationsCount;
         
         res.locals.notifications = notifications;
-        //判断是否有未读通知
+        //check if there are unread notifications
         if(unreadNotificationsCount.count > 0){
             console.log("有未读通知");
             res.locals.hasUnreadNotifications = true;

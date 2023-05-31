@@ -82,7 +82,7 @@ router.get("/notification_info/:notification_ID", addUserToLocals, async functio
     console.log("entering notification route...");
     const notification_ID = req.params.notification_ID;
     const notification = await notificationDao.retrieveNotificationByID(notification_ID);
-    //当用户点击notification时，将其设为已读
+    //when user click the notification, the notification will be marked as read
     await notificationDao.updateNotificationIsRead(notification_ID);
     res.json(notification);
 });
@@ -113,7 +113,7 @@ router.get("/delete-notification/:Notification_ID", addUserToLocals,  async (req
     console.log("receiverID是: " + receiverID.User_ID);
     if(res.locals.user){
         if(res.locals.user.User_ID == receiverID.User_ID){
-            console.log("進入刪除通知");
+            console.log("ready to enter delete notification route...");
             await notificationDao.deleteOneNotification(notificationID);
             res.redirect('/notification/' + res.locals.user.User_ID + '/1');
         }else{

@@ -1,19 +1,18 @@
 window.addEventListener('load', async function() {
     console.log('profile Window loaded.');
-    //获取当前用户信息
+    //get local user info
     console.log('准备进入/user_info 路由');
     const response1 = await fetch("/user_info");
     const user_info = await response1.json();
     const User_ID = user_info.User_ID;
     console.log('User_info得出User_ID: ', User_ID);
-    //判断用户是否登录，如果登录，显示导航条上的部分内容
+    //check user login status判断用户是否登录，如果登录，显示导航条上的部分内容
     const homeBtn = document.querySelector("#home");
     const signInBtn = document.querySelector("#sign-in");
     const notificationBtn = document.querySelector("#notification");
     const profileBtn = document.querySelector("#profile");
     const createArticleBtn = document.querySelector("#create-article");
     const logoutBtn = document.querySelector("#log-out");
-    // const followBtn = document.querySelector(".follow-button");
     const followButton = document.querySelector('.follow-button');
     if(User_ID){
         
@@ -33,15 +32,14 @@ window.addEventListener('load', async function() {
         followButton.style.display = "none";
         
     }
-
-    //判断是否是当前用户的profile，如果是，隐藏follow按钮
+    //check if the user is the owner of the profile 判断是否是当前用户的profile，如果是，隐藏follow按钮
     const currentURL = window.location.href;
     const parsedUrl = new URL(currentURL);
     const profileID = parsedUrl.pathname.split('/').pop();
     
     const userFollowsDiv = document.querySelector('.user-follows');
     if(User_ID != profileID){
-      //显示follow按钮的状态
+      //show the status of follow button 显示follow按钮的状态
       console.log("准备进入checkIsFollowing路由");
       const response6 = await fetch(`/checkIsFollowing/${profileID}`);
       const isFollowing = await response6.json();
@@ -68,6 +66,8 @@ window.addEventListener('load', async function() {
       console.log('User_ID:和profileID相等', User_ID);
       userFollowsDiv.style.display = "none";
     }
+    //check if the local user the is the profile owner, if yes, stop jumpping when click 
+    //the followList link and subscribersList link
     //判断当前用户是否是当前页面的用户，如果不是，阻止超链接跳转
     const followslink = document.querySelector("#followslink");
     const followerslink = document.querySelector("#followerslink");
@@ -81,7 +81,7 @@ window.addEventListener('load', async function() {
       });
     }
 
-    //当鼠标移动到notificaiton按钮时，显示通知
+   //when the cursor is on notification button, show notifications当鼠标移动到notificaiton按钮时，显示通知
     const newContent = document.querySelector("#icon-container");
     const notifications = document.querySelectorAll(".notifications");
     // const redDot = document.querySelectorAll(".red-dot");
@@ -101,7 +101,7 @@ window.addEventListener('load', async function() {
               newContent.style.display = "none";
             }
           });
-          //点击notification，跳转到对应的文章
+          //click notifications to redirect点击notification，跳转到对应的文章
           for(let i = 0; i < notifications.length; i++){
               notifications[i].style.cursor = "pointer";
               notifications[i].addEventListener("click", async function () {
@@ -130,23 +130,20 @@ window.addEventListener('load', async function() {
           });
     }
 
-    //当点击删除文章按钮时，出现确认删除的弹窗
-    //获取所有的delete button
+  //When click delete article button, show the comfirm window 当点击删除文章按钮时，出现确认删除的弹窗
   const deleteArticleButton = document.querySelectorAll(".delete-button");
-  // 获取所有的弹窗
-   const deleteArticleWindow = document.querySelectorAll(".deleteArticleWindow");
-   //获取所有弹窗中的yes和no按钮
-   const deleteArticleYesButton = document.querySelectorAll(".yesDeleteArticle");
-   const deleteArticleNoButton = document.querySelectorAll(".noDeleteArticle");
+  const deleteArticleWindow = document.querySelectorAll(".deleteArticleWindow");
+  const deleteArticleYesButton = document.querySelectorAll(".yesDeleteArticle");
+  const deleteArticleNoButton = document.querySelectorAll(".noDeleteArticle");
  
-  // 遍历删除按钮，添加监听事件，一点击就会弹出弹窗
+  // loop through all delete button 遍历删除按钮，添加监听事件，一点击就会弹出弹窗
    for (let i = 0; i < deleteArticleButton.length; i++) {
     deleteArticleButton[i].addEventListener("click", function () {
        deleteArticleWindow[i].style.display = "flex";
      });
    }
- 
-   //遍历所有yes button,用户选择yes之后数据库删除文章，所有弹窗消失
+   
+   //loop through all yes button 遍历所有yes button,用户选择yes之后数据库删除文章，所有弹窗消失
    for (let i = 0; i < deleteArticleYesButton.length; i++) {
      const substring = deleteArticleYesButton[i].id.substring(3);
      deleteArticleYesButton[i].addEventListener("click", async function () {
@@ -154,7 +151,7 @@ window.addEventListener('load', async function() {
        window.location.href = `/delete-article/${substring}`;
      });
    }
-   //遍历所有no button,如果用户点击这个按钮，弹窗直接消失
+   //loop through all no button 遍历所有no button,如果用户点击这个按钮，弹窗直接消失
    for (let i = 0; i < deleteArticleNoButton.length; i++) {
     deleteArticleNoButton[i].addEventListener("click", function () {
       console.log("no button clicked");

@@ -5,7 +5,7 @@
 
 
 <div class="container">
-    {{! Display a message if one was provided. }}
+
     {{#if toastMessage}}
     <p>{{toastMessage}}</p>
     {{/if}}
@@ -71,7 +71,7 @@
     <div id="deleteAccount" class="deleteAccountWindow">
         <div>Are you sure you want to delete your account?</div>
             <div class="DeleteAccountYesAndNoButton">
-                {{!-- 这里的userId是当前登陆者的id,删除也是删除这个登录者 --}}
+                
                 <div><button class="yesDeleteAccount" id="yes{{user.User_ID}}">Yes</button></div>
                 <div><button class="noDeleteAccount" id="no{{user.User_ID}}">No</button></div>
         </div>
@@ -90,16 +90,16 @@
         // icon selection turn red when clicked
         $(document).ready(function () {
             $('.iconcontainer div').on('click', function () {
-                $('.iconcontainer div').css('outline', ''); // 取消所有图标的突出显示
-                $(this).css('outline', '2px solid red'); // 突出显示选中的图标
-                $('#icon').val($(this).attr('data-icon')); // 更新隐藏的输入字段的值
+                $('.iconcontainer div').css('outline', ''); // cancel all outlines
+                $(this).css('outline', '2px solid red'); // emphasize the clicked one
+                $('#icon').val($(this).attr('data-icon')); // update the hidden input field
             });
         });
 
         // username input check
         document.querySelector("input[name='username']").addEventListener("input", function () {
             const username = this.value;
-            if (!username.trim()) { // 如果用户名为空或者只有空白字符
+            if (!username.trim()) { // if the username is empty
                 document.getElementById("usernameAvailability").textContent = '';
             } else {
                 fetch(`/check_username/${username}`)
