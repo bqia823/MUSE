@@ -264,7 +264,7 @@ router.get("/", addUserToLocals, function (req, res) {
       
     }
     res.locals.fifteenArticles = slicedArticles;
-    console.log("fifteenArticles的like " + res.locals.fifteenArticles[0].like);
+
     if(res.locals.user){
       const fourArticles = await sarahArticleDao.getMyArticles(4, user.User_ID);
 

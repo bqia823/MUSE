@@ -66,8 +66,8 @@ body {
 #icon-container {
   display: none;
   position: absolute;
-  top: 5%;
-  right: 20%;
+  top: 50px;
+  right: 200px;
 
   /* display: flex; */
   flex-direction: column;
@@ -77,16 +77,25 @@ body {
   opacity: 0.95;
   box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.25);
   border-radius: 0px 0px 10px 10px;
+  overflow: auto;
+  word-wrap: break-word;
+  
 }
 
 #notificationTop {
   text-align: center;
+}
+.UnreadNotification{
+  margin-left: 10px;
 }
 
 #notificationBottom {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
+  word-wrap: break-word;
+  
 }
 
 .notifications {
@@ -97,6 +106,9 @@ body {
   justify-content: space-between;
   width: 100%;
   text-align: left;
+  overflow: auto;
+  word-wrap: break-word;
+  
 }
 
 .notifications:hover {
@@ -131,6 +143,12 @@ body {
   top: -30px;
   left: 10px;
   z-index: 1;
+}
+
+.contentLine{
+  overflow: auto;
+  word-wrap: break-word;
+  width: 90%;
 }
 .senderInformation {
   margin-left: 5px;

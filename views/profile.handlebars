@@ -36,8 +36,10 @@
 
 </nav>
 <div id="icon-container">
-    <div id="notificationTop">Notification</div><span><strong>Unread notification:
-            {{unreadNotificationsCount.count}}</strong></span>
+    <div id="notificationTop">Notification</div>
+    <div class="UnreadNotification"><strong>Unread notification:
+            {{unreadNotificationsCount.count}}</strong>
+    </div>
     <div id="notificationBottom">
         {{#each notifications}}
         <div class="notifications" id="notifications{{this.Notification_ID}}">

@@ -64,6 +64,8 @@ body {
     opacity: 0.95;
     box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.25);
     border-radius: 0px 0px 10px 10px;
+    overflow: auto;
+    word-wrap: break-word;
   
   
   }
@@ -76,6 +78,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
+    word-wrap: break-word;
   }
   
   .notifications {
@@ -86,8 +90,12 @@ body {
     justify-content: space-between;
     width: 100%;
     text-align: left;
+    overflow: auto;
+    word-wrap: break-word;
   }
-  
+  .UnreadNotification{
+    margin-left: 10px;
+  }
   .notifications:hover {
     background-color: #f6ffed;
     color: #87cba2;
@@ -120,6 +128,12 @@ body {
     left: 10px;
     z-index: 1;
   }
+  .contentLine{
+    overflow: auto;
+    word-wrap: break-word;
+    width: 90%;
+  }
+  
   .senderInformation{
     margin-left: 5px;
   }
