@@ -237,19 +237,24 @@ router.get("/", addUserToLocals, function (req, res) {
         slicedArticles[i].Article_ID
       );
       slicedArticles[i].commentNumber = allComments.length;
-      slicedArticles[i].userInformation = await sarahArticleDao.getAuthorByArticleID(
-        slicedArticles[i].Article_ID
-      );
-      const liker = sarahArticleDao.getLikerByArticleID(slicedArticles[i].Article_ID);
-        if(res.locals.user){
-            if (user.User_ID === liker.User_ID) {
-                slicedArticles[i].like = "liked.png";
-            } else {
-                slicedArticles[i].like = "like.png";
-            }
+      slicedArticles[i].userInformation = await sarahArticleDao.getAuthorByArticleID(slicedArticles[i].Article_ID);
+      const liker = await likeDao.getLikerByArticleID(slicedArticles[i].Article_ID);
+       
+      if(liker.length === 0 || liker === undefined || liker === null){
+        slicedArticles[i].like = "like.png";
+      }else{
+        for(let j = 0; j < liker.length; j++){
+          if (user.User_ID === liker[j].User_ID) {
+              slicedArticles[i].like = "liked.png";
+          } else {
+              slicedArticles[i].like = "like.png";
+          }
         }
+      }
+      
     }
     res.locals.fifteenArticles = slicedArticles;
+    console.log("fifteenArticles的like " + res.locals.fifteenArticles[0].like);
     if(res.locals.user){
       const fourArticles = await sarahArticleDao.getMyArticles(4, user.User_ID);
 
@@ -262,6 +267,21 @@ router.get("/", addUserToLocals, function (req, res) {
     }
     res.render("home_page_user");
   });
+
+  router.get("/like/:articleId", addUserToLocals, async function (req, res) {
+    const Article_ID = req.params.articleId;
+    //const article = await articleDao.getArticleByArticleID(Article_ID);
+    //获得所有点赞这篇文章的用户ID
+    const likerIDArray = await likeDao.getLikerByArticleID(Article_ID);
+    // if (res.locals.user) {
+    if (
+     likerIDArray.map((item) => item.User_ID).includes(res.locals.user.User_ID)
+     ) {
+    await likeDao.removeLikeCountAndLiker(Article_ID, res.locals.user.User_ID);
+    } else {
+    await likeDao.updateLikeCountAndLiker(Article_ID, res.locals.user.User_ID);
+    }
+    });
 
 
 module.exports = router;

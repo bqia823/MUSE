@@ -6,6 +6,7 @@ async function getLikerByArticleID(Article_ID){
     const result = await db.all(SQL`
     SELECT User_ID FROM Article_Like WHERE Article_ID = ${Article_ID}
     `);
+    // console.log("likeDao的getLikerByArticleID函数的结果是： ", result);
     return result;
 }
 

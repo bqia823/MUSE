@@ -69,14 +69,15 @@ async function getAuthorByArticleID(Article_ID) {
   return result;
 }
 
-async function getLikerByArticleID(Article_ID) {
-  const db = await dbPromise;
-  const result = await db.get(SQL`
-    SELECT* FROM User 
-    WHERE User_ID = (SELECT User_ID FROM Article_Like WHERE Article_ID = ${Article_ID})
-    `);
-  return result;
-}
+// async function getLikerByArticleID(Article_ID) {
+  
+//   const db = await dbPromise;
+//   const result = await db.all(SQL`
+//     SELECT * FROM User 
+//     WHERE User_ID = (SELECT User_ID FROM Article_Like WHERE Article_ID = ${Article_ID})
+//     `);
+//   return result;
+// }
 
 async function getAuthorNameByArticleID(Article_ID) {
   const db = await dbPromise;
@@ -108,6 +109,6 @@ module.exports = {
   getAllArticlesByAuthorName,
   getAllArticlesByTitle,
   getMyArticles,
-  getAuthorByArticleID,
-  getLikerByArticleID,
+  getAuthorByArticleID
+  // getLikerByArticleID,
 };

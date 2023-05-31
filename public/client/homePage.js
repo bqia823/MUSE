@@ -281,9 +281,33 @@ if(User_ID){
     console.log("notificationMore clicked");
     window.location.href =  `/notification/${User_ID}/1`;
   });
+
+    // Function about likes
+    const allLikes = document.querySelectorAll(".likeImageUser");
+    const allLikesNumber = document.querySelectorAll(".likeNumber");
+    
+    for (let i = 0; i < allLikes.length; i++) {
+    allLikes[i].addEventListener("click", function () {
+    if (allLikes[i].src === "http://localhost:3000/images/liked.png") {
+    const substring = allLikes[i].id.substring(4);
+    // window.location.href = `/articleView/${substring}`;
+    allLikes[i].src = "/images/like.png";
+    allLikesNumber[i].innerHTML = parseInt(allLikesNumber[i].innerHTML) - 1;
+    fetch(`/like/${substring}`);
+    } else if (allLikes[i].src === "http://localhost:3000/images/like.png") {
+    const substring = allLikes[i].id.substring(4);
+    // window.location.href = `/articleView/${substring}`;
+    allLikes[i].src = "/images/liked.png";
+    allLikesNumber[i].innerHTML = parseInt(allLikesNumber[i].innerHTML) + 1;
+    fetch(`/like/${substring}`);
+    }
+    });
+    }
+    //Likes function finished
 }
 
-    });
+
+  });
 
    
 
