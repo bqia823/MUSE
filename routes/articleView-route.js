@@ -182,12 +182,16 @@ router.get("/is_article_author/:Article_ID", addUserToLocals, async function(req
     const article = await articleDao.getArticleByArticleID(Article_ID);
    
     if(res.locals.user){
-        if(res.locals.user.User_ID == article.User_ID){
-            console.log("is_article_author: true");
-            const result = {isAuthor: true};
-            res.json(result);
+        if(article != null){
+            if(res.locals.user.User_ID == article.User_ID){
+                console.log("is_article_author: true");
+                const result = {isAuthor: true};
+                res.json(result);
+            }else{
+                const result = {isAuthor: false};
+                res.json(result);
+            }
         }else{
-            
             const result = {isAuthor: false};
             res.json(result);
         }
