@@ -109,6 +109,6 @@ module.exports = {
   getAllArticlesByAuthorName,
   getAllArticlesByTitle,
   getMyArticles,
-  getAuthorByArticleID,
-  getLikerByArticleID,
+  getAuthorByArticleID
+  // getLikerByArticleID,
 };
