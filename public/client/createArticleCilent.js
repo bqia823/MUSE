@@ -13,6 +13,14 @@ window.addEventListener("load", async function () {
     const notificationBtn = document.querySelector("#notification");
     const newContent = document.querySelector("#icon-container");
     const notifications = document.querySelectorAll(".notifications");
+
+    const MUSE = document.querySelector("#MUSE");
+  
+    //when click the MUSE logo, it will go to the home page
+    MUSE.addEventListener("click", function () {
+        window.location.href = "/home/1/publishTime";
+    });
+
     if(User_ID){
         notificationBtn.addEventListener("mouseover", function () {
                 console.log("notificationBtn mouseover");

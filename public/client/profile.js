@@ -14,6 +14,13 @@ window.addEventListener('load', async function() {
     const createArticleBtn = document.querySelector("#create-article");
     const logoutBtn = document.querySelector("#log-out");
     const followButton = document.querySelector('.follow-button');
+    const MUSE = document.querySelector("#MUSE");
+  
+    //when click the MUSE logo, it will go to the home page
+    MUSE.addEventListener("click", function () {
+      window.location.href = "/home/1/publishTime";
+    });
+    
     if(User_ID){
         
         signInBtn.style.display = "none";

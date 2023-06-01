@@ -15,10 +15,7 @@
       <div id="MUSE">MUSE</div>
     </div>
     <div id="rightTopBar">
-      <div class="rightTop">
-        <img class="rightTop" src="/images/article-line.png" alt="create article" title="create new article" />
-      </div>
-      <div class="rightTopText" id="navCreateArticle">create new article</div>
+      
       {{#if hasUnreadNotifications}}
       <div id="bell" class="rightTop">
         <img class="rightTop" src="/images/notification-red.png" alt="Noticfication" title="Noticfication" />
@@ -35,7 +32,10 @@
         <img src="/images/{{user.Avatar}}" class="rightTop" alt="user icon" title="user icon" />
       </div>
       <div class="rightTopText" id="navUserClick">My profile</div>
-
+      <div class="rightTop">
+        <img class="rightTop" src="/images/article-line.png" alt="create article" title="create new article" />
+      </div>
+      <div class="rightTopText" id="navCreateArticle">create new article</div>
       <div class="rightTop">
         <img src="/images/logout-box.png" class="rightTop" alt="log out" title="log out" />
       </div>

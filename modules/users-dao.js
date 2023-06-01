@@ -115,6 +115,14 @@ async function retrieveUserByUsername(username) {
     return user;
 }
 
+async function retrieveAllUsername() {
+    const db = await dbPromise;
+
+    const username = await db.all(SQL`
+        select Username from User`);
+    return username;
+}
+
 /**
  * Gets an array of all users from the database.
  */
@@ -220,5 +228,6 @@ module.exports = {
     retrieveAllUsers,
     updateUser,
     deleteUser,
-    getAllUsers
+    getAllUsers,
+    retrieveAllUsername
 };

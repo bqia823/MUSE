@@ -255,6 +255,7 @@ router.get("/edit-account/:User_ID", addUserToLocals, async function(req, res) {
     
     try {
         let user = await userDao.retrieveUserById(userID);
+        // let userUsernameArray = await userDao.retrieveAllUsername();
         let updatedUser = {User_ID: userID,};
         let isUpdated = false;
     
@@ -291,7 +292,10 @@ router.get("/edit-account/:User_ID", addUserToLocals, async function(req, res) {
             updatedUser.Avatar = req.body.icon;
             isUpdated = true;
         }
-
+        // if(!userUsernameArray.includes(req.body.username) || req.body.username == user.Username){
+        //     updatedUser.Avatar = req.body.icon;
+        //     isUpdated = true;
+        // }
         // Only run the update if there are changes
         if (isUpdated) {
             await userDao.updateUser(updatedUser);
@@ -308,6 +312,8 @@ router.get("/edit-account/:User_ID", addUserToLocals, async function(req, res) {
         res.render("edit_account", { toastMessage: err.message });
     }
   });
+
+
 
   //新内容，删除文章路由
 router.get("/delete-article/:Article_Id", addUserToLocals,  async function (req, res) {

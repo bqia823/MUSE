@@ -4,14 +4,14 @@
     <nav class="navbar">
         <div class="navbar-logo">
             <img src="/images/logopng-after-trim.png" alt="Logo">
-            <span>MUSE</span>
+            <span id="MUSE">MUSE</span>
         </div>
     
         {{#unless user}}
         <div class="toastmessage">{{toastMessage}}</div>
         {{/unless}}
         <div class="navbar-functions">
-            <ul>
+            <ul id="navbar-ul">
                 
                 <li id="home"><a href="/"><span class="icon"><img src="/images/home.png" id="home_icon"></span>Home</a></li>
           
@@ -20,11 +20,12 @@
                 </li>
          
                 {{#if hasUnreadNotifications}}
-            <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a>
+            <li id="notification"><a href="/notification/{{user.User_ID}}/1" id="notification-link"><span class="icon"><img src="/images/notification-red.png" id="notification_icon"></span>Notifications</a>
             <div id="unReadComment">{{unreadNotificationsCount.count}}</div>
             </li>
             {{else}}
             <li id="notification"><a href="/notification/{{user.User_ID}}/1"><span class="icon"><img src="/images/notification-pink.png" id="notification_icon"></span>Notifications</a></li>
+            <div id="noUnReadComment"></div>
             {{/if}}
                 <li id="profile"><a href="/profile/{{user.User_ID}}"><span class="icon"><img src="/images/{{user.Avatar}}" id="profile_icon"></span>My Profile</a></li> 
                 <li id="create-article"><a href="/create_article"><span class="icon"><img src="/images/article-line.png" id="create_article_icon"></span>Create article</a></li> 
