@@ -248,16 +248,20 @@ router.get("/edit-account/:User_ID", addUserToLocals, async function(req, res) {
 
   // Route handler for rendering the edit account page
   router.post("/edit_account/:User_ID", async function (req, res) {
-    console.log("entering /edit_account...");
+    console.log("entering post /edit_account...");
     console.log("req.body: ", req.body);
     const userID = req.params.User_ID;
     const saltRounds = 10;
     
     try {
         let user = await userDao.retrieveUserById(userID);
-        // let userUsernameArray = await userDao.retrieveAllUsername();
-        let updatedUser = {User_ID: userID,};
+        let userUsernameArray = await userDao.retrieveAllUsername();
+        console.log("userUsernameArray: ", userUsernameArray);
+        console.log("username we input: ", req.body.username);
+        console.log("user's avatar: ", user.Avatar);
+        let updatedUser = {User_ID: userID};
         let isUpdated = false;
+        let isUsernameTaken = false;
     
         if (req.body.username && user.Username !== req.body.username && req.body.username.length >= 3 && req.body.username.length <= 10) {
             updatedUser.Username = req.body.username;
@@ -288,19 +292,42 @@ router.get("/edit-account/:User_ID", addUserToLocals, async function(req, res) {
             isUpdated = true;
         }
 
-        if (req.body.icon && user.Avatar !== req.body.icon) {
+        if (req.body.icon && (user.Avatar !== req.body.icon)) {
             updatedUser.Avatar = req.body.icon;
             isUpdated = true;
+        }else{
+            console.log("No changes made to the avatar");
+            console.log("user.Avatar2: ", user.Avatar);
+            updatedUser.Avatar = user.Avatar;
+            isUpdated = true;
         }
-        // if(!userUsernameArray.includes(req.body.username) || req.body.username == user.Username){
-        //     updatedUser.Avatar = req.body.icon;
-        //     isUpdated = true;
-        // }
+
+        if(!userUsernameArray.some(obj => obj.Username === req.body.username) || req.body.username == user.Username){
+            updatedUser.Avatar = req.body.icon;
+            isUsernameTaken = false;
+            isUpdated = true;
+            console.log("Username is not taken");
+        }else{
+            console.log("Username is already taken!");
+            isUsernameTaken = true;
+            isUpdated = false;
+        }
+        
+
         // Only run the update if there are changes
-        if (isUpdated) {
+        if (isUpdated || !isUsernameTaken) {
+            console.log("updatedUser后期: ", updatedUser);
+            if(updatedUser.Avatar == ""){
+                console.log("updatedUser.Avatar是空: ", updatedUser.Avatar);
+                updatedUser.Avatar = user.Avatar;
+            }
+            console.log("updatedUser.Avatar大后期: ", updatedUser.Avatar);
             await userDao.updateUser(updatedUser);
             res.setToastMessage("User was successfully updated");
-        res.redirect("/profile/" + userID);
+            res.redirect("/profile/" + userID);
+        } else if(isUsernameTaken) {
+            res.setToastMessage("The Username has been taken");
+            res.redirect(`/edit-account/${userID}?`);
         } else {
             res.setToastMessage("No changes made");
             res.redirect("/profile/" + userID);
