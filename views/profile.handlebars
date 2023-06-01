@@ -121,8 +121,8 @@
     </div>
 
     <div class="right-column">
-        <h2>User Profile</h2>
-        <div>
+       <div class="userProfile"><h2>User Profile</h2></div>
+        <div class="rightColumnBottom"> 
             <div class="user-info-line">
                 <div class="user-avatar">
                     <img src="/images/{{userProfile.Avatar}}" alt="User Avatar">
@@ -143,23 +143,21 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <label>Username:</label>
-                <p>{{userProfile.Username}}</p>
+            <div class="userInfoSummary">
+            <div class="userInfo">
+                <label>Username: </label>{{userProfile.Username}}
             </div>
-            <div>
-                <label>Birthday:</label>
-                <p>{{userProfile.Date_Of_Birth}}</p>
+            <div class="userInfo">
+                <label>Birthday:</label> {{userProfile.Date_Of_Birth}}
             </div>
-            <div>
-                <label>Description:</label>
-                <p>{{userProfile.Brief_Description}}</p>
+            <div class="userInfo">
+                <label>Description:</label> {{userProfile.Brief_Description}}
             </div>
 
             {{#if isAuthorPage}}
-            <div>
-                <label>Real Name:</label>
-                <p>{{userProfile.Real_Name}}</p>
+            <div class="userInfo">
+                <label>Real Name:</label> {{userProfile.Real_Name}}
+            </div>
             </div>
 
             <div class="analytics-delete-buttons">
