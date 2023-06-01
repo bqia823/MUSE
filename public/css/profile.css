@@ -9,10 +9,21 @@ padding: 0;
 background-color: #70c280;
 color: #121111;
 padding: 10px;
+padding-bottom: 18px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.35);
+}
+#MUSE{
+  font-size: 16px;
+  margin-top: 11px;
+  cursor: pointer;
+}
+#navbar-ul{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .navbar-logo {
@@ -25,6 +36,11 @@ width: 40px;
 height: 40px;
 margin-right: 10px;
 }
+.navbar-functions{
+  display: flex;
+  align-items: center;
+}
+
 
 .navbar-functions ul {
 list-style-type: none;
@@ -57,6 +73,18 @@ margin-right: 5px;
 }
 #profile_icon{
   width: 25px;
+}
+#notification{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* margin-top:12px; */
+}
+#notification-link{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top:12px;
 }
 #icon-container {
   display: none;
@@ -193,7 +221,6 @@ background-color: #fff6ed;
 margin-bottom: 10px;
 padding: 10px;
 border: 1px solid #ccc;
-border-radius: 10px;
 box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -211,11 +238,11 @@ justify-content: space-between;
 align-items: center;
 order: 1;
 text-overflow: ellipsis;
-/* width: 800px; */
+width: 800px;
 }
 
-.profileArticleTitle{
-  width: 790px;
+.profileArticleTitle {
+  width: 100%;
   margin-left: 10px; 
   font-weight: bold;
   font-size:20px;

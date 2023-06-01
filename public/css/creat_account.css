@@ -60,7 +60,7 @@ body {
   position: absolute;
   top: 900px;
   left: 92px;
-  font-family: Italiana;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: Regular;
   font-size: 24px;
   opacity: 1;
@@ -83,6 +83,18 @@ body {
   font-size: 24px;
   text-align: center;
   border-radius: 10px;
+}
+.submitHint {
+  width: 100%;
+  color: rgba(254, 6, 6, 0.808);
+  position: absolute;
+  top: 765px;
+  left: 380px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
 }
 
 .iconcontainer {
@@ -279,6 +291,18 @@ body {
   opacity: 1;
   text-align: left;
 }
+.descriptionHint {
+  width: 100%;
+  color: rgba(254, 6, 6, 0.808);
+  position: absolute;
+  top: 440px;
+  left: 256px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+}
 .confirmpasswordtext {
   width: 706px;
   height: 38px;
@@ -355,6 +379,18 @@ body {
   opacity: 1;
   text-align: left;
 }
+.passwordHint {
+  width: 100%;
+  color: rgba(254, 6, 6, 0.808);
+  position: absolute;
+  top: 296px;
+  left: 256px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+  }
 .birthdatetext {
   width: 706px;
   height: 38px;
@@ -524,7 +560,7 @@ body {
   
 .usernameAvailability {
   width: 100%;
-  color: rgba(254, 6, 6, 0.808);
+  color: rgba(254, 6, 6, 0.86);
   position: absolute;
   top: 92px;
   left: 256px;
@@ -534,3 +570,22 @@ body {
   opacity: 1;
   text-align: left;
 }
+.usernameAvailabilityavailable {
+  width: 100%;
+  color: rgba(6, 254, 27, 0.86);
+  position: absolute;
+  top: 92px;
+  left: 580px;
+  font-family: Italiana;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+  height: 20px;
+  background-color: antiquewhite;
+}
+
+/* 
+element.style {
+  color:green;
+} */

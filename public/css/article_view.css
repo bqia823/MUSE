@@ -11,7 +11,11 @@ body {
   /* grid-template-rows: 1fr; */
   /* grid-template-areas: "articlepanel commentpanel"; */
 }
-
+#MUSE{
+  font-size: 16px;
+  margin-top:10px;
+  cursor: pointer;
+}
 .navbar {
   background-color: #70c280;
   color: #121111;
@@ -20,6 +24,7 @@ body {
   align-items: center;
   justify-content: space-between;
   box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.35);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .navbar-logo {
@@ -33,6 +38,10 @@ body {
   margin-right: 10px;
 }
 
+#navbar-ul{
+  display: flex;
+  align-items: center;
+}
 .navbar-functions ul {
   list-style-type: none;
   margin: 0;
@@ -81,7 +90,21 @@ body {
   word-wrap: break-word;
   
 }
-
+#notification{
+  /* margin-top:6px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#notification-link{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top:12px;
+}
+#noUnReadComment{
+  margin-bottom: 5px;
+}
 #notificationTop {
   text-align: center;
 }

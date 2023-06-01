@@ -26,7 +26,12 @@ window.addEventListener("load", async function () {
   const navSignOut = document.querySelector("#navSignOut");
   const content = document.querySelectorAll(".partDiscription");
   const previousContent = document.querySelectorAll(".previousPartDiscription");
+  const MUSE = document.querySelector("#MUSE");
   
+  //when click the MUSE logo, it will go to the home page
+  MUSE.addEventListener("click", function () {
+    window.location.href = "/home/1/publishTime";
+  });
   //this method can convey the HTML string to text string 这个方法用于将文章展示区域的html标签转换为字符串
   //for showing the article content in the home page
   for (let i = 0; i < content.length; i++) {

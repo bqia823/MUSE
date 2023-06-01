@@ -87,6 +87,13 @@ window.addEventListener("load", async function() {
     
     const response3 = await fetch(`/is_article_author/${articleId}`) ;
     const isAuthor = await response3.json();
+
+    const MUSE = document.querySelector("#MUSE");
+  
+    //when click the MUSE logo, it will go to the home page
+    MUSE.addEventListener("click", function () {
+        window.location.href = "/home/1/publishTime";
+    });
    
     const removeDiv = document.querySelectorAll(".removediv");
     if(User_ID){

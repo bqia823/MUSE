@@ -5,6 +5,13 @@ window.addEventListener("load", async function () {
     const user_info = await response1.json();
     const User_ID = user_info.User_ID;
 
+    const MUSE = document.querySelector("#MUSE");
+  
+    //when click the MUSE logo, it will go to the home page
+    MUSE.addEventListener("click", function () {
+      window.location.href = "/home/1/publishTime";
+    });
+
     const notificationText = document.querySelectorAll(".text");
     for(let i = 0; i < notificationText.length; i++){
         notificationText[i].style.cursor = "pointer";
