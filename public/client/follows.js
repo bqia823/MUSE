@@ -104,57 +104,57 @@ window.addEventListener('load', async function() {
       });
     }
    
- //Page functions start here
- const pages = document.querySelectorAll(".pages");
- const previousPage = document.querySelector("#left");
- const nextPage = document.querySelector("#right");
- const path = window.location.pathname;
- const regex = /\/followsList\/(\w+)/;
+//  //Page functions start here
+//  const pages = document.querySelectorAll(".pages");
+//  const previousPage = document.querySelector("#left");
+//  const nextPage = document.querySelector("#right");
+//  const path = window.location.pathname;
+//  const regex = /\/followsList\/(\w+)/;
 
- let userCurrentPage = "";
- let userMatches = "";
- let userPurple = undefined;
-
-
-   userMatches = path.match(regex);
-   userCurrentPage = userMatches[1];
-   console.log("userCurrentPage是: " + userCurrentPage);
-   userPurple = document.querySelector(`#page${userCurrentPage}`);
-   userPurple.style.color = "#7949ff";
-   userPurple.style.backgroundColor = "#e9e1ff";
-   const userNextPage = parseInt(userCurrentPage) + 1;
-   const userPreviousPage = parseInt(userCurrentPage) - 1;
+//  let userCurrentPage = "";
+//  let userMatches = "";
+//  let userPurple = undefined;
 
 
- previousPage.addEventListener("click", function () {
-     if (parseInt(userCurrentPage) != 1) {
-       window.location.href = `/followsList/${userPreviousPage}`;
-     }  
- });
+//    userMatches = path.match(regex);
+//    userCurrentPage = userMatches[1];
+//    console.log("userCurrentPage是: " + userCurrentPage);
+//    userPurple = document.querySelector(`#page${userCurrentPage}`);
+//    userPurple.style.color = "#7949ff";
+//    userPurple.style.backgroundColor = "#e9e1ff";
+//    const userNextPage = parseInt(userCurrentPage) + 1;
+//    const userPreviousPage = parseInt(userCurrentPage) - 1;
 
- nextPage.addEventListener("click", async function () {
-     if (parseInt(userCurrentPage) < pages.length) {
-       window.location.href = `/followsList/${userNextPage}`;
-     }
- });
-//处理页码跳转
- let pageThis = null;
- for (let i = 0; i < pages.length; i++) {
-   pages[i].addEventListener("click", function () {
-       const toPage = pages[i].innerHTML;
-       window.location.href = `/followsList/${toPage}`;
-       pageThis = document.querySelector(`#${pages[i].id}`);
+
+//  previousPage.addEventListener("click", function () {
+//      if (parseInt(userCurrentPage) != 1) {
+//        window.location.href = `/followsList/${userPreviousPage}`;
+//      }  
+//  });
+
+//  nextPage.addEventListener("click", async function () {
+//      if (parseInt(userCurrentPage) < pages.length) {
+//        window.location.href = `/followsList/${userNextPage}`;
+//      }
+//  });
+// //处理页码跳转
+//  let pageThis = null;
+//  for (let i = 0; i < pages.length; i++) {
+//    pages[i].addEventListener("click", function () {
+//        const toPage = pages[i].innerHTML;
+//        window.location.href = `/followsList/${toPage}`;
+//        pageThis = document.querySelector(`#${pages[i].id}`);
     
-   });
+//    });
 
   
-     if (parseInt(pages[i].innerHTML) === parseInt(userCurrentPage)) {
-       const thisPageId = pages[i].id;
-       const pageThis = document.querySelector(`#${thisPageId}`);
-     }
+//      if (parseInt(pages[i].innerHTML) === parseInt(userCurrentPage)) {
+//        const thisPageId = pages[i].id;
+//        const pageThis = document.querySelector(`#${thisPageId}`);
+//      }
   
- }
- //Page function end here
+//  }
+//  //Page function end here
 
 });
 
@@ -162,7 +162,7 @@ function toggleFollow(userId) {
  
   const followButton = document.querySelector('.follow-button');
   const isFollowing = followButton.classList.contains('unfollow');
-
+  const followersCount = document.querySelector('#followslink');
   console.log('Is Following:', isFollowing);
 
   if (isFollowing) {
@@ -172,13 +172,16 @@ function toggleFollow(userId) {
             console.log('Unfollow successful');
             followButton.classList.remove('unfollow');
             followButton.innerText = 'Follow';
+            //Decrease followers count 
+            followersCount.innerText = Number(followersCount.innerText) - 1;
+             // Show alert message for unfollow
+            alert('You have unfollowed the user');
         })
         .catch((error) => {
             console.error('Error unfollowing user:', error);
         });
 
-         // Show alert message for unfollow
-         alert('You have unfollowed the user');
+        
 
   } else {
     console.log('Follow logic');
@@ -188,6 +191,10 @@ function toggleFollow(userId) {
             console.log('Follow successful');
             followButton.classList.add('unfollow');
             followButton.innerText = 'Unfollow';
+
+            //increase the follower count
+            followersCount.innerText = Number(followersCount.innerText) + 1;
+
         })
         .catch((error) => {
             console.error('Error following user:', error);
