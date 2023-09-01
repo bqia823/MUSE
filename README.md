@@ -2,9 +2,9 @@ Project Title: MUSE Blogging Platform
 
 Team Name: Group 6
 
-Tesm Member:
+Team Member:
 Marie maki515@aucklanduni.ac.nz
-Sarah bqia823@aucklanduni.ac.nz
+Sarah Qiao bqia823@aucklanduni.ac.nz
 Pei Lei lpei756@aucklanduni.ac.nz
 Collin xshi953@aucklanduni.ac.nz
 Tianlei tpan501@aucklanduni.ac.nz
